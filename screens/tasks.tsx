@@ -32,35 +32,72 @@ export default function tasks() {
           style={{
             flexDirection: "row",
             flexWrap: "wrap",
-            justifyContent: "space-between",
+            justifyContent: "flex-start",
             alignItems: "center",
-
+            columnGap: 30,
+            rowGap: 20,
             marginHorizontal: 20,
             marginTop: 20,
           }}
         >
-          <View>
-            <Image />
-            <Text>Multi-Point Delivery</Text>
+          <View style={{ alignItems: "center" }}>
+            <Image
+              style={{
+                width: 90,
+                height: 90,
+                resizeMode: "contain",
+              }}
+              source={require("../assets/icon/multi-point_delivery.png")}
+            />
+            <Text>Multi-Point</Text>
+            <Text>Delivery</Text>
           </View>
 
-          <View>
-            <Image />
+          <View style={{ alignItems: "center" }}>
+            <Image
+              style={{
+                width: 90,
+                height: 90,
+                resizeMode: "contain",
+              }}
+              source={require("../assets/icon/cruise.png")}
+            />
             <Text>Cruise</Text>
           </View>
 
-          <View>
-            <Image />
+          <View style={{ alignItems: "center" }}>
+            <Image
+              style={{
+                width: 90,
+                height: 90,
+                resizeMode: "contain",
+              }}
+              source={require("../assets/icon/music.png")}
+            />
             <Text>Music</Text>
           </View>
 
-          <View>
-            <Image />
+          <View style={{ alignItems: "center" }}>
+            <Image
+              style={{
+                width: 90,
+                height: 90,
+                resizeMode: "contain",
+              }}
+              source={require("../assets/icon/lead the way.png")}
+            />
             <Text>Lead the way</Text>
           </View>
 
-          <View>
-            <Image />
+          <View style={{ alignItems: "center" }}>
+            <Image
+              style={{
+                width: 90,
+                height: 90,
+                resizeMode: "contain",
+              }}
+              source={require("../assets/icon/reception.png")}
+            />
             <Text>Reception</Text>
           </View>
         </View>

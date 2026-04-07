@@ -9,7 +9,7 @@ export default function CustomTabBar({
   descriptors,
   navigation,
 }: BottomTabBarProps) {
-  // ดึงค่า insets (ขอบเขตปลอดภัยของหน้าจอ) เช่น แถบ Home Indicator ด้านล่างของ iPhone 
+  // ดึงค่า insets (ขอบเขตปลอดภัยของหน้าจอ) เช่น แถบ Home Indicator ด้านล่างของ iPhone
   const insets = useSafeAreaInsets();
 
   // ฟังก์ชันสำหรับเปลี่ยนหน้า (Navigate) เมื่อกดปุ่มใน TabBar
@@ -65,7 +65,7 @@ export default function CustomTabBar({
           style={{ alignItems: "center" }}
         >
           <Image
-            source={require("../assets/icon/home.png")}
+            source={require("../assets/icon/tasks.png")}
             style={{ width: 30, height: 30, resizeMode: "contain" }}
           />
           <Text style={{ color: "#000000", fontSize: 12 }}>Tasks</Text>
@@ -76,8 +76,8 @@ export default function CustomTabBar({
           style={{ alignItems: "center" }}
         >
           <Image
-            source={require("../assets/icon/home.png")}
-            style={{ width: 30, height: 30, resizeMode: "contain" }}
+            source={require("../assets/icon/pickup.png")}
+            style={{ width: 60, height: 60, resizeMode: "contain",alignSelf: "center" }}
           />
         </TouchableOpacity>
 
@@ -86,7 +86,7 @@ export default function CustomTabBar({
           style={{ alignItems: "center" }}
         >
           <Image
-            source={require("../assets/icon/home.png")}
+            source={require("../assets/icon/management.png")}
             style={{ width: 30, height: 30, resizeMode: "contain" }}
           />
           <Text style={{ color: "#000000", fontSize: 12 }}>Management</Text>
@@ -97,7 +97,7 @@ export default function CustomTabBar({
           style={{ paddingRight: 20, alignItems: "center" }}
         >
           <Image
-            source={require("../assets/icon/home.png")}
+            source={require("../assets/icon/sos.png")}
             style={{ width: 30, height: 30, resizeMode: "contain" }}
           />
           <Text style={{ color: "#000000", fontSize: 12 }}>sos</Text>
