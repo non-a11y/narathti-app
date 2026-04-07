@@ -1,22 +1,21 @@
 import { View, Text, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "../components/header";
-import { taskStyles, globalStyles } from "../styles/mystyles";
+import { globalStyles } from "../styles/mystyles";
 
 export default function tasks() {
   const insets = useSafeAreaInsets();
   return (
-    <View style={taskStyles.container}>
+    <View style={globalStyles.container}>
       <Header />
 
       {/* ----- CONTENT----- */}
-
       <Text style={globalStyles.textheader}>Project Name</Text>
 
       <View
         style={[
-          taskStyles.ios,
-          taskStyles.android,
+          globalStyles.ios,
+          globalStyles.android,
           {
             flex: 1,
             backgroundColor: "#ffffffff",
@@ -52,7 +51,6 @@ export default function tasks() {
             <Text>Multi-Point</Text>
             <Text>Delivery</Text>
           </View>
-
           <View style={{ alignItems: "center" }}>
             <Image
               style={{
@@ -64,7 +62,6 @@ export default function tasks() {
             />
             <Text>Cruise</Text>
           </View>
-
           <View style={{ alignItems: "center" }}>
             <Image
               style={{

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { homeStyles } from "../styles/mystyles";
+import { globalStyles } from "../styles/mystyles";
 
 export default function CustomTabBar({
   state,
@@ -32,8 +32,8 @@ export default function CustomTabBar({
       {/* กรอบสีขาว (Pill Shape) ของเมนู */}
       <View
         style={[
-          homeStyles.ios,
-          homeStyles.android,
+          globalStyles.ios,
+          globalStyles.android,
           {
             width: "90%",
             height: 80,

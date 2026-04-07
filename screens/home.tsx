@@ -2,13 +2,13 @@ import { View, Text, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "../components/header";
 
-import { homeStyles, globalStyles } from "../styles/mystyles";
+import {globalStyles } from "../styles/mystyles";
 import { Shadow } from "react-native-shadow-2";
 
 export default function home() {
   const insets = useSafeAreaInsets();
   return (
-    <View style={homeStyles.container}>
+    <View style={globalStyles.container}>
       {/* ----- HEADER-----*/}
       <Header />
 
@@ -16,8 +16,8 @@ export default function home() {
       <Text style={globalStyles.textheader}>Project Name</Text>
       <View
         style={[
-          homeStyles.ios,
-          homeStyles.android,
+          globalStyles.ios,
+          globalStyles.android,
           {
             flex: 1,
             backgroundColor: "#ffffffff",
@@ -29,6 +29,7 @@ export default function home() {
           },
         ]}
       >
+        {/* header cart */}
         <View
           style={{
             flexDirection: "row",
@@ -39,7 +40,7 @@ export default function home() {
             //backgroundColor: "#000000",
           }}
         >
-          <Text style={[homeStyles.textstyles, { fontSize: 20 }]}>JU0633</Text>
+          <Text style={[globalStyles.defaulttextstyles, { fontSize: 20 }]}>JU0633</Text>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View
               style={{
@@ -63,17 +64,19 @@ export default function home() {
               }}
               source={require("../assets/icon/power.png")}
             />
-            <Text style={homeStyles.textstyles}>100%</Text>
+            <Text style={globalStyles.defaulttextstyles}>100%</Text>
           </View>
         </View>
+        {/* click to map */}
         <Text
           style={[
-            homeStyles.textstyles,
+            globalStyles.defaulttextstyles,
             { fontSize: 12, alignSelf: "center", marginTop: 10 },
           ]}
         >
           Click to Map
         </Text>
+        {/* image */}
         <Image
           style={{
             // ส่วนที่ 2: ใช้ flex: 1 แทน height: "70%" เพื่อให้ความสูงยืดหรือตกลงตามพื้นที่ว่างที่เหลือโดยไม่ดันให้ layout พัง
@@ -86,6 +89,7 @@ export default function home() {
           }}
           source={require("../assets/icon/T1-007.png")}
         />
+        {/* button */}
         <View
           style={{
             backgroundColor: "#0a60ff",

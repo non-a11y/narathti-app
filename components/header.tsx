@@ -1,6 +1,6 @@
 import { View, Text, StatusBar, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { homeStyles } from "../styles/mystyles";
+import { globalStyles } from "../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function header() {
@@ -16,7 +16,7 @@ export default function header() {
         translucent={true} // ← สำคัญ! ให้ status bar โปร่งใส
       />
 
-      <View style={[homeStyles.header, { paddingTop: insets.top + 8 }]}>
+      <View style={[globalStyles.header, { paddingTop: insets.top + 8 }]}>
         <View>
           <Ionicons
             name="chevron-back-circle-outline"

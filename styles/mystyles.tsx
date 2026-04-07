@@ -1,6 +1,18 @@
 import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
+  header: {
+    backgroundColor: "#ffffffff",
+    paddingHorizontal: 20,
+    paddingBottom: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+  },
   textheader: {
     color: "#444444",
     marginLeft: 20,
@@ -8,86 +20,26 @@ export const globalStyles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-});
-
-
-export const homeStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
+  ios: {
+    // shadow iOS
+    shadowColor: "#464646ff",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.9,
+    shadowRadius: 10,
   },
-  header: {
-    backgroundColor: "#ffffffff",
-    paddingHorizontal: 20,
-    paddingBottom: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+  android: {
+    // shadow Android
+    elevation: 10,
   },
-
-  textstyles: {
+  defaulttextstyles: {
     color: "#7F7F7F",
     fontSize: 16,
   },
-  ios: {
-    // shadow iOS
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.9,
-    shadowRadius: 10,
-  },
-  android: {
-    // shadow Android
-    elevation: 10,
-  },
 });
-export const taskStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-  },
-  header: {
-    backgroundColor: "#ffffffff",
-    paddingHorizontal: 20,
-    paddingBottom: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
 
-  textstyles: {
-    color: "#7F7F7F",
-    fontSize: 16,
-  },
-  ios: {
-    // shadow iOS
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.9,
-    shadowRadius: 10,
-  },
-  android: {
-    // shadow Android
-    elevation: 10,
-  },
-});
-export const pickupStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-  },
-  ios: {
-    // shadow iOS
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.9,
-    shadowRadius: 10,
-  },
-  android: {
-    // shadow Android
-    elevation: 10,
-  },
-});
+export const homeStyles = StyleSheet.create({});
+export const taskStyles = StyleSheet.create({});
+export const pickupStyles = StyleSheet.create({});
 
 export const managementStyles = StyleSheet.create({});
 
