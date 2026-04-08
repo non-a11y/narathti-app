@@ -75,7 +75,7 @@ export default function call_status() {
               },
             ]}
           >
-            Today, 14:00 • Duration 06:12{" "}
+            Today, 14:00 • Duration 06:12
           </Text>
         </View>
       </View>

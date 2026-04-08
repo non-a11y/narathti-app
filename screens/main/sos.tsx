@@ -25,11 +25,8 @@ export default function sos() {
             width: "90%",
             flexDirection: "row",
             alignItems: "center",
-            //paddingHorizontal: 20,
             marginVertical: 10,
             columnGap: 10,
-
-            //backgroundColor:"#aa0101ff"
           }}
         >
           <Image

@@ -18,22 +18,22 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-    <Tab.Navigator
-      tabBar={(props) => <CustomTabBar {...props} />}
-      screenOptions={{ headerShown: false }}
-    >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Tasks" component={Tasks} />
-      <Tab.Screen name="Pickup" component={Pickup} />
-      <Tab.Screen name="Management" component={Management} />
-      <Tab.Screen name="SOS" component={SOS} />
-    </Tab.Navigator>
+        <Tab.Navigator
+          tabBar={(props) => <CustomTabBar {...props} />}
+          screenOptions={{ headerShown: false }}
+        >
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Tasks" component={Tasks} />
+          <Tab.Screen name="Pickup" component={Pickup} />
+          <Tab.Screen name="Management" component={Management} />
+          <Tab.Screen name="SOS" component={SOS} />
+        </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
     // <SafeAreaProvider>
     //   <NavigationContainer>
     //     <Music />
-    //   </NavigationContainer>
+    //   </NavigationContainer> 
     // </SafeAreaProvider>
   );
 }
