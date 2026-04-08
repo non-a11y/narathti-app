@@ -42,3 +42,34 @@ export const taskStyles = StyleSheet.create({});
 export const pickupStyles = StyleSheet.create({});
 export const managementStyles = StyleSheet.create({});
 export const sosStyles = StyleSheet.create({});
+export const MPDStyles = StyleSheet.create({
+  rowLabel: {
+    fontSize: 16,
+    color: "#1A1A2E",
+    fontWeight: "500",
+  },
+  rowValue: {
+    fontSize: 14,
+    color: "#555555",
+    fontWeight: "400",
+  },
+  rowRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    columnGap: 6,
+    flexShrink: 1,
+    
+  },
+  list: {
+    width: "95%",
+    height: 60,
+    marginTop: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#fcfffcff",
+    paddingHorizontal: 20,
+    borderRadius: 30,
+    shadowColor: "#5e45ffff",
+  },
+});

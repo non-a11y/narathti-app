@@ -13,7 +13,7 @@ export default function header() {
       <StatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
-        translucent={true} // ← สำคัญ! ให้ status bar โปร่งใส
+        translucent={true} // สำคัญ! ให้ status bar โปร่งใส
       />
 
       <View style={[globalStyles.header, { paddingTop: insets.top + 8 }]}>

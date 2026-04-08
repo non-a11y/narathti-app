@@ -87,11 +87,9 @@ export default function home() {
           style={{
             // ส่วนที่ 2: ใช้ flex: 1 แทน height: "70%" เพื่อให้ความสูงยืดหรือตกลงตามพื้นที่ว่างที่เหลือโดยไม่ดันให้ layout พัง
             flex: 1,
-            //width: "80%",
             alignSelf: "center",
             marginTop: 10,
             resizeMode: "contain",
-            //backgroundColor: "#ff00eaff",
           }}
           source={require("../../assets/icon/T1-007.png")}
         />
