@@ -1,8 +1,8 @@
 import { View, Text, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Header from "../components/header";
+import Header from "../../components/header";
 
-import {globalStyles } from "../styles/mystyles";
+import { globalStyles } from "../../styles/mystyles";
 import { Shadow } from "react-native-shadow-2";
 
 export default function home() {
@@ -40,7 +40,9 @@ export default function home() {
             //backgroundColor: "#000000",
           }}
         >
-          <Text style={[globalStyles.defaulttextstyles, { fontSize: 20 }]}>JU0633</Text>
+          <Text style={[globalStyles.defaulttextstyles, { fontSize: 20 }]}>
+            JU0633
+          </Text>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View
               style={{
@@ -53,7 +55,11 @@ export default function home() {
                 marginRight: 10,
               }}
             >
-              <Text style={{ color: "#ffffff", fontSize: 14, fontWeight: "bold" }}>Idle</Text>
+              <Text
+                style={{ color: "#ffffff", fontSize: 14, fontWeight: "bold" }}
+              >
+                Idle
+              </Text>
             </View>
             <Image
               style={{
@@ -62,7 +68,7 @@ export default function home() {
                 resizeMode: "contain",
                 marginRight: 10,
               }}
-              source={require("../assets/icon/power.png")}
+              source={require("../../assets/icon/power.png")}
             />
             <Text style={globalStyles.defaulttextstyles}>100%</Text>
           </View>
@@ -87,7 +93,7 @@ export default function home() {
             resizeMode: "contain",
             //backgroundColor: "#ff00eaff",
           }}
-          source={require("../assets/icon/T1-007.png")}
+          source={require("../../assets/icon/T1-007.png")}
         />
         {/* button */}
         <View

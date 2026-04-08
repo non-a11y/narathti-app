@@ -40,7 +40,5 @@ export const globalStyles = StyleSheet.create({
 export const homeStyles = StyleSheet.create({});
 export const taskStyles = StyleSheet.create({});
 export const pickupStyles = StyleSheet.create({});
-
 export const managementStyles = StyleSheet.create({});
-
 export const sosStyles = StyleSheet.create({});

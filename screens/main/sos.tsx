@@ -1,19 +1,23 @@
-import { View, Text, Image } from "react-native";
-import Header from "../components/header";
-import { globalStyles } from "../styles/mystyles";
+import { View, Text, Image, ScrollView } from "react-native";
+import Header from "../../components/header";
+import { globalStyles } from "../../styles/mystyles";
 import { Foundation } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import CallStatus from "../../components/call_status";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function sos() {
+  const insets = useSafeAreaInsets();
   return (
     <View style={globalStyles.container}>
       <Header />
       {/* SOS Header */}
       <View
         style={{
+          flex: 1,
           alignItems: "center",
-          //backgroundColor:"#aa0101ff",
+          marginBottom: 80 + Math.max(insets.bottom, 8),
         }}
       >
         <View
@@ -23,22 +27,19 @@ export default function sos() {
             alignItems: "center",
             //paddingHorizontal: 20,
             marginVertical: 10,
-            columnGap: 20,
+            columnGap: 10,
 
             //backgroundColor:"#aa0101ff"
           }}
         >
-          <View
+          <Image
             style={{
-              width: 36,
-              height: 36,
-              backgroundColor: "#CCCCCC", // สีเทาเหมือนรูปตัวอย่าง
-              justifyContent: "center",
-              alignItems: "center",
+              width: 50,
+              height: 50,
+              resizeMode: "contain",
             }}
-          >
-            <Text style={{ fontSize: 12 }}>36 x 36</Text>
-          </View>
+            source={require("../../assets/icon/bell.png")}
+          />
 
           <View>
             <Text
@@ -80,7 +81,7 @@ export default function sos() {
             },
           ]}
         >
-          {/* cart right */}
+          {/* content right */}
           <View
             style={{
               alignSelf: "flex-start",
@@ -132,7 +133,7 @@ export default function sos() {
                     resizeMode: "contain",
                     marginRight: 5,
                   }}
-                  source={require("../assets/icon/power.png")}
+                  source={require("../../assets/icon/power.png")}
                 />
                 <Text
                   style={[
@@ -148,7 +149,7 @@ export default function sos() {
               </View>
             </View>
           </View>
-          {/* cart light */}
+          {/* content light */}
           <View>
             <View
               style={{
@@ -166,7 +167,7 @@ export default function sos() {
                   height: 180,
                   resizeMode: "contain",
                 }}
-                source={require("../assets/icon/T1-007.png")}
+                source={require("../../assets/icon/T1-007.png")}
               />
             </View>
           </View>
@@ -176,7 +177,7 @@ export default function sos() {
         <View
           style={{
             width: "95%",
-            marginTop: 70,
+            marginTop: 50,
             flexDirection: "row",
             justifyContent: "space-between",
           }}
@@ -434,10 +435,10 @@ export default function sos() {
               </Text>
             </View>
             {/* button call */}
-            <LinearGradient
-              colors={["#0022FF", "#4AB0FF"]}
-              start={{ x: 0, y: 0.5 }}
-              end={{ x: 1, y: 0.5 }}
+            <View
+              //colors={["#0022FF", "#4AB0FF"]}
+              //start={{ x: 0, y: 0.5 }}
+              //end={{ x: 1, y: 0.5 }}
               style={[
                 globalStyles.ios,
                 globalStyles.android,
@@ -450,30 +451,97 @@ export default function sos() {
                   alignItems: "center",
                   alignSelf: "center",
                   marginTop: 10,
-                  shadowColor: "#0745FF",
+                  shadowColor: "#6e92fcff",
                   backgroundColor: "#ffffffff",
                   columnGap: 5,
+                  borderWidth: 1,
+                  borderColor: "#0B92FF",
                 },
               ]}
             >
               <Ionicons
                 name="chatbubble-ellipses-sharp"
                 size={20}
-                color="white"
-                //style={{ transform: [{ rotate: "-180deg" }] }}
+                color="#0B92FF"
+                style={{ transform: [{ scaleX: -1 }] }}
               />
               <Text
                 style={{
                   fontSize: 10,
                   fontWeight: "bold",
-                  color: "#ffffffff",
+                  color: "#000000ff",
                 }}
               >
                 Start Chat
               </Text>
-            </LinearGradient>
+            </View>
           </View>
         </View>
+
+        {/* Recent Activity */}
+        <View
+          style={{
+            width: "90%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginHorizontal: 20,
+            marginTop: 20,
+            //backgroundColor: "#d0ff7dff",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+            }}
+          >
+            Recent Activity
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              columnGap: 5,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "500",
+                color: "#2B59FF",
+              }}
+            >
+              View All
+            </Text>
+            <Ionicons
+              name="chevron-back"
+              size={24}
+              color="#7F7F7F"
+              style={{ transform: [{ rotate: "180deg" }] }}
+            />
+          </View>
+        </View>
+
+        {/* สถานะการโทร */}
+        <ScrollView
+          style={{
+            flex: 1,
+            width: "100%",
+            marginTop: 10,
+            //backgroundColor: "#c90505ff",
+          }}
+          contentContainerStyle={{
+            alignItems: "center",
+            paddingBottom: 16,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <CallStatus />
+          <CallStatus />
+          <CallStatus />
+          <CallStatus />
+        </ScrollView>
       </View>
     </View>
   );

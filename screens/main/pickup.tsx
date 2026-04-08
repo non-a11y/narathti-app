@@ -1,7 +1,7 @@
 import { View, Text, Image } from "react-native";
-import Header from "../components/header";
+import Header from "../../components/header";
 import { Ionicons } from "@expo/vector-icons";
-import { pickupStyles, globalStyles } from "../styles/mystyles";
+import { globalStyles } from "../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function pickup() {
@@ -73,7 +73,7 @@ export default function pickup() {
                 resizeMode: "contain",
                 //backgroundColor: "#0a60ff",
               }}
-              source={require("../assets/icon/Choose_your.png")}
+              source={require("../../assets/icon/Choose_your.png")}
             />
             <Text
               style={{
@@ -159,7 +159,7 @@ export default function pickup() {
           </View>
         </View>
 
-              <View
+        <View
           style={{
             width: "90%",
             height: 85,

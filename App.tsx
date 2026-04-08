@@ -2,11 +2,11 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import Home from "./screens/home";
-import Tasks from "./screens/tasks";
-import Pickup from "./screens/pickup";
-import Management from "./screens/management";
-import SOS from "./screens/sos";
+import Home from "./screens/main/home";
+import Tasks from "./screens/main/tasks";
+import Pickup from "./screens/main/pickup";
+import Management from "./screens/main/management";
+import SOS from "./screens/main/sos";
 
 import CustomTabBar from "./components/CustomTabBar";
 

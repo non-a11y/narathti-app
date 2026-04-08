@@ -1,10 +1,10 @@
 import { View, Text, Image } from "react-native";
-import Header from "../components/header";
-import { globalStyles } from "../styles/mystyles";
+import Header from "../../components/header";
+import { globalStyles } from "../../styles/mystyles";
 import { Ionicons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-export default function management() {
+export default function   management() {
   return (
     <View style={globalStyles.container}>
       <Header />
@@ -188,20 +188,19 @@ export default function management() {
           },
         ]}
       >
-        <View
+        <Image
           style={{
             width: 40,
-            height: 30,
-            backgroundColor: "#CCCCCC", // สีเทาเหมือนรูปตัวอย่าง
-            justifyContent: "center",
-            alignItems: "center",
+            height: 40,
+            resizeMode: "contain",
           }}
-        >
-          <Text style ={{fontSize: 12}}>40 x 30</Text>
-        </View>
-        <View style ={{rowGap: 5}}>
-          <Text style ={{fontSize: 16, fontWeight: "bold"}}>Order data</Text>
-          <Text style ={{fontSize: 12, color: "#7F7F7F"}}>Check the delivery order.</Text>
+          source={require("../../assets/icon/order.png")}
+        />
+        <View style={{ rowGap: 5 }}>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Order data</Text>
+          <Text style={{ fontSize: 12, color: "#7F7F7F" }}>
+            Check the delivery order.
+          </Text>
         </View>
       </View>
 
@@ -224,20 +223,19 @@ export default function management() {
           },
         ]}
       >
-        <View
+        <Image
           style={{
             width: 40,
-            height: 30,
-            backgroundColor: "#CCCCCC", // สีเทาเหมือนรูปตัวอย่าง
-            justifyContent: "center",
-            alignItems: "center",
+            height: 40,
+            resizeMode: "contain",
           }}
-        >
-          <Text style ={{fontSize: 12}}>40 x 30</Text>
-        </View>
-        <View style ={{rowGap: 5}}>
-          <Text style ={{fontSize: 16, fontWeight: "bold"}}>Task data</Text>
-          <Text style ={{fontSize: 12, color: "#7F7F7F"}}>View the task execution details of the robot.</Text>
+          source={require("../../assets/icon/Task.png")}
+        />
+        <View style={{ rowGap: 5 }}>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Task data</Text>
+          <Text style={{ fontSize: 12, color: "#7F7F7F" }}>
+            View the task execution details of the robot.
+          </Text>
         </View>
       </View>
     </View>

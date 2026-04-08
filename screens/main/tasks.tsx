@@ -1,7 +1,7 @@
 import { View, Text, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Header from "../components/header";
-import { globalStyles } from "../styles/mystyles";
+import Header from "../../components/header";
+import { globalStyles } from "../../styles/mystyles";
 
 export default function tasks() {
   const insets = useSafeAreaInsets();
@@ -46,7 +46,7 @@ export default function tasks() {
                 height: 90,
                 resizeMode: "contain",
               }}
-              source={require("../assets/icon/multi-point_delivery.png")}
+              source={require("../../assets/icon/multi-point_delivery.png")}
             />
             <Text>Multi-Point</Text>
             <Text>Delivery</Text>
@@ -58,7 +58,7 @@ export default function tasks() {
                 height: 90,
                 resizeMode: "contain",
               }}
-              source={require("../assets/icon/cruise.png")}
+              source={require("../../assets/icon/cruise.png")}
             />
             <Text>Cruise</Text>
           </View>
@@ -69,7 +69,7 @@ export default function tasks() {
                 height: 90,
                 resizeMode: "contain",
               }}
-              source={require("../assets/icon/music.png")}
+              source={require("../../assets/icon/Music.png")}
             />
             <Text>Music</Text>
           </View>
@@ -81,7 +81,7 @@ export default function tasks() {
                 height: 90,
                 resizeMode: "contain",
               }}
-              source={require("../assets/icon/lead the way.png")}
+              source={require("../../assets/icon/lead the way.png")}
             />
             <Text>Lead the way</Text>
           </View>
@@ -93,7 +93,7 @@ export default function tasks() {
                 height: 90,
                 resizeMode: "contain",
               }}
-              source={require("../assets/icon/reception.png")}
+              source={require("../../assets/icon/reception.png")}
             />
             <Text>Reception</Text>
           </View>
