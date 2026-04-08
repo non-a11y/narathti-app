@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { MPDStyles } from "../../styles/mystyles";
+import { Pressable } from "react-native";
 
 export default function music() {
   const navigation = useNavigation();
@@ -32,7 +33,14 @@ export default function music() {
         }}
       >
         {/* Back Button */}
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }} // ขยายพื้นที่กดออกไปรอบๆ
+          delayPressIn={0} // ลด delay ก่อนรับ input เป็น 0
+          activeOpacity={0.7}
+        >
           <Ionicons
             name="chevron-back-circle-outline"
             size={36}
@@ -50,7 +58,7 @@ export default function music() {
             fontSize: 20,
             fontWeight: "600",
             // -36 คือขนาดของ Icon เพื่อให้ข้อความอยู่ตรงกลาง
-            marginLeft: -36,
+            marginRight: 36,
           }}
         >
           Music

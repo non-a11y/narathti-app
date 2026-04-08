@@ -5,13 +5,19 @@ import { globalStyles } from "../../styles/mystyles";
 import { StyleSheet } from "react-native";
 import Card_function from "../../components/card_function";
 
+// 1. Import useNavigation hook จาก React Navigation
+import { useNavigation } from "@react-navigation/native";
+
 export default function tasks() {
   const insets = useSafeAreaInsets();
+
+  // 2. เรียกใช้ useNavigation เพื่อได้ object navigation
+  const navigation = useNavigation();
+
   return (
     <View style={globalStyles.container}>
       <Header />
 
-      {/* ----- CONTENT----- */}
       <Text style={globalStyles.textheader}>Project Name</Text>
 
       <View
@@ -23,7 +29,6 @@ export default function tasks() {
             backgroundColor: "#ffffffff",
             marginHorizontal: 20,
             marginTop: 20,
-            // เว้นระยะด้านล่างเผื่อ TabBar ที่เป็น absolute position เพื่อไม่ให้ TabBar ทับเนื้อหา
             marginBottom: 100 + Math.max(insets.bottom, 0),
             borderRadius: 30,
           },
@@ -41,9 +46,12 @@ export default function tasks() {
             marginTop: 20,
           }}
         >
+          {/* 3. ส่ง onPress เข้า Card โดยใช้ navigation.navigate()
+              พร้อมระบุชื่อ Screen ที่ต้องการไป */}
           <Card_function
             image={require("../../assets/icon/multi-point_delivery.png")}
             text={"Multi-Point\nDelivery"}
+            onPress={() => navigation.navigate("MultiPointDelivery" as never)}
           />
           <Card_function
             image={require("../../assets/icon/cruise.png")}
@@ -52,6 +60,7 @@ export default function tasks() {
           <Card_function
             image={require("../../assets/icon/music.png")}
             text={"Music"}
+            onPress={() => navigation.navigate("Music" as never)}
           />
           <Card_function
             image={require("../../assets/icon/lead the way.png")}
