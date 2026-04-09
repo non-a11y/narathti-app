@@ -78,7 +78,7 @@ export default function MultiPointDelivery() {
             globalStyles.ios,
             globalStyles.android,
             {
-              height: 450,
+              minHeight: 100, // ✅ ขยายตามเนื้อหา
               backgroundColor: "#FFFFFF",
               borderRadius: 20,
               overflow: "hidden",
@@ -156,8 +156,8 @@ export default function MultiPointDelivery() {
             <Switch
               value={autoWork}
               onValueChange={setAutoWork}
-              trackColor={{ false: "#E0E0E0", true: "#A0BFFF" }}
-              thumbColor={autoWork ? "#4A90E2" : "#FFFFFF"}
+              trackColor={{ false: "#E0E0E0", true: "#8ae9a2ff" }}
+              thumbColor={autoWork ? "#34C759" : "#FFFFFF"}
               ios_backgroundColor="#E0E0E0"
             />
           </View>
@@ -194,7 +194,12 @@ export default function MultiPointDelivery() {
 
           {/* Row: Vice mode */}
           <TouchableOpacity
-            style={[globalStyles.ios, globalStyles.android, MPDStyles.list]}
+            style={[
+              globalStyles.ios,
+              globalStyles.android,
+              MPDStyles.list,
+              { marginBottom: 20 },
+            ]}
             // ความจางของปุ่มเมื่อกด
             activeOpacity={0.7}
           >

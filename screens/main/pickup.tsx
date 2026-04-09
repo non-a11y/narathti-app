@@ -1,7 +1,7 @@
 import { View, Text, Image } from "react-native";
 import Header from "../../components/header";
 import { Ionicons } from "@expo/vector-icons";
-import { globalStyles } from "../../styles/mystyles";
+import { globalStyles, main } from "../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function pickup() {
@@ -9,7 +9,7 @@ export default function pickup() {
   return (
     <View style={globalStyles.container}>
       <Header />
-      <Text style={globalStyles.textheader}>Pickup/Delivery assistance</Text>
+      <Text style={main.textheader}>Pickup/Delivery assistance</Text>
       {/* Choose a robot */}
       <View
         style={[
@@ -217,7 +217,7 @@ export default function pickup() {
           borderRadius: 25,
           marginTop: 20,
           // เพิ่ม marginBottom ไม่ให้ปุ่มติดขอบแผ่นกระดาษขาวด้านล่างมากเกินไป
-          marginBottom: 100 + Math.max(insets.bottom, 0),
+          marginBottom: 100 + Math.max(insets.bottom, 0), // เกิดเป็นค่าลบขึ้นมา ให้ใช้ 0 แทน
           // จัดตำแหน่งกึ่งกลางด้วย Flexbox แทนการดัน Component ด้วย margin
           justifyContent: "center",
           alignItems: "center",

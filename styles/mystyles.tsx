@@ -1,28 +1,14 @@
 import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
-  header: {
-    backgroundColor: "#ffffffff",
-    paddingHorizontal: 20,
-    paddingBottom: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
   container: {
     flex: 1,
     backgroundColor: "#ffffff",
   },
-  textheader: {
-    color: "#444444",
-    marginLeft: 20,
-    //marginTop: 10,
-    fontSize: 24,
-    fontWeight: "bold",
-  },
+
   ios: {
     // shadow iOS
-    shadowColor: "#464646ff",
+    shadowColor: "#a3a3a3ff",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.9,
     shadowRadius: 10,
@@ -37,11 +23,26 @@ export const globalStyles = StyleSheet.create({
   },
 });
 
-export const homeStyles = StyleSheet.create({});
-export const taskStyles = StyleSheet.create({});
-export const pickupStyles = StyleSheet.create({});
-export const managementStyles = StyleSheet.create({});
-export const sosStyles = StyleSheet.create({});
+export const main = StyleSheet.create({
+  textheader: {
+    color: "#444444",
+    marginLeft: 20,
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+})
+
+export const headerStyles = StyleSheet.create({
+  header: {
+    backgroundColor: "#ffffffff",
+    paddingHorizontal: 20,
+    paddingBottom: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+});
+
 export const MPDStyles = StyleSheet.create({
   rowLabel: {
     fontSize: 16,
@@ -63,7 +64,7 @@ export const MPDStyles = StyleSheet.create({
   list: {
     width: "95%",
     height: 60,
-    marginTop: 10,
+    marginBottom: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -71,5 +72,82 @@ export const MPDStyles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 30,
     shadowColor: "#5e45ffff",
+  },
+});
+
+export const receptionStyles = StyleSheet.create({
+  rowLabel: {
+    fontSize: 16,
+    color: "#1A1A2E",
+    fontWeight: "500",
+  },
+  rowValue: {
+    fontSize: 14,
+    color: "#555555",
+    fontWeight: "400",
+  },
+  rowRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    columnGap: 6,
+    flexShrink: 1,
+    
+  },
+  list: {
+    width: "95%",
+    height: 60,
+    marginBottom: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#fcfffcff",
+    paddingHorizontal: 20,
+    borderRadius: 30,
+    shadowColor: "#5e45ffff",
+  },
+});
+
+export const cruiseStyles = StyleSheet.create({
+  rowLabel: {
+    fontSize: 16,
+    color: "#1A1A2E",
+    fontWeight: "500",
+  },
+  rowValue: {
+    fontSize: 14,
+    color: "#555555",
+    fontWeight: "400",
+  },
+  rowRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    columnGap: 6,
+    flexShrink: 1,
+    
+  },
+  list: {
+    width: "95%",
+    height: 60,
+    marginBottom: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#fcfffcff",
+    paddingHorizontal: 20,
+    borderRadius: 30,
+    shadowColor: "#5e45ffff",
+  },
+  button: {
+    backgroundColor: "#A7BFFC",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#447FFF",
+  },
+  buttontext: {
+    color: "#ffffffff",
+    fontSize: 10,
+    fontWeight: "400",
   },
 });

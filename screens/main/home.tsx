@@ -2,7 +2,7 @@ import { View, Text, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "../../components/header";
 
-import { globalStyles } from "../../styles/mystyles";
+import { globalStyles, main } from "../../styles/mystyles";
 import { Shadow } from "react-native-shadow-2";
 
 export default function home() {
@@ -13,7 +13,7 @@ export default function home() {
       <Header />
 
       {/* ----- CONTENT-----*/}
-      <Text style={globalStyles.textheader}>Project Name</Text>
+      <Text style={main.textheader}>Project Name</Text>
       <View
         style={[
           globalStyles.ios,
@@ -24,7 +24,7 @@ export default function home() {
             marginHorizontal: 20,
             marginTop: 20,
             // ส่วนที่ 1: เว้นระยะด้านล่างเผื่อ TabBar ที่เป็น absolute position เพื่อไม่ให้ TabBar ทับเนื้อหา
-            marginBottom: 100 + Math.max(insets.bottom, 0),
+            marginBottom: 100 + Math.max(insets.bottom, 0), // เกิดเป็นค่าลบขึ้นมา ให้ใช้ 0 แทน
             borderRadius: 30,
           },
         ]}
@@ -46,12 +46,10 @@ export default function home() {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View
               style={{
-                width: 60,
-                height: 25,
                 backgroundColor: "#80A0FF",
-                borderRadius: 20,
-                justifyContent: "center",
-                alignItems: "center",
+                borderRadius: 12,
+                paddingHorizontal: 15,
+                paddingVertical: 2,
                 marginRight: 10,
               }}
             >
@@ -66,7 +64,7 @@ export default function home() {
                 width: 30,
                 height: 30,
                 resizeMode: "contain",
-                marginRight: 10,
+                marginRight: 5,
               }}
               source={require("../../assets/icon/power.png")}
             />

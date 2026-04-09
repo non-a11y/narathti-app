@@ -3,16 +3,22 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack"; // เพิ่ม Stack
 
-import MultiPointDelivery from "./screens/function/Multi_Point_Delivery";
-import Music from "./screens/function/music";
-
+// main
 import Home from "./screens/main/home";
 import Tasks from "./screens/main/tasks";
 import Pickup from "./screens/main/pickup";
 import Management from "./screens/main/management";
 import SOS from "./screens/main/sos";
 
-import CustomTabBar from "./components/CustomTabBar";
+// function_T1
+import Reception from "./screens/function_T1/reception";
+import Music from "./screens/function_T1/music";
+import MultiPointDelivery from "./screens/function_T1/multi_point_delivery";
+import Lead_the_way from "./screens/function_T1/Lead_the_way/Lead_the_way";
+import Cruise from "./screens/function_T1/cruise/cruise";
+
+// TabBar
+import CustomTabBar from "./components/custotabbar";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator(); // สร้าง Stack Navigator
@@ -48,6 +54,9 @@ export default function App() {
             component={MultiPointDelivery}
           />
           <Stack.Screen name="Music" component={Music} />
+          <Stack.Screen name="Reception" component={Reception} />
+          <Stack.Screen name="Lead_the_way" component={Lead_the_way} />
+          <Stack.Screen name="Cruise" component={Cruise} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

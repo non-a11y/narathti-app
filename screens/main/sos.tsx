@@ -78,7 +78,7 @@ export default function sos() {
             },
           ]}
         >
-          {/* content right */}
+          {/* right */}
           <View
             style={{
               alignSelf: "flex-start",
@@ -102,13 +102,11 @@ export default function sos() {
             >
               <View
                 style={{
-                  width: 60,
-                  height: 20,
-                  backgroundColor: "#80A0FF",
-                  borderRadius: 20,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginRight: 10,
+                   backgroundColor: "#80A0FF",
+                borderRadius: 12,
+                paddingHorizontal: 15,
+                paddingVertical: 2,
+                marginRight: 10,
                 }}
               >
                 <Text
@@ -146,7 +144,7 @@ export default function sos() {
               </View>
             </View>
           </View>
-          {/* content light */}
+          {/* light */}
           <View>
             <View
               style={{
@@ -451,6 +449,7 @@ export default function sos() {
                   shadowColor: "#6e92fcff",
                   backgroundColor: "#ffffffff",
                   columnGap: 5,
+                  // เส้นขอบ
                   borderWidth: 1,
                   borderColor: "#0B92FF",
                 },

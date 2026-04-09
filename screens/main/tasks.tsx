@@ -1,7 +1,7 @@
 import { View, Text, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "../../components/header";
-import { globalStyles } from "../../styles/mystyles";
+import { globalStyles, main } from "../../styles/mystyles";
 import { StyleSheet } from "react-native";
 import Card_function from "../../components/card_function";
 
@@ -18,7 +18,7 @@ export default function tasks() {
     <View style={globalStyles.container}>
       <Header />
 
-      <Text style={globalStyles.textheader}>Project Name</Text>
+      <Text style={main.textheader}>Project Name</Text>
 
       <View
         style={[
@@ -56,19 +56,22 @@ export default function tasks() {
           <Card_function
             image={require("../../assets/icon/cruise.png")}
             text={"Cruise"}
+            onPress={() => navigation.navigate("Cruise" as never)}
           />
           <Card_function
-            image={require("../../assets/icon/music.png")}
+            image={require("../../assets/icon/Music.png")}
             text={"Music"}
             onPress={() => navigation.navigate("Music" as never)}
           />
           <Card_function
             image={require("../../assets/icon/lead the way.png")}
             text={"Lead the way"}
+            onPress={() => navigation.navigate("Lead_the_way" as never)}
           />
           <Card_function
             image={require("../../assets/icon/reception.png")}
             text={"Reception"}
+            onPress={() => navigation.navigate("Reception" as never)}
           />
         </View>
       </View>

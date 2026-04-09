@@ -1,0 +1,304 @@
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+  ScrollView,
+} from "react-native";
+import React from "react";
+import { globalStyles, cruiseStyles } from "../../../styles/mystyles";
+import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useState } from "react";
+import CardCruise from "./card_cruise";
+import CardSelect from "./card_select";
+import { MaterialIcons } from "@expo/vector-icons";
+
+export default function cruise() {
+  const [isTrue, setIsTrue] = useState(true);
+  const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
+  return (
+    <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent={true} // ← สำคัญ! ให้ status bar โปร่งใส
+      />
+
+      {/* Blue Gradient Header */}
+      <LinearGradient
+        colors={["#5B9BFF", "#3D7FFF"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          paddingHorizontal: 16,
+          paddingBottom: 40,
+          paddingTop: insets.top + 12,
+        }}
+      >
+        {/* Back Button */}
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }} // ขยายพื้นที่กดออกไปรอบๆ
+          delayPressIn={0} // ลด delay ก่อนรับ input เป็น 0
+          activeOpacity={0.7}
+        >
+          <Ionicons
+            name="chevron-back-circle-outline"
+            size={36}
+            color="white"
+          />
+        </TouchableOpacity>
+
+        {/* Title */}
+        <Text
+          style={{
+            // flex: 1 เต็มพื้นที่
+            flex: 1,
+            textAlign: "center",
+            color: "#FFFFFF",
+            fontSize: 20,
+            fontWeight: "600",
+            marginRight: 36,
+          }}
+        >
+          Cruiose Setting
+        </Text>
+      </LinearGradient>
+      {/* White Settings Card */}
+      <View
+        style={{
+          flex: 1,
+          marginTop: -20,
+          paddingHorizontal: 16,
+        }}
+      >
+        {/* card ที่ 1 */}
+
+        <View
+          style={[
+            globalStyles.ios,
+            globalStyles.android,
+            {
+              height: 150, // ✅ ขยายตามเนื้อหา มีความสูงขั้นต่ำ 100
+              backgroundColor: "#FFFFFF",
+              borderRadius: 20,
+              overflow: "hidden", // ตัดส่วนที่เกินขอบ
+              shadowColor: "#5e76ffff",
+            },
+          ]}
+        >
+          {isTrue ? (
+            <ScrollView>
+              <View
+                style={{
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  //columnGap: 10,
+                  rowGap: 20,
+                  marginHorizontal: 10,
+                  marginVertical: 10,
+
+                  //backgroundColor: "#ac0000ff",
+                }}
+              >
+                <CardSelect text="Lobby001" />
+                <MaterialIcons name="navigate-next" size={24} color="black" />
+                <CardSelect text="Lobby001" />
+                <MaterialIcons name="navigate-next" size={24} color="black" />
+                <CardSelect text="Lobby001" />
+              </View>
+            </ScrollView>
+          ) : (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontWeight: "500",
+                  color: "#7F7F7F",
+                }}
+              >
+                Please click the point location to add a wait point{" "}
+              </Text>
+            </View>
+          )}
+        </View>
+
+        {/* 3 ปุ่ม */}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            columnGap: 10,
+            marginVertical: 16,
+          }}
+        >
+          <View style={cruiseStyles.button}>
+            <Text style={cruiseStyles.buttontext}>Save route </Text>
+          </View>
+          <View style={cruiseStyles.button}>
+            <Text style={cruiseStyles.buttontext}>Global configuration </Text>
+          </View>
+          <View
+            style={[
+              cruiseStyles.button,
+              {
+                backgroundColor: "#FF6B81",
+                borderColor: "#FF0000",
+              },
+            ]}
+          >
+            <Text style={cruiseStyles.buttontext}>Delete </Text>
+          </View>
+        </View>
+
+        {/* card ที่ 2 */}
+        <View
+          style={[
+            globalStyles.ios,
+            globalStyles.android,
+            {
+              flex: 1,
+              backgroundColor: "#ffffffff",
+              borderRadius: 20,
+              overflow: "hidden",
+              shadowColor: "#5e76ffff",
+              marginBottom: 20,
+            },
+          ]}
+        >
+          {/* header */}
+          <View
+            style={{
+              width: "100%",
+              height: 50,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingHorizontal: 20,
+              marginTop: 10,
+              //backgroundColor: "#ac0000ff",
+            }}
+          >
+            <Text style={{ fontSize: 12, fontWeight: "500" }}>Tsn01-1</Text>
+
+            <View
+              style={{
+                backgroundColor: "#EAF2FF",
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+                borderRadius: 120,
+                borderWidth: 1,
+                borderColor: "#508EFF",
+              }}
+            >
+              <Text style={{ fontSize: 12, fontWeight: "500" }}>Tsn001</Text>
+            </View>
+          </View>
+
+          {/* body */}
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              columnGap: 10,
+              rowGap: 20,
+              marginHorizontal: 10,
+
+              //backgroundColor: "#ac0000ff",
+            }}
+          >
+            <CardCruise text="Lobby001" />
+          </View>
+        </View>
+      </View>
+
+      {/* Set off Button */}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingHorizontal: 16,
+          paddingTop: 16,
+          backgroundColor: "#EEF2FF",
+          paddingBottom: insets.bottom + 20,
+        }}
+      >
+        <TouchableOpacity
+          activeOpacity={0.85}
+          style={{ borderRadius: 30, overflow: "hidden" }}
+        >
+          <LinearGradient
+            colors={["#2979FF", "#4AB0FF"]}
+            start={{ x: 0, y: 0.5 }}
+            end={{ x: 1, y: 0.5 }}
+            style={{
+              width: 160,
+              height: 54,
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 30,
+            }}
+          >
+            <Text
+              style={{
+                color: "#FFFFFF",
+                fontSize: 18,
+                fontWeight: "600",
+                letterSpacing: 0.5,
+              }}
+            >
+              Line list
+            </Text>
+          </LinearGradient>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.85}
+          style={{ borderRadius: 30, overflow: "hidden" }}
+        >
+          <LinearGradient
+            colors={["#2979FF", "#4AB0FF"]}
+            start={{ x: 0, y: 0.5 }}
+            end={{ x: 1, y: 0.5 }}
+            style={{
+              width: 160,
+              height: 54,
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 30,
+            }}
+          >
+            <Text
+              style={{
+                color: "#FFFFFF",
+                fontSize: 18,
+                fontWeight: "600",
+                letterSpacing: 0.5,
+              }}
+            >
+              Next step
+            </Text>
+          </LinearGradient>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
