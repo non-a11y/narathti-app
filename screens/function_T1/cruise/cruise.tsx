@@ -15,6 +15,7 @@ import { useState } from "react";
 import CardCruise from "./card_cruise";
 import CardSelect from "./card_select";
 import { MaterialIcons } from "@expo/vector-icons";
+import Header_sub_functions from "../../../components/header_sub_functions";
 
 export default function cruise() {
   const [isTrue, setIsTrue] = useState(true);
@@ -29,49 +30,8 @@ export default function cruise() {
       />
 
       {/* Blue Gradient Header */}
-      <LinearGradient
-        colors={["#5B9BFF", "#3D7FFF"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          paddingHorizontal: 16,
-          paddingBottom: 40,
-          paddingTop: insets.top + 12,
-        }}
-      >
-        {/* Back Button */}
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
-          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }} // ขยายพื้นที่กดออกไปรอบๆ
-          delayPressIn={0} // ลด delay ก่อนรับ input เป็น 0
-          activeOpacity={0.7}
-        >
-          <Ionicons
-            name="chevron-back-circle-outline"
-            size={36}
-            color="white"
-          />
-        </TouchableOpacity>
+      <Header_sub_functions title="Cruise Setting" />
 
-        {/* Title */}
-        <Text
-          style={{
-            // flex: 1 เต็มพื้นที่
-            flex: 1,
-            textAlign: "center",
-            color: "#FFFFFF",
-            fontSize: 20,
-            fontWeight: "600",
-            marginRight: 36,
-          }}
-        >
-          Cruiose Setting
-        </Text>
-      </LinearGradient>
       {/* White Settings Card */}
       <View
         style={{
@@ -81,7 +41,6 @@ export default function cruise() {
         }}
       >
         {/* card ที่ 1 */}
-
         <View
           style={[
             globalStyles.ios,
@@ -221,8 +180,6 @@ export default function cruise() {
               columnGap: 10,
               rowGap: 20,
               marginHorizontal: 10,
-
-              //backgroundColor: "#ac0000ff",
             }}
           >
             <CardCruise text="Lobby001" />

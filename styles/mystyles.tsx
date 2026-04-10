@@ -75,7 +75,7 @@ export const MPDStyles = StyleSheet.create({
   },
 });
 
-export const receptionStyles = StyleSheet.create({
+export const reception_T1 = StyleSheet.create({
   rowLabel: {
     fontSize: 16,
     color: "#1A1A2E",
@@ -149,5 +149,37 @@ export const cruiseStyles = StyleSheet.create({
     color: "#ffffffff",
     fontSize: 10,
     fontWeight: "400",
+  },
+});
+
+export const reception_R2 = StyleSheet.create({
+  rowLabel: {
+    fontSize: 16,
+    color: "#1A1A2E",
+    fontWeight: "500",
+  },
+  rowValue: {
+    fontSize: 14,
+    color: "#555555",
+    fontWeight: "400",
+  },
+  rowRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    columnGap: 6,
+    flexShrink: 1,
+    
+  },
+  list: {
+    width: "95%",
+    height: 60,
+    marginBottom: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#fcfffcff",
+    paddingHorizontal: 20,
+    borderRadius: 30,
+    shadowColor: "#5e45ffff",
   },
 });

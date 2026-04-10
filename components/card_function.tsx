@@ -1,12 +1,13 @@
-import { TouchableOpacity, Text, Image, ImageSourcePropType } from "react-native";
+import { TouchableOpacity, Text, Image,  } from "react-native";
 import React from "react";
 import { StyleSheet } from "react-native";
 
 type Props = {
-  image: ImageSourcePropType;
+  image: any;
   text: string;
   onPress?: () => void; // เพิ่ม prop สำหรับรับ function เมื่อกด (optional)
 };
+
 
 export default function card_function({ image, text, onPress }: Props) {
   return (
@@ -14,8 +15,8 @@ export default function card_function({ image, text, onPress }: Props) {
     <TouchableOpacity style={{ alignItems: "center" }} onPress={onPress}>
       <Image
         style={{
-          width: 90,
-          height: 90,
+          width: 80,
+          height: 80,
           resizeMode: "contain",
         }}
         source={image}
