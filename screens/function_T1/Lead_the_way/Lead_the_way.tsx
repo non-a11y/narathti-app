@@ -2,12 +2,12 @@ import { View, Text, StatusBar, TouchableOpacity } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
-import CardLTW from "./card_ltw";
+// import { useNavigation } from "@react-navigation/native";
+import Card_LTW from "../../../components/card_list";
 import Header_sub_functions from "../../../components/header_sub_functions";
 
 export default function Lead_the_way() {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
@@ -85,8 +85,8 @@ export default function Lead_the_way() {
               //backgroundColor: "#ac0000ff",
             }}
           >
-            <CardLTW text="Lobby001" />
-            <CardLTW text="metting room" />
+            <Card_LTW text="Lobby001" />
+            <Card_LTW text="metting room" />
           </View>
         </View>
       </View>
