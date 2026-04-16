@@ -1,11 +1,10 @@
 import { View, Text, TouchableOpacity, StatusBar } from "react-native";
 import React from "react";
-import { globalStyles } from "../../styles/mystyles";
+import { globalStyles, button_function } from "../../styles/mystyles";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
-import { MPDStyles } from "../../styles/mystyles";
 import Header_sub_functions from "../../components/header_sub_functions";
 
 
@@ -51,7 +50,7 @@ export default function music() {
             style={[
               globalStyles.ios,
               globalStyles.android,
-              MPDStyles.list,
+              button_function.list,
               { marginTop: 20 },
             ]}
             // ความจางของปุ่มเมื่อกด
@@ -59,7 +58,7 @@ export default function music() {
           >
             {/* Text left */}
             <View style={{ rowGap: 5 }}>
-              <Text style={MPDStyles.rowLabel}>Song Title</Text>
+              <Text style={button_function.rowLabel}>Song Title</Text>
               <Text
                 style={{ fontSize: 12, color: "#7F7F7F", fontWeight: "500" }}
               >
@@ -67,8 +66,8 @@ export default function music() {
               </Text>
             </View>
             {/* Text right */}
-            <View style={MPDStyles.rowRight}>
-              <Text style={MPDStyles.rowValue}>01:18</Text>
+            <View style={button_function.rowRight}>
+              <Text style={button_function.rowValue}>01:18</Text>
               <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
             </View>
           </TouchableOpacity>

@@ -52,7 +52,6 @@ export default function header_sub_functions({ title }: HeaderProps) {
             color: "#FFFFFF",
             fontSize: 20,
             fontWeight: "600",
-            // -36 คือขนาดของ Icon เพื่อให้ข้อความอยู่ตรงกลาง
             marginRight: 36,
           }}
         >

@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Switch, StatusBar } from "react-native";
 import React from "react";
-import { globalStyles, reception_T1 } from "../../styles/mystyles";
+import { globalStyles, button_function } from "../../styles/mystyles";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -18,7 +18,7 @@ function formatTime(time: number) {
 }
 
 export default function reception() {
-  const navigation = useNavigation();
+  const navigation = useNavigation(); 
   const insets = useSafeAreaInsets();
   const [autoWork, setAutoWork] = useState(false);
   const [time, setTime] = useState(15);
@@ -61,9 +61,9 @@ export default function reception() {
           <View style={{ height: 20 }} />
           {/* Row: Timing Settings */}
           <View
-            style={[globalStyles.ios, globalStyles.android, reception_T1.list]}
+            style={[globalStyles.ios, globalStyles.android, button_function.list]}
           >
-            <Text style={reception_T1.rowLabel}>Timing Settings</Text>
+            <Text style={button_function.rowLabel}>Timing Settings</Text>
 
             <View
               style={{
@@ -125,15 +125,15 @@ export default function reception() {
 
           {/* Row: Reception location */}
           <TouchableOpacity
-            style={[globalStyles.ios, globalStyles.android, reception_T1.list]}
+            style={[globalStyles.ios, globalStyles.android, button_function.list]}
             // ความจางของปุ่มเมื่อกด
             activeOpacity={0.7}
           >
             {/* Text left */}
-            <Text style={reception_T1.rowLabel}>Reception location</Text>
+            <Text style={button_function.rowLabel}>Reception location</Text>
             {/* Text right */}
-            <View style={reception_T1.rowRight}>
-              <Text style={reception_T1.rowValue} numberOfLines={1}>
+            <View style={button_function.rowRight}>
+              <Text style={button_function.rowValue} numberOfLines={1}>
                 Reception
               </Text>
               <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
@@ -142,26 +142,26 @@ export default function reception() {
 
           {/* Row: Voice mode */}
           <TouchableOpacity
-            style={[globalStyles.ios, globalStyles.android, reception_T1.list]}
+            style={[globalStyles.ios, globalStyles.android, button_function.list]}
             // ความจางของปุ่มเมื่อกด
             activeOpacity={0.7}
           >
-            <Text style={reception_T1.rowLabel}>Voice mode</Text>
-            <View style={reception_T1.rowRight}>
-              <Text style={reception_T1.rowValue}>Polite chatting</Text>
+            <Text style={button_function.rowLabel}>Voice mode</Text>
+            <View style={button_function.rowRight}>
+              <Text style={button_function.rowValue}>Polite chatting</Text>
               <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
             </View>
           </TouchableOpacity>
 
           {/* Row: Greeting words */}
           <TouchableOpacity
-            style={[globalStyles.ios, globalStyles.android, reception_T1.list]}
+            style={[globalStyles.ios, globalStyles.android, button_function.list]}
             // ความจางของปุ่มเมื่อกด
             activeOpacity={0.7}
           >
-            <Text style={reception_T1.rowLabel}>Greeting words</Text>
-            <View style={reception_T1.rowRight}>
-              <Text style={reception_T1.rowValue}>Yes</Text>
+            <Text style={button_function.rowLabel}>Greeting words</Text>
+            <View style={button_function.rowRight}>
+              <Text style={button_function.rowValue}>Yes</Text>
               <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
             </View>
           </TouchableOpacity>
@@ -186,9 +186,9 @@ export default function reception() {
           <View style={{ height: 20 }} />
           {/* Row: Lead the way */}
           <View
-            style={[globalStyles.ios, globalStyles.android, reception_T1.list]}
+            style={[globalStyles.ios, globalStyles.android, button_function.list]}
           >
-            <Text style={reception_T1.rowLabel}>Lead the way</Text>
+            <Text style={button_function.rowLabel}>Lead the way</Text>
             <Switch
               value={autoWork}
               onValueChange={setAutoWork}
@@ -200,15 +200,15 @@ export default function reception() {
 
           {/* Row: lead the list */}
           <TouchableOpacity
-            style={[globalStyles.ios, globalStyles.android, reception_T1.list]}
+            style={[globalStyles.ios, globalStyles.android, button_function.list]}
             // ความจางของปุ่มเมื่อกด
             activeOpacity={0.7}
           >
             {/* Text left */}
-            <Text style={reception_T1.rowLabel}>lead the list</Text>
+            <Text style={button_function.rowLabel}>lead the list</Text>
             {/* Text right */}
-            <View style={reception_T1.rowRight}>
-              <Text style={reception_T1.rowValue} numberOfLines={1}>
+            <View style={button_function.rowRight}>
+              <Text style={button_function.rowValue} numberOfLines={1}>
                 All locations
               </Text>
               <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />

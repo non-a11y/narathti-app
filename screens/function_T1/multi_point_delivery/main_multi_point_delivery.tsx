@@ -3,14 +3,31 @@ import { View, Text, TouchableOpacity, Switch, StatusBar } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
-import { globalStyles, MPDStyles } from "../../styles/mystyles";
-import Header_sub_functions from "../../components/header_sub_functions";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { globalStyles, button_function } from "../../../styles/mystyles";
+import Header_sub_functions from "../../../components/header_sub_functions";
+import Card_button_function from "../../../components/card_button_function";
+
+// สร้างตัวแปร Global แบบเรียบง่ายไว้นอก Component
+// เพื่อให้ค่าที่เลือกยังคงอยู่แม้ว่าผู้ใช้จะกด Back ออกจากหน้านี้ไปแล้วกลับเข้ามาใหม่
+let globalFetchReminderValue = "Your food has arrived. Please pick up in time";
 
 export default function MultiPointDelivery() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
+  const route = useRoute<any>();
   const insets = useSafeAreaInsets();
   const [autoWork, setAutoWork] = useState(false);
+
+  // สร้าง State สำหรับเก็บข้อความ Fetch reminder โดยดึงค่าเริ่มต้นมาจากตัวแปร Global
+  const [fetchReminderValue, setFetchReminderValue] = useState(
+    globalFetchReminderValue,
+  );
+
+  // ฟังก์ชันสำหรับอัปเดตทั้ง State แจ้งให้หน้าจอเปลี่ยน และอัปเดต Global เพื่อความจำ
+  const updateFetchReminder = (value: string) => {
+    globalFetchReminderValue = value; // จำไว้ใช้ครั้งหน้า
+    setFetchReminderValue(value); // อัปเดตหน้าจอทันที
+  };
 
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
@@ -42,26 +59,23 @@ export default function MultiPointDelivery() {
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
+              paddingBottom: 20,
+              paddingTop: 20,
             },
           ]}
         >
-          {/* Row: Standby point */}
-
+          {/* Standby point */}
           <TouchableOpacity
-            style={[
-              globalStyles.ios,
-              globalStyles.android,
-              MPDStyles.list,
-              { marginTop: 20 },
-            ]}
+            onPress={() => navigation.navigate("standby_point" as never)}
+            style={[button_function.list]}
             // ความจางของปุ่มเมื่อกด
             activeOpacity={0.7}
           >
             {/* Text left */}
-            <Text style={MPDStyles.rowLabel}>Standby point</Text>
+            <Text style={button_function.rowLabel}>Standby point</Text>
             {/* Text right */}
-            <View style={MPDStyles.rowRight}>
-              <Text style={MPDStyles.rowValue}>Receptont</Text>
+            <View style={button_function.rowRight}>
+              <Text style={button_function.rowValue}>Receptont</Text>
               <View
                 style={{
                   backgroundColor: "#E8EEFF",
@@ -84,16 +98,16 @@ export default function MultiPointDelivery() {
             </View>
           </TouchableOpacity>
 
-          {/* Row: Commute time */}
+          {/* Commute time */}
           <TouchableOpacity
-            style={[globalStyles.ios, globalStyles.android, MPDStyles.list]}
+            style={[button_function.list]}
             // ความจางของปุ่มเมื่อกด
             activeOpacity={0.7}
           >
             {/* Text left */}
-            <Text style={MPDStyles.rowLabel}>Commute time</Text>
+            <Text style={button_function.rowLabel}>Commute time</Text>
             {/* Text right */}
-            <View style={MPDStyles.rowRight}>
+            <View style={button_function.rowRight}>
               <Text
                 style={{
                   fontSize: 14,
@@ -106,11 +120,11 @@ export default function MultiPointDelivery() {
             </View>
           </TouchableOpacity>
 
-          {/* Row: Go to work automatically */}
-          <View
-            style={[globalStyles.ios, globalStyles.android, MPDStyles.list]}
-          >
-            <Text style={MPDStyles.rowLabel}>Go to work automatically</Text>
+          {/* Go to work automatically */}
+          <View style={[button_function.list]}>
+            <Text style={button_function.rowLabel}>
+              Go to work automatically
+            </Text>
             <Switch
               value={autoWork}
               onValueChange={setAutoWork}
@@ -121,52 +135,31 @@ export default function MultiPointDelivery() {
           </View>
 
           {/* Row: Fetch reminder */}
-          <TouchableOpacity
-            style={[globalStyles.ios, globalStyles.android, MPDStyles.list]}
-            // ความจางของปุ่มเมื่อกด
-            activeOpacity={0.7}
-          >
-            {/* Text left */}
-            <Text style={MPDStyles.rowLabel}>Fetch reminder</Text>
-            {/* Text right */}
-            <View style={MPDStyles.rowRight}>
-              <Text style={MPDStyles.rowValue} numberOfLines={1}>
-                Your food has arrived. Ple...
-              </Text>
-              <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
-            </View>
-          </TouchableOpacity>
+          <Card_button_function
+            text="Fetch reminder"
+            // แสดงเฉพาะในหน้า UI หากประโยคยาวเกินไปให้ตัดสายอักขระโดยใช้ substring และใส่ ... แทนที่ข้อความที่ยาวล้นเกินไป
+            value={
+              fetchReminderValue.length > 20
+                ? fetchReminderValue.substring(0, 20) + "..."
+                : fetchReminderValue
+            }
+            // เมื่อกดเข้าหน้า fetch_reminder จะส่งพารามิเตอร์ currentSelection พร้อมกับฟังก์ชัน onSelect ไปด้วย พอทำงานเสร็จก็จะส่งค่ามาเซ็ตใน State ได้เลย
+            onPress={() =>
+              navigation.navigate(
+                "fetch_reminder" as never,
+                {
+                  currentSelection: fetchReminderValue,
+                  onSelect: updateFetchReminder,
+                } as never,
+              )
+            }
+          />
 
           {/* Row: Notice setting */}
-          <TouchableOpacity
-            style={[globalStyles.ios, globalStyles.android, MPDStyles.list]}
-            // ความจางของปุ่มเมื่อกด
-            activeOpacity={0.7}
-          >
-            <Text style={MPDStyles.rowLabel}>Notice setting</Text>
-            <View style={MPDStyles.rowRight}>
-              <Text style={MPDStyles.rowValue}>Only once</Text>
-              <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
-            </View>
-          </TouchableOpacity>
+          <Card_button_function text="Notice setting" value="Only once" />
 
           {/* Row: Vice mode */}
-          <TouchableOpacity
-            style={[
-              globalStyles.ios,
-              globalStyles.android,
-              MPDStyles.list,
-              { marginBottom: 20 },
-            ]}
-            // ความจางของปุ่มเมื่อกด
-            activeOpacity={0.7}
-          >
-            <Text style={MPDStyles.rowLabel}>Vice mode</Text>
-            <View style={MPDStyles.rowRight}>
-              <Text style={MPDStyles.rowValue}>NO chatting</Text>
-              <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
-            </View>
-          </TouchableOpacity>
+          <Card_button_function text="Vice mode" value="NO chatting" />
         </View>
       </View>
 

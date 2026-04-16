@@ -6,18 +6,34 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
-import { globalStyles, cruiseStyles } from "../../../styles/mystyles";
+import { globalStyles, cruiseStyles } from "../../../../styles/mystyles";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState } from "react";
-import CardCruise from "../../../components/card_list";
-import CardSelect from "./card_select";
-import { MaterialIcons } from "@expo/vector-icons";
-import Header_sub_functions from "../../../components/header_sub_functions";
+import CardCruise from "../../../../components/card_list";
+import CardSelect from "./card_standby";
+import Header_sub_functions from "../../../../components/header_sub_functions";
 
-export default function cruise() {
-  const [isTrue, setIsTrue] = useState(true);
+export default function standby_point() {
+  // ใช้ State selectedPoints เก็บ Array ของชื่อจุดที่เลือกแทน
+  const [selectedPoints, setSelectedPoints] = useState<string[]>([]);
   const insets = useSafeAreaInsets();
+
+  // ฟังก์ชันสำหรับเพิ่มจุด เมื่อกดพอยต์จากด้านล่าง
+  const handleAddPoint = (point: string) => {
+    // ป้องกันการเพิ่มจุดซ้ำ ถ้ารายชื่อนี้ยังไม่มีใน Array ถึงจะเพิ่มเข้าไป
+    if (!selectedPoints.includes(point)) {
+      setSelectedPoints([...selectedPoints, point]);
+    }
+  };
+
+  // ฟังก์ชันสำหรับลบจุดที่เลือกออก
+  const handleDeletePoint = (index: number) => {
+    const newPoints = [...selectedPoints];
+    newPoints.splice(index, 1); // ลบจุดที่ตำแหน่ง (index) นั้นๆ จำนวน 1 ตัวออก
+    setSelectedPoints(newPoints); // อัปเดต State เลขลำดับจะเลื่อนและเรียงใหม่ให้อัตโนมัติ
+  };
+
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -27,7 +43,7 @@ export default function cruise() {
       />
 
       {/* Blue Gradient Header */}
-      <Header_sub_functions title="Cruise Setting" />
+      <Header_sub_functions title="Setting of wait points" />
 
       {/* White Settings Card */}
       <View
@@ -48,10 +64,11 @@ export default function cruise() {
               borderRadius: 20,
               overflow: "hidden", // ตัดส่วนที่เกินขอบ
               shadowColor: "#5e76ffff",
+              marginBottom: 10,
             },
           ]}
         >
-          {isTrue ? (
+          {selectedPoints.length > 0 ? (
             <ScrollView>
               <View
                 style={{
@@ -64,14 +81,18 @@ export default function cruise() {
                   marginHorizontal: 10,
                   marginVertical: 10,
 
+
                   //backgroundColor: "#ac0000ff",
                 }}
               >
-                <CardSelect text="Lobby001" />
-                <MaterialIcons name="navigate-next" size={24} color="black" />
-                <CardSelect text="Lobby001" />
-                <MaterialIcons name="navigate-next" size={24} color="black" />
-                <CardSelect text="Lobby001" />
+                {selectedPoints.map((point, index) => (
+                  <CardSelect 
+                    key={point} 
+                    text={point} 
+                    index={index} 
+                    onDelete={() => handleDeletePoint(index)} 
+                  />
+                ))}
               </View>
             </ScrollView>
           ) : (
@@ -89,38 +110,10 @@ export default function cruise() {
                   color: "#7F7F7F",
                 }}
               >
-                Please click the point location to add a wait point{" "}
+                Please click the point location to add a wait point
               </Text>
             </View>
           )}
-        </View>
-
-        {/* 3 ปุ่ม */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            columnGap: 10,
-            marginVertical: 16,
-          }}
-        >
-          <View style={cruiseStyles.button}>
-            <Text style={cruiseStyles.buttontext}>Save route </Text>
-          </View>
-          <View style={cruiseStyles.button}>
-            <Text style={cruiseStyles.buttontext}>Global configuration </Text>
-          </View>
-          <View
-            style={[
-              cruiseStyles.button,
-              {
-                backgroundColor: "#FF6B81",
-                borderColor: "#FF0000",
-              },
-            ]}
-          >
-            <Text style={cruiseStyles.buttontext}>Delete </Text>
-          </View>
         </View>
 
         {/* card ที่ 2 */}
@@ -134,7 +127,7 @@ export default function cruise() {
               borderRadius: 20,
               overflow: "hidden",
               shadowColor: "#5e76ffff",
-              marginBottom: 20,
+              marginBottom: 50 + Math.max(insets.bottom, 0),
             },
           ]}
         >
@@ -178,83 +171,13 @@ export default function cruise() {
               marginHorizontal: 10,
             }}
           >
-            <CardCruise text="Lobby001" />
-            <CardCruise text="Lobby002" />
-            <CardCruise text="Lobby003" />
-            
+            <CardCruise text="Lobby001" onPress={() => handleAddPoint("Lobby001")} />
+            <CardCruise text="Lobby002" onPress={() => handleAddPoint("Lobby002")} />
+            <CardCruise text="Lobby003" onPress={() => handleAddPoint("Lobby003")} />
           </View>
-        </View> 
+        </View>
       </View>
 
-      {/* Set off Button */}
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center", 
-          paddingHorizontal: 16,
-          paddingTop: 16,
-          backgroundColor: "#EEF2FF",
-          paddingBottom: insets.bottom + 20,
-        }}
-      >
-        <TouchableOpacity
-          activeOpacity={0.85}
-          style={{ borderRadius: 30, overflow: "hidden" }}
-        >
-          <LinearGradient
-            colors={["#2979FF", "#4AB0FF"]}
-            start={{ x: 0, y: 0.5 }}
-            end={{ x: 1, y: 0.5 }}
-            style={{
-              width: 160,
-              height: 54,
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 30,
-            }}
-          >
-            <Text
-              style={{
-                color: "#FFFFFF",
-                fontSize: 18,
-                fontWeight: "600",
-                letterSpacing: 0.5,
-              }}
-            >
-              Line list
-            </Text>
-          </LinearGradient>
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.85}
-          style={{ borderRadius: 30, overflow: "hidden" }}
-        >
-          <LinearGradient
-            colors={["#2979FF", "#4AB0FF"]}
-            start={{ x: 0, y: 0.5 }}
-            end={{ x: 1, y: 0.5 }}
-            style={{
-              width: 160,
-              height: 54,
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 30,
-            }}
-          >
-            <Text
-              style={{
-                color: "#FFFFFF",
-                fontSize: 18,
-                fontWeight: "600",
-                letterSpacing: 0.5,
-              }}
-            >
-              Next step
-            </Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 }

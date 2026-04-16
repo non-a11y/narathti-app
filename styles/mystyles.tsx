@@ -30,7 +30,7 @@ export const main = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-})
+});
 
 export const headerStyles = StyleSheet.create({
   header: {
@@ -40,70 +40,6 @@ export const headerStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-  },
-});
-
-export const MPDStyles = StyleSheet.create({
-  rowLabel: {
-    fontSize: 16,
-    color: "#1A1A2E",
-    fontWeight: "500",
-  },
-  rowValue: {
-    fontSize: 14,
-    color: "#555555",
-    fontWeight: "400",
-  },
-  rowRight: {
-    flexDirection: "row",
-    alignItems: "center",
-    columnGap: 6,
-    flexShrink: 1,
-    
-  },
-  list: {
-    width: "95%",
-    height: 60,
-    marginBottom: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#fcfffcff",
-    paddingHorizontal: 20,
-    borderRadius: 30,
-    shadowColor: "#5e45ffff",
-  },
-});
-
-export const reception_T1 = StyleSheet.create({
-  rowLabel: {
-    fontSize: 16,
-    color: "#1A1A2E",
-    fontWeight: "500",
-  },
-  rowValue: {
-    fontSize: 14,
-    color: "#555555",
-    fontWeight: "400",
-  },
-  rowRight: {
-    flexDirection: "row",
-    alignItems: "center",
-    columnGap: 6,
-    flexShrink: 1,
-    
-  },
-  list: {
-    width: "95%",
-    height: 60,
-    marginBottom: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#fcfffcff",
-    paddingHorizontal: 20,
-    borderRadius: 30,
-    shadowColor: "#5e45ffff",
   },
 });
 
@@ -123,7 +59,6 @@ export const cruiseStyles = StyleSheet.create({
     alignItems: "center",
     columnGap: 6,
     flexShrink: 1,
-    
   },
   list: {
     width: "95%",
@@ -152,7 +87,8 @@ export const cruiseStyles = StyleSheet.create({
   },
 });
 
-export const reception_R2 = StyleSheet.create({
+
+export const button_function = StyleSheet.create({
   rowLabel: {
     fontSize: 16,
     color: "#1A1A2E",
@@ -168,7 +104,6 @@ export const reception_R2 = StyleSheet.create({
     alignItems: "center",
     columnGap: 6,
     flexShrink: 1,
-    
   },
   list: {
     width: "95%",
@@ -180,6 +115,8 @@ export const reception_R2 = StyleSheet.create({
     backgroundColor: "#fcfffcff",
     paddingHorizontal: 20,
     borderRadius: 30,
-    shadowColor: "#5e45ffff",
+    // เส้นขอบ
+    borderWidth: 2,
+    borderColor: "#78bef8ff",
   },
 });

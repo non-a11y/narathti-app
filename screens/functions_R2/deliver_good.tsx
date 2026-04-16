@@ -6,12 +6,12 @@ import {
   TextInput,
 } from "react-native";
 import React from "react";
-import { globalStyles } from "../../../styles/mystyles";
+import { globalStyles } from "../../styles/mystyles";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import CardDeilver from "./card_deilver";
+import CardDeilver from "../../components/card_list";
 
 export default function deliver_good() {
   const navigation = useNavigation();

@@ -1,20 +1,17 @@
 import { View, Text, StatusBar } from "react-native";
 import React from "react";
-import { globalStyles } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
+import { globalStyles } from "../../styles/mystyles";
+import Header_sub_functions from "../../components/header_sub_functions";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ScrollView, Switch, TouchableOpacity } from "react-native";
-import { reception_R2 } from "../../../styles/mystyles";
+import { ScrollView, TouchableOpacity } from "react-native";
+
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import Card_set from "./card_set";
+import Card_set from "../../components/card_button_function";
 
 export default function settings() {
   const insets = useSafeAreaInsets();
-  const [autoWork, setAutoWork] = useState(false);
-  const [leadTheWay, setLeadTheWay] = useState(false);
-  const [takeAPicture, setTakeAPicture] = useState(false);
-  const [enableDelivery, setEnableDelivery] = useState(false);
+
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -49,15 +46,16 @@ export default function settings() {
             },
           ]}
         >
-          
-          <ScrollView showsVerticalScrollIndicator={false}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
             style={{ width: "100%" }} // ให้ ScrollView กางเต็มร้อยเพื่อไม่ให้หด
             contentContainerStyle={{
               flexGrow: 1,
               alignItems: "center", // จัดให้ของข้างในอยู่ตรงกลางแนวนอน
               paddingBottom: 20,
-              marginTop:20
-            }}>
+              marginTop: 20,
+            }}
+          >
             {/* Network Settings */}
             <Card_set text="Network Settings" value="" />
 
@@ -71,13 +69,13 @@ export default function settings() {
             <Card_set text="Volume" value="20%" />
 
             {/* Door */}
-             <Card_set text="Volume" value="20%" />
+            <Card_set text="Volume" value="20%" />
 
             {/* Loght */}
-             <Card_set text="Loght" value="" />
+            <Card_set text="Loght" value="" />
 
             {/* Large screen */}
-             <Card_set text="Large screen" value="" />
+            <Card_set text="Large screen" value="" />
 
             {/* Deilvery Settings */}
             <Card_set text="Deilvery Settings" value="" />

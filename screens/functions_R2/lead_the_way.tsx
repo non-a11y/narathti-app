@@ -1,13 +1,11 @@
-import { View, Text, StatusBar, TouchableOpacity } from "react-native";
+import { View, Text, StatusBar } from "react-native";
 import React from "react";
-import { globalStyles } from "../../../styles/mystyles";
+import { globalStyles } from "../../styles/mystyles";
+import Header_sub_functions from "../../components/header_sub_functions";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-// import { useNavigation } from "@react-navigation/native";
-import Card_LTW from "../../../components/card_list";
-import Header_sub_functions from "../../../components/header_sub_functions";
+import CardLTW from "../../components/card_list";
 
-export default function Lead_the_way() {
-  // const navigation = useNavigation();
+export default function lead_the_way() {
   const insets = useSafeAreaInsets();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
@@ -18,7 +16,7 @@ export default function Lead_the_way() {
       />
 
       {/* Blue Gradient Header */}
-      <Header_sub_functions title="I can bring you to these places." />
+      <Header_sub_functions title="I Guess you want to go" />
 
       {/* White Settings Card */}
       <View
@@ -85,8 +83,8 @@ export default function Lead_the_way() {
               //backgroundColor: "#ac0000ff",
             }}
           >
-            <Card_LTW text="Lobby001" />
-            <Card_LTW text="metting room" />
+            <CardLTW text="Lobby001" />
+            <CardLTW text="metting room" />
           </View>
         </View>
       </View>

@@ -22,19 +22,23 @@ import SOSR2 from "./screens/main_R2/sos";
 // function_T1 — หน้า Function ต่างๆ ที่เปิดทับ Tab Bar
 import Reception from "./screens/function_T1/reception";
 import Music from "./screens/function_T1/music";
-import MultiPointDelivery from "./screens/function_T1/multi_point_delivery";
-import Lead_the_way from "./screens/function_T1/Lead_the_way/Lead_the_way";
+import MultiPointDelivery from "./screens/function_T1/multi_point_delivery/main_multi_point_delivery";
+import Lead_the_way from "./screens/function_T1/Lead_the_way";
 import Cruise from "./screens/function_T1/cruise/cruise";
 
+// sub function_T1
+import standby_point from "./screens/function_T1/multi_point_delivery/standby_point/standby_point";
+import fetch_reminder from "./screens/function_T1/multi_point_delivery/fetch_reminder";
+
 //  function_R2 — หน้า Function ต่างๆ ที่เปิดทับ Tab Bar
-import Deliver from "./screens/functions_R2/deliver/deliver_good";
+import Deliver from "./screens/functions_R2/deliver_good";
 import Cruise_r2 from "./screens/functions_R2/cruise_show";
-import Reception_r2 from "./screens/functions_R2/reception/reception";
-import Lead_the_way_r2 from "./screens/functions_R2/lead_the_way/lead_the_way";
+import Reception_r2 from "./screens/functions_R2/reception";
+import Lead_the_way_r2 from "./screens/functions_R2/lead_the_way";
 import Walkthrough_r2 from "./screens/functions_R2/walkthrough";
 import Take_a_picture_r2 from "./screens/functions_R2/take_a_picture";
 import Upload_video_r2 from "./screens/functions_R2/upload_video";
-import Settings_r2 from "./screens/functions_R2/settings/settings";
+import Settings_r2 from "./screens/functions_R2/settings";
 
 // TabBar — Custom Tab Bar ที่ใช้ร่วมกันทั้ง T1 และ R2
 import CustomTabBar from "./components/custotabbar";
@@ -105,6 +109,10 @@ export default function App() {
           <Stack.Screen name="Reception" component={Reception} />
           <Stack.Screen name="Lead_the_way" component={Lead_the_way} />
           <Stack.Screen name="Cruise" component={Cruise} />
+
+          {/* sub function_T1 */}
+          <Stack.Screen name="standby_point" component={standby_point} />
+          <Stack.Screen name="fetch_reminder" component={fetch_reminder} />
 
           {/* Functions - R2 */}
           <Stack.Screen name="Deliver" component={Deliver} />

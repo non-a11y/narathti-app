@@ -31,7 +31,7 @@ const data = [
   },
   {
     id: "3",
-    robot: "R3",
+    robot: "R2",
     name: "task_3",
     jobId: "HT0503",
     battery: 100,
