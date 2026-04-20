@@ -1,10 +1,12 @@
-import { View, StatusBar, Text } from "react-native";
+import { View, StatusBar, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { globalStyles } from "../../styles/mystyles";
-import Header_sub_functions from "../../components/header_sub_functions";
+import { globalStyles } from "../../../styles/mystyles";
+import Header_sub_functions from "../../../components/header_sub_functions";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 export default function cruise_show() {
+  const navigation = useNavigation<any>();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -44,7 +46,8 @@ export default function cruise_show() {
             },
           ]}
         >
-          <View
+          <TouchableOpacity
+            onPress={() => navigation.navigate("cruise_setting")}
             style={[
               globalStyles.ios,
               globalStyles.android,
@@ -66,9 +69,10 @@ export default function cruise_show() {
             <Text style={[globalStyles.defaulttextstyles, { fontSize: 12 }]}>
               Create Route
             </Text>
-          </View>
+          </TouchableOpacity>
 
-          <View
+          <TouchableOpacity
+            onPress={() => navigation.navigate("select_route")}
             style={[
               globalStyles.ios,
               globalStyles.android,
@@ -88,7 +92,7 @@ export default function cruise_show() {
             <Text style={[globalStyles.defaulttextstyles, { fontSize: 12 }]}>
               Select Route
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

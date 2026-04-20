@@ -112,7 +112,7 @@ export const button_function = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#fcfffcff",
+    backgroundColor: "#ffffffff",
     paddingHorizontal: 20,
     borderRadius: 30,
     // เส้นขอบ

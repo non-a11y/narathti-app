@@ -19,8 +19,8 @@ export default function card_list({ text, onPress }: card_listProps) {
           globalStyles.android,
           {
             paddingHorizontal: 10,
-            paddingVertical: 10, 
-            borderRadius: 10, 
+            paddingVertical: 10,
+            borderRadius: 10,
             marginTop: 10,
             shadowColor: "#4AB0FF",
             backgroundColor: "#ffffffff",
@@ -28,7 +28,7 @@ export default function card_list({ text, onPress }: card_listProps) {
         ]}
       >
         <Text
-          style={{ 
+          style={{
             fontSize: 16,
             fontWeight: "500",
             color: "#FFFFFF",

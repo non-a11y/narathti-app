@@ -29,6 +29,8 @@ export default function card_main({
       navigation.navigate("TabT1" as never);
     } else if (robot === "R2") {
       navigation.navigate("TabR2" as never);
+    } else if (robot === "S1") {
+      navigation.navigate("TabS1" as never);
     }
   };
 

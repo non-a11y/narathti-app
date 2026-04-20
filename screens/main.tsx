@@ -31,12 +31,12 @@ const data = [
   },
   {
     id: "3",
-    robot: "R2",
+    robot: "S1",
     name: "task_3",
-    jobId: "HT0503",
+    jobId: "SJ0503",
     battery: 100,
     status: "offline" as const,
-    image: require("../assets/icon/R2-008.png"),
+    image: require("../assets/icon/S1/robot_s1.png"),
   },
   
 ];

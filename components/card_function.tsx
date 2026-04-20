@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, Image,  } from "react-native";
+import { TouchableOpacity, Text, Image } from "react-native";
 import React from "react";
 import { StyleSheet } from "react-native";
 
@@ -7,7 +7,6 @@ type Props = {
   text: string;
   onPress?: () => void; // เพิ่ม prop สำหรับรับ function เมื่อกด (optional)
 };
-
 
 export default function card_function({ image, text, onPress }: Props) {
   return (

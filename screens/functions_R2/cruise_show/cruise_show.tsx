@@ -1,19 +1,14 @@
-import {
-  View,
-  StatusBar,
-  TouchableOpacity,
-  Text,
-  TextInput,
-} from "react-native";
+import { View, Text, StatusBar, TouchableOpacity, TextInput } from "react-native";
 import React from "react";
-import { globalStyles } from "../../styles/mystyles";
+import { globalStyles } from "../../../styles/mystyles";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import CardDeilver from "../../components/card_list";
+import CardDeilver from "../../../components/card_list";
 
-export default function deliver_good() { 
+
+export default function cruise_shows() {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   return (
@@ -66,7 +61,7 @@ export default function deliver_good() {
             marginRight: 36,
           }}
         >
-          Deliver Good
+          Cruise show
         </Text>
       </LinearGradient>
 
@@ -154,7 +149,7 @@ export default function deliver_good() {
               marginHorizontal: 10,
             }}
           >
-            <CardDeilver text="Lobby001" />
+            <CardDeilver text="Lobby001"  />
             <CardDeilver text="Lobby002" />
           </View>
         </View>

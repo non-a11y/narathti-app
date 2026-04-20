@@ -1,15 +1,14 @@
 import { View, Text, StatusBar, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
-import { globalStyles } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_choice from "../../../components/card_choice";
-import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
+import { globalStyles, button_function } from "../../../styles/mystyles";
+import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
+import { useState } from "react";
+import Card_list_r2 from "../../../components/card_list_r2";
 
-export default function fetch_reminder() {
-  const insets = useSafeAreaInsets();
-  const navigation = useNavigation<any>();
+export default function leading_list() {
   const route = useRoute<any>();
 
   // นำค่า currentSelection ที่ส่งถูกส่งต่อมาจากหน้า MultiPointDelivery มาใช้เพื่อเช็คว่าประโยคล่าสุดคือข้อไหน
@@ -28,7 +27,8 @@ export default function fetch_reminder() {
     }
     navigation.goBack();
   };
-
+  const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -37,8 +37,50 @@ export default function fetch_reminder() {
         translucent={true} // ← สำคัญ! ให้ status bar โปร่งใส
       />
       {/* Blue Gradient Header */}
-      <Header_sub_functions title="Fetch reminder" />
-      {/* White Settings Card */}
+      <LinearGradient
+        colors={["#5B9BFF", "#3D7FFF"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          paddingHorizontal: 16,
+          paddingBottom: 40,
+          paddingTop: insets.top + 12,
+        }}
+      >
+        {/* Back Button */}
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }} // ขยายพื้นที่กดออกไปรอบๆ
+          delayPressIn={0} // ลด delay ก่อนรับ input เป็น 0
+          activeOpacity={0.7}
+        >
+          <Ionicons
+            name="chevron-back-circle-outline"
+            size={36}
+            color="white"
+          />
+        </TouchableOpacity>
+
+        {/* Title */}
+        <Text
+          style={{
+            // flex: 1 เต็มพื้นที่
+            flex: 1,
+            textAlign: "center",
+            color: "#FFFFFF",
+            fontSize: 18,
+            fontWeight: "600",
+            marginRight: 36,
+          }}
+        >
+          Please Select Leading route
+        </Text>
+      </LinearGradient>
+
       <View
         style={{
           flex: 1,
@@ -57,37 +99,31 @@ export default function fetch_reminder() {
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
-              paddingBottom: 20,
+              paddingBottom: 10,
               paddingTop: 20,
+              paddingHorizontal: 10,
             },
           ]}
         >
-          <Card_choice
-            text="Your food has arrived. Please pick up in time"
-            selected={
-              selectedItem === "Your food has arrived. Please pick up in time"
-            }
-            onPress={() =>
-              handleSelect("Your food has arrived. Please pick up in time")
-            }
+          <Card_list_r2
+            text="No Walkthrough"
+            selected={selectedItem === "No Walkthrough"}
+            onPress={() => handleSelect("No Walkthrough")}
           />
-          <Card_choice
-            text="Dear #location# guest, your..."
-            selected={selectedItem === "Dear #location# guest, your..."}
-            onPress={() => handleSelect("Dear #location# guest, your...")}
-          />
-          <Card_choice
-            text="Go to work automatically"
-            selected={selectedItem === "Go to work automatically"}
-            onPress={() => handleSelect("Go to work automatically")}
+
+          <Card_list_r2
+            text="Test"
+            selected={selectedItem === "Test"}
+            onPress={() => handleSelect("Test")}
           />
         </View>
       </View>
-      {/* Set off Button */} 
+
+      {/* Set off Button */}
       <View
         style={{
           paddingHorizontal: 16,
-          paddingTop: 16,
+          paddingTop: 10,
           backgroundColor: "#EEF2FF",
           paddingBottom: insets.bottom + 20,
         }}
@@ -110,7 +146,7 @@ export default function fetch_reminder() {
             <Text
               style={{
                 color: "#FFFFFF",
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: "600",
                 letterSpacing: 0.5,
               }}
@@ -121,5 +157,5 @@ export default function fetch_reminder() {
         </TouchableOpacity>
       </View>
     </View>
-  );
+  )
 }

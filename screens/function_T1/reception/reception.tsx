@@ -1,13 +1,14 @@
 import { View, Text, TouchableOpacity, Switch, StatusBar } from "react-native";
 import React from "react";
-import { globalStyles, button_function } from "../../styles/mystyles";
+import { globalStyles, button_function } from "../../../styles/mystyles";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
-import Header_sub_functions from "../../components/header_sub_functions";
+import Header_sub_functions from "../../../components/header_sub_functions";
+import Card_button_function from "../../../components/card_button_function";
 
 function formatTime(time: number) {
   if (time > 60) {
@@ -17,11 +18,48 @@ function formatTime(time: number) {
   }
 }
 
+// สร้างตัวแปร Global แบบเรียบง่ายไว้นอก Component
+// เพื่อให้ค่าที่เลือกยังคงอยู่แม้ว่าผู้ใช้จะกด Back ออกจากหน้านี้ไปแล้วกลับเข้ามาใหม่
+let globalVoiceModeValue = "Chat while working";
+let globalGreetingWordsValue = "None";
+let globalLeadTheListValue = "All locations";
+
 export default function reception() {
-  const navigation = useNavigation(); 
+  const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
   const [autoWork, setAutoWork] = useState(false);
   const [time, setTime] = useState(15);
+
+  // สร้าง State สำหรับเก็บข้อความ Fetch reminder โดยดึงค่าเริ่มต้นมาจากตัวแปร Global
+  const [voiceModeValue, setVoiceModeValue] = useState(globalVoiceModeValue);
+
+  const [greetingWordsValue, setGreetingWordsValue] = useState(
+    globalGreetingWordsValue,
+  );
+
+  const [leadTheListValue, setLeadTheListValue] = useState(
+    globalLeadTheListValue,
+  );
+
+  // const [leadTheListValue, setLeadTheListValue] = useState(
+  //   globalLeadTheListValue,
+  // );
+
+  // ฟังก์ชันสำหรับอัปเดตทั้ง State แจ้งให้หน้าจอเปลี่ยน และอัปเดต Global เพื่อความจำ
+  const updatevoiceMode = (value: string) => {
+    globalVoiceModeValue = value; // จำไว้ใช้ครั้งหน้า
+    setVoiceModeValue(value); // อัปเดตหน้าจอทันที
+  };
+
+  const updateGreetingWords = (value: string) => {
+    globalGreetingWordsValue = value; // จำไว้ใช้ครั้งหน้า
+    setGreetingWordsValue(value); // อัปเดตหน้าจอทันที
+  };
+
+  const updateLeadTheList = (value: string) => {
+    globalLeadTheListValue = value; // จำไว้ใช้ครั้งหน้า
+    setLeadTheListValue(value); // อัปเดตหน้าจอทันที
+  };
 
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
@@ -55,13 +93,19 @@ export default function reception() {
               alignItems: "center",
               shadowColor: "#5e76ffff",
               marginBottom: 20,
+              paddingBottom: 20,
+              paddingTop: 10,
             },
           ]}
         >
           <View style={{ height: 20 }} />
-          {/* Row: Timing Settings */}
+          {/* Timing Settings */}
           <View
-            style={[globalStyles.ios, globalStyles.android, button_function.list]}
+            style={[
+              globalStyles.ios,
+              globalStyles.android,
+              button_function.list,
+            ]}
           >
             <Text style={button_function.rowLabel}>Timing Settings</Text>
 
@@ -123,49 +167,50 @@ export default function reception() {
             </View>
           </View>
 
-          {/* Row: Reception location */}
-          <TouchableOpacity
-            style={[globalStyles.ios, globalStyles.android, button_function.list]}
-            // ความจางของปุ่มเมื่อกด
-            activeOpacity={0.7}
-          >
-            {/* Text left */}
-            <Text style={button_function.rowLabel}>Reception location</Text>
-            {/* Text right */}
-            <View style={button_function.rowRight}>
-              <Text style={button_function.rowValue} numberOfLines={1}>
-                Reception
-              </Text>
-              <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
-            </View>
-          </TouchableOpacity>
+          {/* Reception location */}
+          <Card_button_function
+            text="Reception location"
+            value="Reception"
+            onPress={() => navigation.navigate("reception_location" as never)}
+          />
 
-          {/* Row: Voice mode */}
-          <TouchableOpacity
-            style={[globalStyles.ios, globalStyles.android, button_function.list]}
-            // ความจางของปุ่มเมื่อกด
-            activeOpacity={0.7}
-          >
-            <Text style={button_function.rowLabel}>Voice mode</Text>
-            <View style={button_function.rowRight}>
-              <Text style={button_function.rowValue}>Polite chatting</Text>
-              <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
-            </View>
-          </TouchableOpacity>
+          {/* Voice mode */}
+          <Card_button_function
+            text="Voice mode"
+            value={
+              voiceModeValue.length > 20
+                ? voiceModeValue.substring(0, 20) + "..."
+                : voiceModeValue
+            }
+            onPress={() =>
+              navigation.navigate(
+                "voice_mode" as never,
+                {
+                  currentSelection: voiceModeValue,
+                  onSelect: updatevoiceMode,
+                } as never,
+              )
+            }
+          />
 
-          {/* Row: Greeting words */}
-          <TouchableOpacity
-            style={[globalStyles.ios, globalStyles.android, button_function.list]}
-            // ความจางของปุ่มเมื่อกด
-            activeOpacity={0.7}
-          >
-            <Text style={button_function.rowLabel}>Greeting words</Text>
-            <View style={button_function.rowRight}>
-              <Text style={button_function.rowValue}>Yes</Text>
-              <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
-            </View>
-          </TouchableOpacity>
-          <View style={{ height: 10 }} />
+          {/* Greeting words */}
+          <Card_button_function
+            text="Greeting words"
+            value={
+              greetingWordsValue.length > 20
+                ? greetingWordsValue.substring(0, 20) + "..."
+                : greetingWordsValue
+            }
+            onPress={() =>
+              navigation.navigate(
+                "greeting_words" as never,
+                {
+                  currentSelection: greetingWordsValue,
+                  onSelect: updateGreetingWords,
+                } as never,
+              )
+            }
+          />
         </View>
 
         {/* card ที่ 2 */}
@@ -186,7 +231,11 @@ export default function reception() {
           <View style={{ height: 20 }} />
           {/* Row: Lead the way */}
           <View
-            style={[globalStyles.ios, globalStyles.android, button_function.list]}
+            style={[
+              globalStyles.ios,
+              globalStyles.android,
+              button_function.list,
+            ]}
           >
             <Text style={button_function.rowLabel}>Lead the way</Text>
             <Switch
@@ -198,23 +247,24 @@ export default function reception() {
             />
           </View>
 
-          {/* Row: lead the list */}
-          <TouchableOpacity
-            style={[globalStyles.ios, globalStyles.android, button_function.list]}
-            // ความจางของปุ่มเมื่อกด
-            activeOpacity={0.7}
-          >
-            {/* Text left */}
-            <Text style={button_function.rowLabel}>lead the list</Text>
-            {/* Text right */}
-            <View style={button_function.rowRight}>
-              <Text style={button_function.rowValue} numberOfLines={1}>
-                All locations
-              </Text>
-              <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
-            </View>
-          </TouchableOpacity>
-          <View style={{ height: 10 }} />
+          {/* lead the list */}
+          <Card_button_function
+            text="Lead the list"
+            value={
+              leadTheListValue.length > 20
+                ? leadTheListValue.substring(0, 20) + "..."
+                : leadTheListValue
+            }
+            onPress={() =>
+              navigation.navigate(
+                "lead_the_list" as never,
+                {
+                  currentSelection: leadTheListValue,
+                  onSelect: updateLeadTheList,
+                } as never,
+              )
+            }
+          />
         </View>
       </View>
 

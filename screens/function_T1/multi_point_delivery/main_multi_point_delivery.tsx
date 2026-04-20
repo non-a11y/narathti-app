@@ -11,10 +11,11 @@ import Card_button_function from "../../../components/card_button_function";
 // สร้างตัวแปร Global แบบเรียบง่ายไว้นอก Component
 // เพื่อให้ค่าที่เลือกยังคงอยู่แม้ว่าผู้ใช้จะกด Back ออกจากหน้านี้ไปแล้วกลับเข้ามาใหม่
 let globalFetchReminderValue = "Your food has arrived. Please pick up in time";
+let globalnoticeSettingValue = "Only once";
+let globalviceModeValue = "Polite Chatting";
 
 export default function MultiPointDelivery() {
   const navigation = useNavigation<any>();
-  const route = useRoute<any>();
   const insets = useSafeAreaInsets();
   const [autoWork, setAutoWork] = useState(false);
 
@@ -23,10 +24,26 @@ export default function MultiPointDelivery() {
     globalFetchReminderValue,
   );
 
+  const [noticeSettingValue, setNoticeSettingValue] = useState(
+    globalnoticeSettingValue,
+  );
+
+  const [viceModeValue, setViceModeValue] = useState(globalviceModeValue);
+
   // ฟังก์ชันสำหรับอัปเดตทั้ง State แจ้งให้หน้าจอเปลี่ยน และอัปเดต Global เพื่อความจำ
   const updateFetchReminder = (value: string) => {
     globalFetchReminderValue = value; // จำไว้ใช้ครั้งหน้า
     setFetchReminderValue(value); // อัปเดตหน้าจอทันที
+  };
+
+  const updatenoticeSetting = (value: string) => {
+    globalnoticeSettingValue = value; // จำไว้ใช้ครั้งหน้า
+    setNoticeSettingValue(value); // อัปเดตหน้าจอทันที
+  };
+
+  const updateviceMode = (value: string) => {
+    globalviceModeValue = value; // จำไว้ใช้ครั้งหน้า
+    setViceModeValue(value); // อัปเดตหน้าจอทันที
   };
 
   return (
@@ -134,7 +151,7 @@ export default function MultiPointDelivery() {
             />
           </View>
 
-          {/* Row: Fetch reminder */}
+          {/* Fetch reminder */}
           <Card_button_function
             text="Fetch reminder"
             // แสดงเฉพาะในหน้า UI หากประโยคยาวเกินไปให้ตัดสายอักขระโดยใช้ substring และใส่ ... แทนที่ข้อความที่ยาวล้นเกินไป
@@ -156,10 +173,42 @@ export default function MultiPointDelivery() {
           />
 
           {/* Row: Notice setting */}
-          <Card_button_function text="Notice setting" value="Only once" />
+          <Card_button_function
+            text="Notice setting"
+            value={
+              noticeSettingValue.length > 20
+                ? noticeSettingValue.substring(0, 20) + "..."
+                : noticeSettingValue
+            }
+            onPress={() =>
+              navigation.navigate(
+                "notice_setting" as never, 
+                {
+                  currentSelection: noticeSettingValue,
+                  onSelect: updatenoticeSetting,
+                } as never,
+              )
+            }
+          />
 
-          {/* Row: Vice mode */}
-          <Card_button_function text="Vice mode" value="NO chatting" />
+          {/* Vice mode */}
+          <Card_button_function
+            text="Vice mode"
+            value={
+              viceModeValue.length > 20
+                ? viceModeValue.substring(0, 20) + "..."
+                : viceModeValue
+            }
+            onPress={() =>
+              navigation.navigate(
+                "vice_mode" as never,
+                {
+                  currentSelection: viceModeValue,
+                  onSelect: updateviceMode,
+                } as never,
+              )
+            }
+          />
         </View>
       </View>
 

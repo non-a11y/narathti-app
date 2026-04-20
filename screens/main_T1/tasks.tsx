@@ -4,8 +4,29 @@ import Header from "../../components/header";
 import { globalStyles, main } from "../../styles/mystyles";
 import { StyleSheet } from "react-native";
 import Card_function from "../../components/card_function";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-const data = [
+export type RootStackParamList = {
+  Home: undefined;
+  Tasks: undefined;
+  Pickup: undefined;
+  Management: undefined;
+  SOS: undefined;
+  MultiPointDelivery: undefined;
+  Cruise: undefined;
+  Music: undefined;
+  Lead_the_way: undefined;
+  Reception: undefined;
+};
+
+export type TaskItem = {
+  id: string;
+  text: string;
+  image: any;
+  screen: keyof RootStackParamList;
+};
+
+const data: TaskItem[] = [
   {
     id: "1",
     text : "Multi-Point\nDelivery",
@@ -21,7 +42,7 @@ const data = [
   {
     id: "3",
     text : "Music",
-    image : require("../../assets/icon/music.png"),
+    image : require("../../assets/icon/Music.png"),
     screen: "Music"
   },
   {
@@ -45,7 +66,7 @@ export default function tasks() {
   const insets = useSafeAreaInsets();
 
   // 2. เรียกใช้ useNavigation เพื่อได้ object navigation
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <View style={globalStyles.container}>
@@ -65,6 +86,8 @@ export default function tasks() {
             marginBottom: 100 + Math.max(insets.bottom, 0),
             borderRadius: 30,
             alignItems: "center",
+            justifyContent: "center",
+            
         
           },
         ]}
@@ -89,7 +112,7 @@ export default function tasks() {
             <Card_function
               image={item.image}
               text={item.text}
-              onPress={() => navigation.navigate(item.screen as never)}
+              onPress={() => navigation.navigate(item.screen)}
             />
           )}
         />

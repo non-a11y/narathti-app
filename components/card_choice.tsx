@@ -8,7 +8,7 @@ interface card_choiceProps {
   onPress?: () => void;
 }
 
-export default function card_choice({
+export default function card_choice({ 
   text,
   selected,
   onPress,
@@ -18,17 +18,33 @@ export default function card_choice({
       activeOpacity={0.7}
       onPress={onPress}
       style={[
-        //globalStyles.ios,
-        //globalStyles.android,
         button_function.list,
       ]}
     >
       {/* Text left */}
-      {text.length > 30 ? (
-        <Text style={button_function.rowLabel}>{text.substring(0, 30)}...</Text>
-      ) : (
-        <Text style={button_function.rowLabel}>{text}</Text>
-      )}
+      {text.length > 45 ? (
+                <Text
+                  style={{
+                    marginTop: 4,
+                    fontSize: 14,
+                    color: "#555555",
+                    fontWeight: "400",
+                  }}
+                >
+                  {text.match(/.{1,45}/g)?.join("\n")}
+                </Text>
+              ) : (
+                <Text
+                  style={{
+                    marginTop: 4,
+                    fontSize: 14,
+                    color: "#555555",
+                    fontWeight: "400",
+                  }}
+                >
+                  {text}
+                </Text>
+              )}
 
       {/* วงกลมตัวเลือก right  */}
       <View
