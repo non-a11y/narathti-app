@@ -42,7 +42,7 @@ const data: TaskItem[] = [
   {
     id: "3",
     text : "Music",
-    image : require("../../assets/icon/Music.png"),
+    image : require("../../assets/icon/music.png"),
     screen: "Music"
   },
   {

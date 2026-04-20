@@ -1,10 +1,10 @@
 import { View, Text, StatusBar } from "react-native";
 import React from "react";
-import { globalStyles } from "../../styles/mystyles";
-import Header_sub_functions from "../../components/header_sub_functions";
-import UploadVideoCard from "../../components/card_button_function";
+import { globalStyles } from "../../../styles/mystyles";
+import Header_sub_functions from "../../../components/header_sub_functions";
+import CardVoiceList from "../../../components/card_time";
 
-export default function upload_video() {
+export default function voice_list() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -12,8 +12,9 @@ export default function upload_video() {
         backgroundColor="transparent"
         translucent={true} // ← สำคัญ! ให้ status bar โปร่งใส
       />
+
       {/* Blue Gradient Header */}
-      <Header_sub_functions title="Upload Video" />
+      <Header_sub_functions title="Voice List" />
 
       {/* White Settings Card */}
       <View
@@ -23,36 +24,31 @@ export default function upload_video() {
           paddingHorizontal: 16,
         }}
       >
-        {/* card ที่ 1 */}
         <View
           style={[
             globalStyles.ios,
             globalStyles.android,
             {
+    
+              minHeight: 200,
               backgroundColor: "#FFFFFF",
               borderRadius: 20,
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
               marginBottom: 20,
-              paddingVertical:20,
-              rowGap:10,
-             
+              paddingHorizontal: 10,
+              paddingVertical: 20,
+              rowGap : 10
             },
           ]}
         >
-          <UploadVideoCard
-            text="Playlist Management"
-            value=""
-          />
-          <UploadVideoCard
-            text="Playlist Group"
-            value=""
-          />
-          <UploadVideoCard
-            text="Playlist Group"
-            value=""
-          />
+            {/*  */}
+          <CardVoiceList text="None" />
+          <CardVoiceList text="Welcome" />
+          <CardVoiceList text="I'm Joy, a delivery robot. You can say to me, Come and play with me, Hi Joy!" />
+          <CardVoiceList text="Joy will now walk you through this journey. Followme, please!" />
+          <CardVoiceList text="Welcome to Novotel Phuket City Phokeethra" />
         </View>
       </View>
     </View>

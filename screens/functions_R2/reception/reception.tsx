@@ -31,9 +31,9 @@ export type RootStackParamList = {
   leading_list:
     | { currentSelection?: string; onSelect?: (value: string) => void }
     | undefined;
-  reception_time:
-    | { currentSelection?: string; onSelect?: (value: string) => void }
-    | undefined;
+  reception_time: undefined;
+  reception_location_r2: undefined;
+  voice_list: undefined;
 };
 
 export default function reception() {
@@ -52,7 +52,9 @@ export default function reception() {
     setwalkthrough_routes(value); // อัปเดตหน้าจอทันที
   };
 
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   // State สำหรับจัดการค่า Voice Mode ของหุ่นยนต์
   const [voiceMode, setVoiceMode] = useState("Polite Chatting");
 
@@ -364,7 +366,11 @@ export default function reception() {
             />
 
             {/*Reception location */}
-            <Card_re text="Reception location" value="OneFloor reception" />
+            <Card_re
+              text="Reception location"
+              value="OneFloor reception"
+              onPress={() => navigation.navigate("reception_location_r2")}
+            />
 
             {/* Voice Mode */}
             {/* แก้ไขให้กดแล้วเปิด Modal Dialog ขึ้นมาให้เลือกแทนที่จะเปลี่ยนไปหน้าใหม่ */}
@@ -376,6 +382,7 @@ export default function reception() {
 
             {/* Reception */}
             <TouchableOpacity
+              onPress={() => navigation.navigate("voice_list")}
               style={[
                 globalStyles.ios,
                 globalStyles.android,

@@ -108,7 +108,7 @@ export const button_function = StyleSheet.create({
   list: {
     width: "95%",
     height: 60,
-    marginBottom: 10,
+    //marginBottom: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

@@ -34,7 +34,7 @@ import Lead_the_way_r2 from "./screens/functions_R2/lead_the_way";
 import Walkthrough_r2 from "./screens/functions_R2/walkthrough";
 import Take_a_picture_r2 from "./screens/functions_R2/take_a_picture";
 import Upload_video_r2 from "./screens/functions_R2/upload_video";
-import Settings_r2 from "./screens/functions_R2/settings";
+import Settings_r2 from "./screens/functions_R2/settings/settings_main";
 
 // S1 — หน้าหลักของหุ่นยนต์ S1
 import HomeS1 from "./screens/main_S1/home";
@@ -62,6 +62,8 @@ import cruise_setting from "./screens/functions_R2/cruise_show/cruise_setting";
 import walkthrough_routes from "./screens/functions_R2/reception/walkthrough_routes";
 import leading_list from "./screens/functions_R2/reception/leading_list";
 import reception_time from "./screens/functions_R2/reception/reception_time";
+import reception_location_r2 from "./screens/functions_R2/reception/reception_location";
+import voice_list from "./screens/functions_R2/reception/voice_list";
 
 // sub function_S1
 import s1_fixed_point_reception from "./screens/function_S1/fixed_point_reception";
@@ -123,6 +125,8 @@ export type RootStackParamList = {
   walkthrough_routes: undefined;
   leading_list: undefined;
   reception_time: undefined;
+  reception_location_r2: undefined;
+  voice_list: undefined;
 
   // function_S1
 
@@ -270,6 +274,11 @@ export default function App() {
           />
           <Stack.Screen name="leading_list" component={leading_list} />
           <Stack.Screen name="reception_time" component={reception_time} />
+          <Stack.Screen
+            name="reception_location_r2"
+            component={reception_location_r2}
+          />
+          <Stack.Screen name="voice_list" component={voice_list} />
 
           {/* sub function_S1 */}
           <Stack.Screen
