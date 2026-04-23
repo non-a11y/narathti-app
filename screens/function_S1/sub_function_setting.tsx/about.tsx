@@ -3,7 +3,7 @@ import React from 'react'
 import { globalStyles } from '../../../styles/mystyles'
 import Header_sub_functions from '../../../components/header_sub_functions'
 
-export default function volume() {
+export default function about() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
           <StatusBar
@@ -13,7 +13,7 @@ export default function volume() {
           />
     
           {/* Blue Gradient Header */}
-          <Header_sub_functions title="Volume" />
+          <Header_sub_functions title="About" />
     
           {/* White Settings Card */}
           <View
@@ -28,15 +28,15 @@ export default function volume() {
                 globalStyles.ios,
                 globalStyles.android,
                 {
-                  minHeight: 200,
-                  backgroundColor: "#FFFFFF",
-                  borderRadius: 20,
-                  overflow: "hidden",
-                  paddingHorizontal: 16,
-                  paddingVertical: 16,
-                  //alignItems: "center",
-                  shadowColor: "#5e76ffff",
-                  //marginBottom: 20,
+                   minHeight: 200,
+              backgroundColor: "#FFFFFF",
+              borderRadius: 20,
+              overflow: "hidden",
+              paddingHorizontal: 16,
+              paddingVertical: 16,
+              alignItems: "center",
+              shadowColor: "#5e76ffff",
+              rowGap: 10,
                 },
               ]}
             >

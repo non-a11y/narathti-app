@@ -7,7 +7,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import Header_sub_functions from "../../components/header_sub_functions";
 
-
 export default function music() {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
@@ -35,30 +34,32 @@ export default function music() {
             globalStyles.ios,
             globalStyles.android,
             {
-              height: "95%",
+              flex: 1,
               backgroundColor: "#FFFFFF",
               borderRadius: 20,
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
+              paddingVertical: 20,
+              paddingHorizontal: 10,
+              marginBottom: 20,
+              rowGap: 10,
             },
           ]}
         >
           {/* Row: Standby point */}
-
           <TouchableOpacity
             style={[
               globalStyles.ios,
               globalStyles.android,
               button_function.list,
-              { marginTop: 20 },
             ]}
             // ความจางของปุ่มเมื่อกด
             activeOpacity={0.7}
           >
             {/* Text left */}
             <View style={{ rowGap: 5 }}>
-              <Text style={button_function.rowLabel}>Song Title</Text>
+              <Text style={button_function.text_left}>Song Title</Text>
               <Text
                 style={{ fontSize: 12, color: "#7F7F7F", fontWeight: "500" }}
               >
@@ -66,8 +67,8 @@ export default function music() {
               </Text>
             </View>
             {/* Text right */}
-            <View style={button_function.rowRight}>
-              <Text style={button_function.rowValue}>01:18</Text>
+            <View style={button_function.box_right}>
+              <Text style={button_function.text_right}>01:18</Text>
               <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
             </View>
           </TouchableOpacity>

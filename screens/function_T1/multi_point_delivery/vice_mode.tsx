@@ -2,7 +2,7 @@ import { View, StatusBar } from "react-native";
 import React, { useState } from "react";
 import { globalStyles } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_choice_details from "../../../components/card_choice_details";
+import Card_select_details from "../../../components/card_select_details";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 export default function vice_mode() {
@@ -31,7 +31,7 @@ export default function vice_mode() {
         translucent={true} // ← สำคัญ! ให้ status bar โปร่งใส
       />
       {/* Blue Gradient Header */}
-      <Header_sub_functions title="Notice setting" />
+      <Header_sub_functions title="Vice mode" />
       {/* White Settings Card */}
       <View
         style={{
@@ -46,29 +46,30 @@ export default function vice_mode() {
             globalStyles.android,
             {
               minHeight: 100, // ✅ ขยายตามเนื้อหา
-              backgroundColor: "#FFFFFF", 
+              backgroundColor: "#FFFFFF",
               borderRadius: 20,
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
-              paddingBottom: 20,
-              paddingTop: 20,
+              paddingHorizontal: 10,
+              paddingVertical: 20,
+              rowGap: 10,
             },
           ]}
         >
-          <Card_choice_details
+          <Card_select_details
             text="Polite Chatting"
             details="The robot display the chat interface and turns politely to face the speaker"
             selected={selectedItem === "Polite Chatting"}
             onPress={() => handleSelect("Polite Chatting")}
           />
-          <Card_choice_details
+          <Card_select_details
             text="Chat while working"
             details="The robot works and chats at the same time without popping out chat interface or turning around."
             selected={selectedItem === "Chat while working"}
             onPress={() => handleSelect("Chat while working")}
           />
-          <Card_choice_details
+          <Card_select_details
             text="No chatting"
             details="Chat function disabled"
             selected={selectedItem === "No chatting"}

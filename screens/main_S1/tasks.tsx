@@ -15,6 +15,11 @@ export type RootStackParamList = {
   Management: undefined;
   SOS: undefined;
   S1_fixed_point_reception: undefined;
+  S1_security_patrol: undefined;
+  S1_mobile_reception: undefined;
+  S1_work_plan: undefined;
+  S1_settings: undefined;
+
 };
 
 export default function tasks() {
@@ -118,7 +123,9 @@ export default function tasks() {
                 Fixed - point{"\n"}reception
               </Text>
             </TouchableOpacity>
-            <View
+            {/* card 2 button mobile reception */}
+            <TouchableOpacity
+              onPress={() => navigation.navigate('S1_mobile_reception')}
               style={{
                 backgroundColor: "#A8ACFF",
                 borderRadius: 40,
@@ -141,7 +148,7 @@ export default function tasks() {
               >
                 Mobile{"\n"}reception
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -190,7 +197,9 @@ export default function tasks() {
               marginTop: 10,
             }}
           >
-            <View
+            {/* card 3 button security patrol */}
+            <TouchableOpacity
+            onPress={() => navigation.navigate('S1_security_patrol')}
               style={{
                 backgroundColor: "#A8ACFF",
                 borderRadius: 40,
@@ -213,7 +222,8 @@ export default function tasks() {
               >
                 Security patrol
               </Text>
-            </View>
+            </TouchableOpacity>
+            {/* card 4 button Patrol record  */}
             <View
               style={{
                 backgroundColor: "#A8ACFF",
@@ -242,7 +252,6 @@ export default function tasks() {
         </View>
 
         {/* 2 button */}
-
         <View
           style={{
             flexDirection: "row",
@@ -251,7 +260,9 @@ export default function tasks() {
             width: "100%",
           }}
         >
-          <View
+          {/* button work plan */}
+          <TouchableOpacity
+            onPress={() => navigation.navigate('S1_work_plan')}
             style={{
               backgroundColor: "#FFE4A1",
               paddingHorizontal: 20,
@@ -272,8 +283,11 @@ export default function tasks() {
             >
               Work plan
             </Text>
-          </View>
-          <View
+          </TouchableOpacity>
+
+          {/* button settings */}
+          <TouchableOpacity
+          onPress={() => navigation.navigate('S1_settings')}
             style={{
               backgroundColor: "#FFE4A1",
               paddingHorizontal: 20,
@@ -294,7 +308,7 @@ export default function tasks() {
             >
               Settings
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

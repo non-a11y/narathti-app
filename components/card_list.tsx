@@ -21,7 +21,6 @@ export default function card_list({ text, onPress }: card_listProps) {
             paddingHorizontal: 10,
             paddingVertical: 10,
             borderRadius: 10,
-            marginTop: 10,
             shadowColor: "#4AB0FF",
             backgroundColor: "#ffffffff",
           },

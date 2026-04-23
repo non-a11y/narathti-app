@@ -8,12 +8,12 @@ export type all_sub_function = {
   reception: undefined;
   meeting_room: undefined;
   office: undefined;
-
 };
 
-const data = [{ id: "1", text: "reception", screen: "reception" },
-{ id: "2", text: "meeting_room", screen: "meeting_room" },
-{ id: "3", text: "office", screen: "office" },
+const data = [
+  { id: "1", text: "reception", screen: "reception" },
+  { id: "2", text: "meeting_room", screen: "meeting_room" },
+  { id: "3", text: "office", screen: "office" },
 ];
 
 export default function lead_the_way() {
@@ -41,7 +41,6 @@ export default function lead_the_way() {
             globalStyles.ios,
             globalStyles.android,
             {
-
               minHeight: 200, // กำหนดความสูงสูงสุด
               backgroundColor: "#FFFFFF",
               borderRadius: 20,
@@ -53,23 +52,23 @@ export default function lead_the_way() {
           ]}
         >
           <FlatList
-  data={data}
-  keyExtractor={(item) => item.id}
-  numColumns={2}
-  contentContainerStyle={{
-    paddingHorizontal: 16, // ปรับให้สมดุลกับ padding ด้านนอก
-    paddingTop: 30,
-    paddingBottom: 20,
-  }}
-  columnWrapperStyle={{
-    justifyContent: "space-between", // ใช้ space-between เพื่อให้ชิดซ้ายขวาพอดี
-    marginBottom: 20,
-  }}
-  showsVerticalScrollIndicator={false}
-  renderItem={({ item }) => (
-    <Card_picture item={item} /> // <-- ส่ง item เข้าไปในคอมโพเนนต์
-  )}
-/>
+            data={data}
+            keyExtractor={(item) => item.id}
+            numColumns={2}
+            contentContainerStyle={{
+              paddingHorizontal: 16, // ปรับให้สมดุลกับ padding ด้านนอก
+              paddingTop: 30,
+              paddingBottom: 20,
+            }}
+            columnWrapperStyle={{
+              justifyContent: "space-between", // ใช้ space-between เพื่อให้ชิดซ้ายขวาพอดี
+              marginBottom: 20,
+            }}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <Card_picture item={item} />
+            )}
+          />
         </View>
       </View>
     </View>

@@ -35,24 +35,15 @@ export default function upload_video() {
               alignItems: "center",
               shadowColor: "#5e76ffff",
               marginBottom: 20,
-              paddingVertical:20,
-              rowGap:10,
-             
+              paddingVertical: 20,
+              paddingHorizontal: 10,
+              rowGap: 10,
             },
           ]}
         >
-          <UploadVideoCard
-            text="Playlist Management"
-            value=""
-          />
-          <UploadVideoCard
-            text="Playlist Group"
-            value=""
-          />
-          <UploadVideoCard
-            text="Playlist Group"
-            value=""
-          />
+          <UploadVideoCard text="Playlist Management" value="" />
+          <UploadVideoCard text="Playlist Group" value="" />
+          <UploadVideoCard text="Playlist Group" value="" />
         </View>
       </View>
     </View>

@@ -2,7 +2,7 @@ import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_choice_details from "../../../components/card_choice_details";
+import Card_select_details from "../../../components/card_select_details";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 
@@ -55,18 +55,19 @@ export default function voice_mode() {
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
-              paddingBottom: 20,
-              paddingTop: 20,
+              paddingVertical: 20,
+              paddingHorizontal: 10,
+              rowGap: 10,
             },
           ]}
         >
-          <Card_choice_details
+          <Card_select_details
             text="Chat while working"
             details="The robot works and chats at the same time without popping out chat interface or turning around."
             selected={selectedItem === "Chat while working"}
             onPress={() => handleSelect("Chat while working")}
           />
-          <Card_choice_details
+          <Card_select_details
             text="No chatting"
             details="Chat function disabled"
             selected={selectedItem === "No chatting"}

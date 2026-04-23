@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
+import { button_function } from "../styles/mystyles";
 
 interface card_timeProps {
   text: string;
@@ -7,7 +8,11 @@ interface card_timeProps {
   onPress?: () => void;
 }
 
-export default function card_time({ text, selected, onPress }: card_timeProps) {
+export default function Card_check_front({
+  text,
+  selected,
+  onPress,
+}: card_timeProps) {
   return (
     <View
       style={[
@@ -50,29 +55,14 @@ export default function card_time({ text, selected, onPress }: card_timeProps) {
           />
         )}
       </View>
+      
       {/* test ยาวเกิน 30 ตัวอักษร ขึ้นบรรทัดใหม่ */}
-      {text.length > 50 ? (
-        <Text
-          style={{
-            marginTop: 4,
-            fontSize: 12,
-            //color: "#000000ff",
-            fontWeight: "400",
-          }}
-        >
-          {text.match(/.{1,55}/g)?.join("\n")}
+      {text.length > 45 ? (
+        <Text style={{fontSize: 14, color: "#000000", fontWeight: "500"}}>
+          {text.match(/.{1,44}/g)?.join("\n")}
         </Text>
       ) : (
-        <Text
-          style={{
-            marginTop: 4,
-            fontSize: 12,
-            //color: "#000000ff",
-            fontWeight: "400",
-          }}
-        >
-          {text}
-        </Text>
+        <Text style={{fontSize: 14, color: "#000000", fontWeight: "500"}}>{text}</Text>
       )}
     </View>
   );

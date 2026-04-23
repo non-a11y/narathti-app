@@ -9,6 +9,25 @@ import { useState } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Header_sub_functions from "../../../components/header_sub_functions";
 import Card_button_function from "../../../components/card_button_function";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+export type RootStackParamList = {
+  reception: undefined;
+  reception_location: undefined;
+
+  voice_mode: {
+    currentSelection: string;
+    onSelect: (value: string) => void;
+  };
+  greeting_words: {
+    currentSelection: string;
+    onSelect: (value: string) => void;
+  };
+  lead_the_list: {
+    currentSelection: string;
+    onSelect: (value: string) => void;
+  };
+};
 
 function formatTime(time: number) {
   if (time > 60) {
@@ -25,7 +44,8 @@ let globalGreetingWordsValue = "None";
 let globalLeadTheListValue = "All locations";
 
 export default function reception() {
-  const navigation = useNavigation<any>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
   const [autoWork, setAutoWork] = useState(false);
   const [time, setTime] = useState(15);
@@ -78,6 +98,7 @@ export default function reception() {
           flex: 1,
           marginTop: -20,
           paddingHorizontal: 16,
+          rowGap: 20, // ระยะห่าง card
         }}
       >
         {/* card ที่ 1 */}
@@ -92,23 +113,18 @@ export default function reception() {
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
-              marginBottom: 20,
-              paddingBottom: 20,
-              paddingTop: 10,
+              paddingVertical: 20,
+              paddingHorizontal: 10,
+              rowGap: 10,
             },
           ]}
         >
-          <View style={{ height: 20 }} />
           {/* Timing Settings */}
-          <View
-            style={[
-              globalStyles.ios,
-              globalStyles.android,
-              button_function.list,
-            ]}
-          >
-            <Text style={button_function.rowLabel}>Timing Settings</Text>
+          <View style={[button_function.list]}>
+            {/* text left */}
+            <Text style={button_function.text_left}>Timing Settings</Text>
 
+            {/* button right */}
             <View
               style={{
                 flexDirection: "row",
@@ -171,7 +187,7 @@ export default function reception() {
           <Card_button_function
             text="Reception location"
             value="Reception"
-            onPress={() => navigation.navigate("reception_location" as never)}
+            onPress={() => navigation.navigate("reception_location")}
           />
 
           {/* Voice mode */}
@@ -183,13 +199,10 @@ export default function reception() {
                 : voiceModeValue
             }
             onPress={() =>
-              navigation.navigate(
-                "voice_mode" as never,
-                {
-                  currentSelection: voiceModeValue,
-                  onSelect: updatevoiceMode,
-                } as never,
-              )
+              navigation.navigate("voice_mode", {
+                currentSelection: voiceModeValue,
+                onSelect: updatevoiceMode,
+              })
             }
           />
 
@@ -202,13 +215,10 @@ export default function reception() {
                 : greetingWordsValue
             }
             onPress={() =>
-              navigation.navigate(
-                "greeting_words" as never,
-                {
-                  currentSelection: greetingWordsValue,
-                  onSelect: updateGreetingWords,
-                } as never,
-              )
+              navigation.navigate("greeting_words", {
+                currentSelection: greetingWordsValue,
+                onSelect: updateGreetingWords,
+              })
             }
           />
         </View>
@@ -225,19 +235,15 @@ export default function reception() {
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
+              paddingHorizontal: 10,
+              rowGap: 10,
+              paddingVertical: 20,
             },
           ]}
         >
-          <View style={{ height: 20 }} />
           {/* Row: Lead the way */}
-          <View
-            style={[
-              globalStyles.ios,
-              globalStyles.android,
-              button_function.list,
-            ]}
-          >
-            <Text style={button_function.rowLabel}>Lead the way</Text>
+          <View style={[button_function.list]}>
+            <Text style={button_function.text_left}>Lead the way</Text>
             <Switch
               value={autoWork}
               onValueChange={setAutoWork}
@@ -256,13 +262,10 @@ export default function reception() {
                 : leadTheListValue
             }
             onPress={() =>
-              navigation.navigate(
-                "lead_the_list" as never,
-                {
-                  currentSelection: leadTheListValue,
-                  onSelect: updateLeadTheList,
-                } as never,
-              )
+              navigation.navigate("lead_the_list", {
+                currentSelection: leadTheListValue,
+                onSelect: updateLeadTheList,
+              })
             }
           />
         </View>

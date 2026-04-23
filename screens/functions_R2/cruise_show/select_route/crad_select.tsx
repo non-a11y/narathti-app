@@ -12,7 +12,7 @@ export default function crad_select({ id, name }: crad_selectProps) {
   return (
     <View style={[button_function.list]}>
       {/* Right */}
-      <View style={[button_function.rowRight]}>
+      <View style={[button_function.box_right]}>
         <Text>{id}</Text>
         <Text>{name.length > 40 ? name.substring(0, 40) + "..." : name}</Text>
       </View>

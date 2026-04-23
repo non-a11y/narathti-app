@@ -1,12 +1,12 @@
 import { Text, TouchableOpacity } from "react-native";
 import React from "react";
 
-interface Card_list_s1Props {
+export type Card_list_s1Props = {
   title: string;
   subtitle: string;
-}
+} 
 
-export default function Card_list_s1({ title, subtitle }: Card_list_s1Props) {
+export default function Card_list_pro_s1({ title, subtitle }: Card_list_s1Props) {
   return (
     <TouchableOpacity
       activeOpacity={0.85}

@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import Card_re from "../../../components/card_button_function";
+import Card_button_function from "../../../components/card_button_function";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 let globalwalkthrough_routes = "No Walkthrough";
@@ -126,24 +126,26 @@ export default function reception() {
             },
           ]}
         >
+          {/* body */}
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={{ width: "100%" }} // ให้ ScrollView กางเต็มร้อยเพื่อไม่ให้หด
             contentContainerStyle={{
               flexGrow: 1, // 100% ของพื้นที่ว่าง
               alignItems: "center", // จัดให้ของข้างในอยู่ตรงกลางแนวนอน
-              paddingBottom: 20,
-              marginTop: 20,
+              paddingBottom: 40,
+              marginVertical: 20,
+              rowGap: 10,
+              paddingHorizontal: 10,
             }}
           >
             {/* Automatic Reception Group */}
             <View
               style={[
                 {
-                  width: "95%",
+                  width: "100%",
                   backgroundColor: "#ffffffff",
                   borderRadius: 40,
-                  marginBottom: 10,
                   paddingHorizontal: 20,
                   borderWidth: 2,
                   borderColor: "#78bef8ff",
@@ -159,7 +161,7 @@ export default function reception() {
                   paddingVertical: 15,
                 }}
               >
-                <Text style={button_function.rowLabel}>Automatic Cruise</Text>
+                <Text style={button_function.text_left}>Automatic Cruise</Text>
                 <Switch
                   value={autoWork}
                   onValueChange={setAutoWork}
@@ -188,7 +190,7 @@ export default function reception() {
                       paddingVertical: 15,
                     }}
                   >
-                    <Text style={button_function.rowLabel}>Repeat</Text>
+                    <Text style={button_function.text_left}>Repeat</Text>
                     <View
                       style={{
                         flexDirection: "row",
@@ -266,7 +268,7 @@ export default function reception() {
                       paddingVertical: 15,
                     }}
                   >
-                    <Text style={button_function.rowLabel}>
+                    <Text style={button_function.text_left}>
                       {repeatType === "one-time" ? "Date" : "Every Week"}
                     </Text>
 
@@ -342,7 +344,7 @@ export default function reception() {
                       paddingVertical: 15,
                     }}
                   >
-                    <Text style={button_function.rowLabel}>Starting time</Text>
+                    <Text style={button_function.text_left}>Starting time</Text>
                     <View
                       style={{
                         backgroundColor: "#8AAFFF",
@@ -359,14 +361,14 @@ export default function reception() {
             </View>
 
             {/* Reception time */}
-            <Card_re
+            <Card_button_function
               text="Reception time"
               value="30 Minute"
               onPress={() => navigation.navigate("reception_time")}
             />
 
             {/*Reception location */}
-            <Card_re
+            <Card_button_function
               text="Reception location"
               value="OneFloor reception"
               onPress={() => navigation.navigate("reception_location_r2")}
@@ -374,7 +376,7 @@ export default function reception() {
 
             {/* Voice Mode */}
             {/* แก้ไขให้กดแล้วเปิด Modal Dialog ขึ้นมาให้เลือกแทนที่จะเปลี่ยนไปหน้าใหม่ */}
-            <Card_re
+            <Card_button_function
               text="Voice Mode"
               value={voiceMode}
               onPress={() => setVoiceModeModalVisible(true)}
@@ -393,7 +395,7 @@ export default function reception() {
             >
               {/* Text left */}
               <View>
-                <Text style={button_function.rowLabel}>Reception</Text>
+                <Text style={button_function.text_left}>Reception</Text>
                 <Text
                   style={{
                     fontSize: 12,
@@ -405,21 +407,21 @@ export default function reception() {
               </View>
 
               {/* Text right */}
-              <View style={button_function.rowRight}>
-                <Text style={button_function.rowValue}>Yes</Text>
+              <View style={button_function.box_right}>
+                <Text style={button_function.text_right}>Yes</Text>
                 <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
               </View>
             </TouchableOpacity>
 
             {/* Door */}
-            <Card_re
+            <Card_button_function
               text="Door"
               value={doorMode}
               onPress={() => setDoorModalVisible(true)}
             />
 
             {/* Walkthrough routes */}
-            <Card_re
+            <Card_button_function
               text="Notice setting"
               value={
                 walkthrough_routes.length > 20
@@ -435,17 +437,9 @@ export default function reception() {
             />
 
             {/* Lead the Way */}
-            <TouchableOpacity
-              style={[
-                globalStyles.ios,
-                globalStyles.android,
-                button_function.list,
-              ]}
-              // ความจางของปุ่มเมื่อกด
-              activeOpacity={0.7}
-            >
+            <View style={[button_function.list]}>
               {/* Text left */}
-              <Text style={button_function.rowLabel}>Lead the Way</Text>
+              <Text style={button_function.text_left}>Lead the Way</Text>
               {/* Text right */}
               <Switch
                 value={leadTheWay}
@@ -454,10 +448,10 @@ export default function reception() {
                 thumbColor={leadTheWay ? "#34C759" : "#FFFFFF"}
                 ios_backgroundColor="#E0E0E0"
               />
-            </TouchableOpacity>
+            </View>
 
             {/* Leading List */}
-            <Card_re
+            <Card_button_function
               text="Leading List"
               value={
                 leading_list.length > 20
@@ -473,17 +467,9 @@ export default function reception() {
             />
 
             {/* Take a Picture */}
-            <TouchableOpacity
-              style={[
-                globalStyles.ios,
-                globalStyles.android,
-                button_function.list,
-              ]}
-              // ความจางของปุ่มเมื่อกด
-              activeOpacity={0.7}
-            >
+            <View style={[button_function.list]}>
               {/* Text left */}
-              <Text style={button_function.rowLabel}>Take a Picture</Text>
+              <Text style={button_function.text_left}>Take a Picture</Text>
               {/* Text right */}
               <Switch
                 value={takeAPicture}
@@ -492,20 +478,12 @@ export default function reception() {
                 thumbColor={takeAPicture ? "#34C759" : "#FFFFFF"}
                 ios_backgroundColor="#E0E0E0"
               />
-            </TouchableOpacity>
+            </View>
 
             {/* Enable delivery during reception */}
-            <TouchableOpacity
-              style={[
-                globalStyles.ios,
-                globalStyles.android,
-                button_function.list,
-              ]}
-              // ความจางของปุ่มเมื่อกด
-              activeOpacity={0.7}
-            >
+            <View style={[button_function.list]}>
               {/* Text left */}
-              <Text style={button_function.rowLabel}>
+              <Text style={button_function.text_left}>
                 Enable delivery during reception
               </Text>
               {/* Text right */}
@@ -516,7 +494,7 @@ export default function reception() {
                 thumbColor={enableDelivery ? "#34C759" : "#FFFFFF"}
                 ios_backgroundColor="#E0E0E0"
               />
-            </TouchableOpacity>
+            </View>
           </ScrollView>
         </View>
       </View>

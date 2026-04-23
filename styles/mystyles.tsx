@@ -89,26 +89,25 @@ export const cruiseStyles = StyleSheet.create({
 
 
 export const button_function = StyleSheet.create({
-  rowLabel: {
+  text_left: {
     fontSize: 16,
     color: "#1A1A2E",
     fontWeight: "500",
   },
-  rowValue: {
+  text_right: {
     fontSize: 14,
     color: "#555555",
     fontWeight: "400",
   },
-  rowRight: {
+  box_right: {
     flexDirection: "row",
     alignItems: "center",
     columnGap: 6,
     flexShrink: 1,
   },
   list: {
-    width: "95%",
+    width: "100%",
     height: 60,
-    //marginBottom: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

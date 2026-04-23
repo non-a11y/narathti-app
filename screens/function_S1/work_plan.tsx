@@ -1,11 +1,12 @@
-import { View, Text, StatusBar, TouchableOpacity, Image } from "react-native";
+import { View, Text, StatusBar, TouchableOpacity } from "react-native";
 import React from "react";
 import { globalStyles } from "../../styles/mystyles";
 import Header_sub_functions from "../../components/header_sub_functions";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 
-export default function take_a_picture() {
+export default function work_plan() {
   const insets = useSafeAreaInsets();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
@@ -14,67 +15,93 @@ export default function take_a_picture() {
         backgroundColor="transparent"
         translucent={true} // ← สำคัญ! ให้ status bar โปร่งใส
       />
-      {/* Blue Gradient Header */}
-      <Header_sub_functions title="Take a picture" />
 
+      {/* Blue Gradient Header */}
+      <Header_sub_functions title="Work plan" />
+      
+      {/* button settings */}
+      <View
+        style={{
+          backgroundColor: "#EAF2FF",
+          alignSelf: "flex-end",
+          paddingHorizontal: 10,
+          paddingVertical: 5,
+          borderRadius: 20,
+          borderWidth: 1,
+          borderColor: "#508EFF",
+          marginRight: 20,
+          marginBottom: 10,
+          marginTop: -40,
+          flexDirection: "row",
+          alignItems: "center",
+          columnGap: 5,
+        }}
+      >
+        <Ionicons name="settings-outline" size={16} color="#0060FE" />
+        <Text
+          style={{
+            fontSize: 14,
+            fontWeight: "500",
+            color: "#0060FE",
+          }}
+        >
+          Settings
+        </Text>
+      </View>
       {/* White Settings Card */}
       <View
         style={{
           flex: 1,
-          marginTop: -20,
+          //marginTop: -20,
           paddingHorizontal: 16,
         }}
       >
-        {/* card ที่ 1 */}
         <View
           style={[
             globalStyles.ios,
             globalStyles.android,
             {
               flex: 1,
-              minHeight: 100,
               backgroundColor: "#FFFFFF",
               borderRadius: 20,
               overflow: "hidden",
-              shadowColor: "#5e76ffff",
-              marginBottom: 20,
-              paddingHorizontal: 20,
-              alignContent: "center",
+              paddingHorizontal: 16,
+              paddingVertical: 16,
+              alignItems: "center",
               justifyContent: "center",
+              shadowColor: "#5e76ffff",
               rowGap: 20,
+              marginBottom: 20,
             },
           ]}
         >
-          <View
+          {/* ไม่มีข้อมูล */}
+          <Text
             style={{
-              flex: 0.9,
-
-              alignContent: "center",
-              justifyContent: "center",
+              fontSize: 16,
+              fontWeight: "500",
+              color: "#7f7f7f",
             }}
           >
-            <Image
-              style={{
-                alignSelf: "center",
-                // ค่า width ปรับตามค่า width
-                width: "100%",
-                height: 300,
-              }}
-              source={require("../../assets/icon/R2/take_a_picture.png")}
-            />
-          </View>
+            No tasks yet
+          </Text>
           <View
             style={{
-              flex: 0.1,
+              flexDirection: "row",
+              alignItems: "center",
+              backgroundColor: "#ECECEC",
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              borderRadius: 20,
+              columnGap: 10,
             }}
           >
-            <Text>
-              Using the camera indicates that you have read and agree to the
-              <Text style={{ color: "#8D00DF" }}> (Privacy Reminder)</Text>
-            </Text>
+            <AntDesign name="plus-circle" size={16} color="black" />
+            <Text>Create</Text>
           </View>
         </View>
       </View>
+
       {/* Set off Button */}
       <View
         style={{
@@ -107,7 +134,7 @@ export default function take_a_picture() {
                 letterSpacing: 0.5,
               }}
             >
-              Exit Camera
+              Create
             </Text>
           </LinearGradient>
         </TouchableOpacity>

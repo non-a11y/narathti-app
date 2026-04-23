@@ -2,7 +2,7 @@ import { StatusBar, View } from "react-native";
 import React, { useState } from "react";
 import { globalStyles } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_choice from "../../../components/card_choice";
+import Card_select from "../../../components/card_select";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 export default function notice_setting() {
@@ -30,8 +30,10 @@ export default function notice_setting() {
         backgroundColor="transparent"
         translucent={true} // ← สำคัญ! ให้ status bar โปร่งใส
       />
+
       {/* Blue Gradient Header */}
       <Header_sub_functions title="Notice setting" />
+
       {/* White Settings Card */}
       <View
         style={{
@@ -51,22 +53,23 @@ export default function notice_setting() {
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
-              paddingBottom: 20,
-              paddingTop: 20,
+              paddingHorizontal: 10,
+              paddingVertical: 20,
+              rowGap: 10,
             },
           ]}
         >
-          <Card_choice
+          <Card_select
             text="Intermittent broadcast"
             selected={selectedItem === "Intermittent broadcast"}
             onPress={() => handleSelect("Intermittent broadcast")}
           />
-          <Card_choice
+          <Card_select
             text="Do not broadcast"
             selected={selectedItem === "Do not broadcast"}
             onPress={() => handleSelect("Do not broadcast")}
           />
-          <Card_choice
+          <Card_select
             text="Only once"
             selected={selectedItem === "Only once"}
             onPress={() => handleSelect("Only once")}

@@ -8,7 +8,7 @@ interface card_choiceProps {
   onPress?: () => void;
 }
 
-export default function card_choice({ 
+export default function card_select({
   text,
   selected,
   onPress,
@@ -17,34 +17,30 @@ export default function card_choice({
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={onPress}
-      style={[
-        button_function.list,
-      ]}
+      style={[button_function.list]}
     >
       {/* Text left */}
-      {text.length > 45 ? (
-                <Text
-                  style={{
-                    marginTop: 4,
-                    fontSize: 14,
-                    color: "#555555",
-                    fontWeight: "400",
-                  }}
-                >
-                  {text.match(/.{1,45}/g)?.join("\n")}
-                </Text>
-              ) : (
-                <Text
-                  style={{
-                    marginTop: 4,
-                    fontSize: 14,
-                    color: "#555555",
-                    fontWeight: "400",
-                  }}
-                >
-                  {text}
-                </Text>
-              )}
+      {text.length > 40 ? (
+        <Text
+          style={{
+            fontSize: 14,
+            color: "#555555",
+            fontWeight: "400",
+          }}
+        >
+          {text.match(/.{1,40}/g)?.join("\n")}
+        </Text>
+      ) : (
+        <Text
+          style={{
+            fontSize: 14,
+            color: "#555555",
+            fontWeight: "400",
+          }}
+        >
+          {text}
+        </Text>
+      )}
 
       {/* วงกลมตัวเลือก right  */}
       <View

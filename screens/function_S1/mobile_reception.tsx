@@ -1,20 +1,22 @@
-import { View, Text, StatusBar, TouchableOpacity } from "react-native";
+import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles } from "../../styles/mystyles";
 import Header_sub_functions from "../../components/header_sub_functions";
 import { FontAwesome6, Octicons } from "@expo/vector-icons";
-import Card_list_s1 from "../../components/card_list_pro_s1";
+import Card_list_icon_s1 from "../../components/card_list_icon_s1";
 import Card_list_time from "../../components/card_list_time";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
+  Tasks: undefined;
   S1_all_sub_function: undefined;
 };
 
-export default function fixed_point_reception() {
+export default function mobile_reception() {
   const insets = useSafeAreaInsets();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -27,7 +29,7 @@ export default function fixed_point_reception() {
       />
 
       {/* Blue Gradient Header */}
-      <Header_sub_functions title="Cruise Setting" />
+      <Header_sub_functions title="Security patrol" />
 
       <View
         style={{
@@ -42,7 +44,7 @@ export default function fixed_point_reception() {
             globalStyles.ios,
             globalStyles.android,
             {
-              flex:1,
+              flex: 1,
               minHeight: 100, // ✅ ขยายตามเนื้อหา
               backgroundColor: "#FFFFFF",
               borderRadius: 30,
@@ -50,7 +52,6 @@ export default function fixed_point_reception() {
               alignItems: "center",
               shadowColor: "#5e76ffff",
               paddingBottom: 20,
-              
             },
           ]}
         >
@@ -74,13 +75,10 @@ export default function fixed_point_reception() {
                 color: "#7f7f7fff",
               }}
             >
-              Choose the reception site
+              Choose the reception route
             </Text>
           </View>
-
-          <Card_list_s1 title="reception" subtitle="MA-1" />
-          <Card_list_s1 title="meeting room" subtitle="MA-1" />
-          <Card_list_s1 title="office" subtitle="MA-1" />
+          <Card_list_icon_s1 title="self-defined route" />
         </View>
 
         {/* card 2 */}
@@ -89,7 +87,7 @@ export default function fixed_point_reception() {
             globalStyles.ios,
             globalStyles.android,
             {
-              flex:1,
+              flex: 1,
               minHeight: 100, // ✅ ขยายตามเนื้อหา
               backgroundColor: "#FFFFFF",
               borderRadius: 30,

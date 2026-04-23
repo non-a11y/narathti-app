@@ -9,7 +9,7 @@ interface card_choice_detailsProps {
   onPress?: () => void;
 }
 
-export default function card_choice_details({
+export default function card_select_details({
   text,
   details,
   selected,
@@ -20,25 +20,34 @@ export default function card_choice_details({
       activeOpacity={0.7}
       onPress={onPress}
       style={[
-        //globalStyles.ios,
-        //globalStyles.android,
         button_function.list,
-        { height: "auto", minHeight: 60, paddingVertical: 10 },
+        {
+          height: "auto",
+          minHeight: 60,
+          paddingVertical: 10,
+        },
       ]}
     >
-      <View style={{ flex: 1, paddingRight: 10 }}>
+      <View
+        style={{
+          flex: 1,
+          paddingRight: 10,
+        }}
+      >
+        {/* text */}
         {text.length > 30 ? (
-          <Text style={button_function.rowLabel}>
+          <Text style={button_function.text_left}>
             {text.substring(0, 30)}...
           </Text>
         ) : (
-          <Text style={button_function.rowLabel}>{text}</Text>
+          <Text style={button_function.text_left}>{text}</Text>
         )}
+
+
         {/* details ตัวอักษรยาวเกิน 30 ให้ตัดขึ้นบรรทัดใหม่ */}
         {details.length > 45 ? (
           <Text
             style={{
-              marginTop: 4,
               fontSize: 12,
               color: "#555555",
               fontWeight: "400",
@@ -49,7 +58,6 @@ export default function card_choice_details({
         ) : (
           <Text
             style={{
-              marginTop: 4,
               fontSize: 12,
               color: "#555555",
               fontWeight: "400",

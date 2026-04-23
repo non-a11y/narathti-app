@@ -21,12 +21,11 @@ export default function card_button_function({text, value, onPress}: card_setPro
             activeOpacity={0.7}
           >
             {/* Text left */}
-            <Text style={button_function.rowLabel}>{text}</Text>
+            <Text style={button_function.text_left}>{text}</Text>
             {/* Text right */}
-            <View style={button_function.rowRight}>
-              <Text style={button_function.rowValue}>{value}</Text>
+            <View style={button_function.box_right}>
+              <Text style={button_function.text_right}>{value}</Text>
               <Ionicons name="chevron-forward" size={18} color="#AAAAAA" />
             </View>
           </TouchableOpacity>
-  )
-}
+  )}

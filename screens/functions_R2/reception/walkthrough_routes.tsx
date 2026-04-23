@@ -100,9 +100,9 @@ export default function walkthrough_routes() {
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
-              paddingBottom: 10,
-              paddingTop: 20,
               paddingHorizontal: 10,
+              paddingVertical: 20,
+              rowGap: 20,
             },
           ]}
         >

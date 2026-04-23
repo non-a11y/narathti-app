@@ -2,7 +2,7 @@ import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles, button_function } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_time from "../../../components/card_time";
+import Card_time from "../../../components/card_check_front";
 
 export default function reception_time() {
   return (

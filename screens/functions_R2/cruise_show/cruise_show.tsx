@@ -1,4 +1,10 @@
-import { View, Text, StatusBar, TouchableOpacity, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StatusBar,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
 import { Ionicons } from "@expo/vector-icons";
@@ -6,7 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import CardDeilver from "../../../components/card_list";
-
+import Header_sub_functions from "../../../components/header_sub_functions";
 
 export default function cruise_shows() {
   const navigation = useNavigation();
@@ -33,6 +39,7 @@ export default function cruise_shows() {
         }}
       >
         {/* Back Button */}
+       
         <TouchableOpacity
           onPress={() => {
             navigation.goBack();
@@ -76,7 +83,7 @@ export default function cruise_shows() {
         <View
           style={{
             backgroundColor: "#EAF2FF",
-            alignSelf: "flex-end", 
+            alignSelf: "flex-end",
             paddingHorizontal: 10,
             paddingVertical: 5,
             borderRadius: 20,
@@ -93,7 +100,7 @@ export default function cruise_shows() {
             }}
           >
             Custom Sart
-          </Text> 
+          </Text>
         </View>
         <View
           style={[
@@ -149,7 +156,7 @@ export default function cruise_shows() {
               marginHorizontal: 10,
             }}
           >
-            <CardDeilver text="Lobby001"  />
+            <CardDeilver text="Lobby001" />
             <CardDeilver text="Lobby002" />
           </View>
         </View>

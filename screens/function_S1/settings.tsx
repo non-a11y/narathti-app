@@ -1,12 +1,27 @@
-import { View, Text, StatusBar, TouchableOpacity, Image } from "react-native";
+import { View, Text, StatusBar, TouchableOpacity } from "react-native";
 import React from "react";
 import { globalStyles } from "../../styles/mystyles";
 import Header_sub_functions from "../../components/header_sub_functions";
+import Card_button_function from "../../components/card_button_function";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-export default function take_a_picture() {
+export type RootStackParamList = {
+  S1_initiative: undefined;
+  S1_reception: undefined;
+  S1_patrol: undefined;
+  S1_network: undefined;
+  S1_sound: undefined;
+  S1_about: undefined;
+  S1_advanced: undefined;
+};
+
+export default function settings() {
   const insets = useSafeAreaInsets();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -14,8 +29,9 @@ export default function take_a_picture() {
         backgroundColor="transparent"
         translucent={true} // ← สำคัญ! ให้ status bar โปร่งใส
       />
+
       {/* Blue Gradient Header */}
-      <Header_sub_functions title="Take a picture" />
+      <Header_sub_functions title="Settings" />
 
       {/* White Settings Card */}
       <View
@@ -25,54 +41,58 @@ export default function take_a_picture() {
           paddingHorizontal: 16,
         }}
       >
-        {/* card ที่ 1 */}
         <View
           style={[
             globalStyles.ios,
             globalStyles.android,
             {
-              flex: 1,
               minHeight: 100,
               backgroundColor: "#FFFFFF",
               borderRadius: 20,
               overflow: "hidden",
+              paddingHorizontal: 16,
+              paddingVertical: 16,
+              alignItems: "center",
               shadowColor: "#5e76ffff",
-              marginBottom: 20,
-              paddingHorizontal: 20,
-              alignContent: "center",
-              justifyContent: "center",
-              rowGap: 20,
+              rowGap: 10,
             },
           ]}
         >
-          <View
-            style={{
-              flex: 0.9,
-
-              alignContent: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Image
-              style={{
-                alignSelf: "center",
-                // ค่า width ปรับตามค่า width
-                width: "100%",
-                height: 300,
-              }}
-              source={require("../../assets/icon/R2/take_a_picture.png")}
-            />
-          </View>
-          <View
-            style={{
-              flex: 0.1,
-            }}
-          >
-            <Text>
-              Using the camera indicates that you have read and agree to the
-              <Text style={{ color: "#8D00DF" }}> (Privacy Reminder)</Text>
-            </Text>
-          </View>
+          <Card_button_function
+            text="Initiative"
+            value=""
+            onPress={() => navigation.navigate("S1_initiative")}
+          />
+          <Card_button_function
+            text="Reception"
+            value=""
+            onPress={() => navigation.navigate("S1_reception")}
+          />
+          <Card_button_function
+            text="Patrol"
+            value=""
+            onPress={() => navigation.navigate("S1_patrol")}
+          />
+          <Card_button_function
+            text="Network"
+            value=""
+            onPress={() => navigation.navigate("S1_network")}
+          />
+          <Card_button_function
+            text="Sound"
+            value=""
+            onPress={() => navigation.navigate("S1_sound")}
+          />
+          <Card_button_function
+            text="About"
+            value=""
+            onPress={() => navigation.navigate("S1_about")}
+          />
+          <Card_button_function
+            text="Advanced"
+            value=""
+            onPress={() => navigation.navigate("S1_advanced")}
+          />
         </View>
       </View>
       {/* Set off Button */}
@@ -107,7 +127,7 @@ export default function take_a_picture() {
                 letterSpacing: 0.5,
               }}
             >
-              Exit Camera
+              OK
             </Text>
           </LinearGradient>
         </TouchableOpacity>

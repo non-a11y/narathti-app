@@ -2,7 +2,7 @@ import { View, Text, StatusBar, TouchableOpacity } from "react-native";
 import React from "react";
 import { globalStyles } from "../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Card_LTW from "../../components/card_list";
+import Card_list from "../../components/card_list";
 import Header_sub_functions from "../../components/header_sub_functions";
 
 export default function Lead_the_way() {
@@ -18,7 +18,7 @@ export default function Lead_the_way() {
       {/* Blue Gradient Header */}
       <Header_sub_functions title="I can bring you to these places." />
 
-      {/* White Settings Card */}
+      {/* White Settings Card */} 
       <View
         style={{
           flex: 1,
@@ -26,7 +26,7 @@ export default function Lead_the_way() {
           paddingHorizontal: 16,
         }}
       >
-        {/* card ที่ 1 */}
+        {/* body card */}
         <View
           style={[
             globalStyles.ios,
@@ -36,9 +36,11 @@ export default function Lead_the_way() {
               backgroundColor: "#FFFFFF",
               borderRadius: 20,
               overflow: "hidden",
-              //alignItems: "center",
               shadowColor: "#5e76ffff",
               marginBottom: 80 + Math.max(insets.bottom, 0),
+              paddingHorizontal: 10,
+              paddingVertical: 20,
+              rowGap: 10, // ระยะห่างระหว่างแถว
             },
           ]}
         >
@@ -46,17 +48,14 @@ export default function Lead_the_way() {
           <View
             style={{
               width: "100%",
-              height: 50,
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              paddingHorizontal: 20,
-              marginVertical: 10,
-              //backgroundColor: "#ac0000ff",
             }}
           >
-            <Text style={{ fontSize: 12, fontWeight: "500" }}>Tsn01-1</Text>
+            <Text style={{ fontSize: 16, fontWeight: "500" }}>Tsn01-1</Text>
 
+            {/* Button */}
             <View
               style={{
                 backgroundColor: "#EAF2FF",
@@ -67,7 +66,7 @@ export default function Lead_the_way() {
                 borderColor: "#508EFF",
               }}
             >
-              <Text style={{ fontSize: 12, fontWeight: "500" }}>Tsn001</Text>
+              <Text style={{ fontSize: 14, fontWeight: "500" }}>Tsn001</Text>
             </View>
           </View>
 
@@ -79,13 +78,10 @@ export default function Lead_the_way() {
               justifyContent: "flex-start",
               alignItems: "center",
               columnGap: 10,
-              rowGap: 20,
-              marginHorizontal: 10,
-              //backgroundColor: "#ac0000ff",
             }}
           >
-            <Card_LTW text="Lobby001" />
-            <Card_LTW text="metting room" />
+            <Card_list text="Lobby001" />
+            <Card_list text="metting room" />
           </View>
         </View>
       </View>

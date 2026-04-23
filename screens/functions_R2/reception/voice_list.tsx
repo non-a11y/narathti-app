@@ -2,7 +2,7 @@ import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
-import CardVoiceList from "../../../components/card_time";
+import Card_check_front from "../../../components/card_check_front";
 
 export default function voice_list() {
   return (
@@ -29,7 +29,6 @@ export default function voice_list() {
             globalStyles.ios,
             globalStyles.android,
             {
-    
               minHeight: 200,
               backgroundColor: "#FFFFFF",
               borderRadius: 20,
@@ -39,16 +38,16 @@ export default function voice_list() {
               marginBottom: 20,
               paddingHorizontal: 10,
               paddingVertical: 20,
-              rowGap : 10
+              rowGap: 10,
             },
           ]}
         >
-            {/*  */}
-          <CardVoiceList text="None" />
-          <CardVoiceList text="Welcome" />
-          <CardVoiceList text="I'm Joy, a delivery robot. You can say to me, Come and play with me, Hi Joy!" />
-          <CardVoiceList text="Joy will now walk you through this journey. Followme, please!" />
-          <CardVoiceList text="Welcome to Novotel Phuket City Phokeethra" />
+          {/*  */}
+          <Card_check_front text="None" />
+          <Card_check_front text="Welcome" />
+          <Card_check_front text="I'm Joy, a delivery robot. You can say to me, Come and play with me, Hi Joy!" />
+          <Card_check_front text="Joy will now walk you through this journey. Followme, please!" />
+          <Card_check_front text="Welcome to Novotel Phuket City Phokeethra" />
         </View>
       </View>
     </View>

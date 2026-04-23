@@ -2,7 +2,7 @@ import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_choice_details from "../../../components/card_choice_details";
+import Card_select_details from "../../../components/card_select_details";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 
@@ -34,6 +34,8 @@ export default function lead_the_list() {
       />
       {/* Blue Gradient Header */}
       <Header_sub_functions title="Please select leading route" />
+
+      
       {/* White Settings Card */}
       <View
         style={{
@@ -53,18 +55,19 @@ export default function lead_the_list() {
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
-              paddingBottom: 20,
-              paddingTop: 20,
+              paddingVertical: 20,
+              paddingHorizontal: 10,
+              rowGap: 10,
             },
           ]}
         >
-          <Card_choice_details
+          <Card_select_details
             text="All locations"
             details="4 leading points"
             selected={selectedItem === "All locations"}
             onPress={() => handleSelect("All locations")}
           />
-          <Card_choice_details
+          <Card_select_details
             text="Test"
             details="2 leading points"
             selected={selectedItem === "Test"}

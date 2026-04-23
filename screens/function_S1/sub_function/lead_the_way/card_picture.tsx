@@ -7,7 +7,9 @@ const cardWidth = (Dimensions.get('window').width - 64) / 2;
 
 export default function card_picture({ item }: any) {
   return (
-    <TouchableOpacity activeOpacity={0.8} style={{ width: cardWidth }}>
+    <TouchableOpacity 
+    activeOpacity={0.8} 
+    style={{ width: cardWidth, alignItems: 'center' }}>
       <ImageBackground
         source={require("../../../../assets/icon/S1/picture.png")}
         resizeMode="cover"
@@ -16,7 +18,7 @@ export default function card_picture({ item }: any) {
           globalStyles.android,
           {
             height: 120, // กำหนดความสูงให้แน่นอน
-            width: '100%',
+            width: '90%',
             backgroundColor: "#ffffff",
             borderRadius: 20,
           },
@@ -40,7 +42,8 @@ export default function card_picture({ item }: any) {
         </View>
 
         {/* ส่วนชื่อด้านล่าง */}
-        <View style={{ flex: 1 }} /> {/* ใช้ View เปล่าดันเนื้อหาลงล่าง */}
+        <View style={{ flex: 1 }} />
+        {/* ใช้ View เปล่าดันเนื้อหาลงล่าง */}
         
         <View
           style={{
@@ -59,7 +62,7 @@ export default function card_picture({ item }: any) {
               textTransform: 'capitalize' // ทำให้ตัวแรกเป็นตัวพิมพ์ใหญ่
             }}
           >
-            {item?.text || "No Title"} {/* ใช้ข้อมูลจาก props */}
+            {item?.text || "No Title"}
           </Text>
         </View>
       </ImageBackground>

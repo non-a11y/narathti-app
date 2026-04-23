@@ -43,8 +43,9 @@ export default function select_route() {
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
-              paddingBottom: 20,
-              paddingTop: 20,
+              paddingVertical: 20,
+              paddingHorizontal: 10,
+              rowGap: 10,
             },
           ]}
         >

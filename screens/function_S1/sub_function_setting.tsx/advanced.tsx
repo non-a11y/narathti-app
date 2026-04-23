@@ -1,12 +1,22 @@
-import { View, Text, StatusBar, TouchableOpacity, Image } from "react-native";
+import { View, Text, StatusBar, TouchableOpacity } from "react-native";
 import React from "react";
-import { globalStyles } from "../../styles/mystyles";
-import Header_sub_functions from "../../components/header_sub_functions";
+import { globalStyles } from "../../../styles/mystyles";
+import Header_sub_functions from "../../../components/header_sub_functions";
+import Card_button_function from "../../../components/card_button_function";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-export default function take_a_picture() {
+export type RootStackParamList = {
+  S1_initiative: undefined;
+  S1_reception: undefined;
+};
+
+export default function advanced() {
   const insets = useSafeAreaInsets();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -14,8 +24,9 @@ export default function take_a_picture() {
         backgroundColor="transparent"
         translucent={true} // ← สำคัญ! ให้ status bar โปร่งใส
       />
+
       {/* Blue Gradient Header */}
-      <Header_sub_functions title="Take a picture" />
+      <Header_sub_functions title="Advanced" />
 
       {/* White Settings Card */}
       <View
@@ -25,54 +36,28 @@ export default function take_a_picture() {
           paddingHorizontal: 16,
         }}
       >
-        {/* card ที่ 1 */}
         <View
           style={[
             globalStyles.ios,
             globalStyles.android,
             {
-              flex: 1,
               minHeight: 100,
               backgroundColor: "#FFFFFF",
               borderRadius: 20,
               overflow: "hidden",
+              paddingHorizontal: 16,
+              paddingVertical: 16,
+              alignItems: "center",
               shadowColor: "#5e76ffff",
-              marginBottom: 20,
-              paddingHorizontal: 20,
-              alignContent: "center",
-              justifyContent: "center",
-              rowGap: 20,
+              rowGap: 10,
             },
           ]}
         >
-          <View
-            style={{
-              flex: 0.9,
-
-              alignContent: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Image
-              style={{
-                alignSelf: "center",
-                // ค่า width ปรับตามค่า width
-                width: "100%",
-                height: 300,
-              }}
-              source={require("../../assets/icon/R2/take_a_picture.png")}
-            />
-          </View>
-          <View
-            style={{
-              flex: 0.1,
-            }}
-          >
-            <Text>
-              Using the camera indicates that you have read and agree to the
-              <Text style={{ color: "#8D00DF" }}> (Privacy Reminder)</Text>
-            </Text>
-          </View>
+          <Card_button_function text="Permission" value="" />
+          <Card_button_function text="Personalise" value="" />
+          <Card_button_function text="Language" value="" />
+          <Card_button_function text="Maps" value="" />
+          <Card_button_function text="Function manaaement" value="" />
         </View>
       </View>
       {/* Set off Button */}
@@ -107,7 +92,7 @@ export default function take_a_picture() {
                 letterSpacing: 0.5,
               }}
             >
-              Exit Camera
+              OK
             </Text>
           </LinearGradient>
         </TouchableOpacity>

@@ -78,24 +78,26 @@ export default function cruise_setting() {
             },
           ]}
         >
+          {/* body */}
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={{ width: "100%" }} // ให้ ScrollView กางเต็มร้อยเพื่อไม่ให้หด
             contentContainerStyle={{
               flexGrow: 1, // 100% ของพื้นที่ว่าง
               alignItems: "center", // จัดให้ของข้างในอยู่ตรงกลางแนวนอน
-              paddingBottom: 20,
+              paddingBottom: 40,
               marginTop: 20,
+              rowGap: 10,
+              paddingHorizontal: 10,
             }}
           >
             {/* Automatic Cruise Group */}
             <View
               style={[
                 {
-                  width: "95%",
+                  width: "100%",
                   backgroundColor: "#ffffffff",
                   borderRadius: 40,
-                  marginBottom: 10,
                   paddingHorizontal: 20,
                   borderWidth: 2,
                   borderColor: "#78bef8ff",
@@ -111,7 +113,7 @@ export default function cruise_setting() {
                   paddingVertical: 15,
                 }}
               >
-                <Text style={button_function.rowLabel}>Automatic Cruise</Text>
+                <Text style={button_function.text_left}>Automatic Cruise</Text>
                 <Switch
                   value={autoWork}
                   onValueChange={setAutoWork}
@@ -140,7 +142,7 @@ export default function cruise_setting() {
                       paddingVertical: 15,
                     }}
                   >
-                    <Text style={button_function.rowLabel}>Repeat</Text>
+                    <Text style={button_function.text_left}>Repeat</Text>
 
                     <View
                       style={{
@@ -219,7 +221,7 @@ export default function cruise_setting() {
                       paddingVertical: 15,
                     }}
                   >
-                    <Text style={button_function.rowLabel}>
+                    <Text style={button_function.text_left}>
                       {repeatType === "one-time" ? "Date" : "Every Week"}
                     </Text>
 
@@ -295,7 +297,7 @@ export default function cruise_setting() {
                       paddingVertical: 15,
                     }}
                   >
-                    <Text style={button_function.rowLabel}>Starting time</Text>
+                    <Text style={button_function.text_left}>Starting time</Text>
                     <View
                       style={{
                         backgroundColor: "#8AAFFF",
@@ -343,7 +345,7 @@ export default function cruise_setting() {
               activeOpacity={0.7}
             >
               {/* Text left */}
-              <Text style={button_function.rowLabel}>Lead the Way</Text>
+              <Text style={button_function.text_left}>Lead the Way</Text>
               {/* Text right */}
               <Switch
                 value={takeleadtheway}
@@ -368,7 +370,7 @@ export default function cruise_setting() {
               activeOpacity={0.7}
             >
               {/* Text left */}
-              <Text style={button_function.rowLabel}>Take a Picture</Text>
+              <Text style={button_function.text_left}>Take a Picture</Text>
               {/* Text right */}
               <Switch
                 value={taketakeapicture}

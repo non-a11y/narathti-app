@@ -2,7 +2,7 @@ import { View, Text, StatusBar, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { globalStyles } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_choice from "../../../components/card_choice";
+import Card_select from "../../../components/card_select";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -38,6 +38,7 @@ export default function fetch_reminder() {
       />
       {/* Blue Gradient Header */}
       <Header_sub_functions title="Fetch reminder" />
+
       {/* White Settings Card */}
       <View
         style={{
@@ -46,6 +47,7 @@ export default function fetch_reminder() {
           paddingHorizontal: 16,
         }}
       >
+        {/* body */}
         <View
           style={[
             globalStyles.ios,
@@ -57,12 +59,14 @@ export default function fetch_reminder() {
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
-              paddingBottom: 20,
-              paddingTop: 20,
+              paddingHorizontal: 10,
+              paddingVertical: 20,
+              rowGap: 10,
             },
           ]}
         >
-          <Card_choice
+          {/* card */}
+          <Card_select
             text="Your food has arrived. Please pick up in time"
             selected={
               selectedItem === "Your food has arrived. Please pick up in time"
@@ -71,19 +75,19 @@ export default function fetch_reminder() {
               handleSelect("Your food has arrived. Please pick up in time")
             }
           />
-          <Card_choice
+          <Card_select
             text="Dear #location# guest, your..."
             selected={selectedItem === "Dear #location# guest, your..."}
             onPress={() => handleSelect("Dear #location# guest, your...")}
           />
-          <Card_choice
+          <Card_select
             text="Go to work automatically"
             selected={selectedItem === "Go to work automatically"}
             onPress={() => handleSelect("Go to work automatically")}
           />
         </View>
       </View>
-      {/* Set off Button */} 
+      {/* Set off Button */}
       <View
         style={{
           paddingHorizontal: 16,

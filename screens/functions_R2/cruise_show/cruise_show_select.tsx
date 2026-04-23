@@ -73,8 +73,8 @@ export default function cruise_show_select() {
           marginHorizontal: 10,
           alignItems: "center",
           paddingHorizontal: 20,
-          rowGap : 10,
-          paddingTop : 20
+          rowGap: 10,
+          paddingTop: 20,
         }}
       >
         <View
@@ -98,7 +98,7 @@ export default function cruise_show_select() {
           </Text>
         </View>
         <View>
-            <FontAwesome name="arrow-down" size={24} color="#7F7F7F" />
+          <FontAwesome name="arrow-down" size={24} color="#7F7F7F" />
         </View>
         <View
           style={{

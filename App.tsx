@@ -35,6 +35,7 @@ import Walkthrough_r2 from "./screens/functions_R2/walkthrough";
 import Take_a_picture_r2 from "./screens/functions_R2/take_a_picture";
 import Upload_video_r2 from "./screens/functions_R2/upload_video";
 import Settings_r2 from "./screens/functions_R2/settings/settings_main";
+import mode_selection from "./screens/functions_R2/settings/mode_selection";
 
 // S1 — หน้าหลักของหุ่นยนต์ S1
 import HomeS1 from "./screens/main_S1/home";
@@ -64,6 +65,16 @@ import leading_list from "./screens/functions_R2/reception/leading_list";
 import reception_time from "./screens/functions_R2/reception/reception_time";
 import reception_location_r2 from "./screens/functions_R2/reception/reception_location";
 import voice_list from "./screens/functions_R2/reception/voice_list";
+import about_status from "./screens/functions_R2/settings/about_status";
+import password_protection from "./screens/functions_R2/settings/password_protection";
+import battery_level from "./screens/functions_R2/settings/battery_level";
+import voice_settings from "./screens/functions_R2/settings/voice_settings";
+import volume from "./screens/functions_R2/settings/volume";
+import deilvery_settings from "./screens/functions_R2/settings/deilvery_settings";
+import guide_explanation_settings from "./screens/functions_R2/settings/guide_explanation_settings";
+import media_settings from "./screens/functions_R2/settings/media_settings";
+import language_setting from "./screens/functions_R2/settings/language_setting";
+import theme_settings from "./screens/functions_R2/settings/theme_settings";
 
 // sub function_S1
 import s1_fixed_point_reception from "./screens/function_S1/fixed_point_reception";
@@ -79,6 +90,19 @@ import s1_music from "./screens/function_S1/sub_function/music";
 import s1_video_call from "./screens/function_S1/sub_function/video_call";
 import s1_video from "./screens/function_S1/sub_function/video";
 import s1_invitation from "./screens/function_S1/sub_function/invitation";
+import s1_security_patrol from "./screens/function_S1/security_patrol";
+import s1_mobile_reception from "./screens/function_S1/mobile_reception";
+import s1_work_plan from "./screens/function_S1/work_plan";
+import s1_settings from "./screens/function_S1/settings";
+
+// sub function_settings_S1
+import s1_initiative from "./screens/function_S1/sub_function_setting.tsx/initiative";
+import s1_reception from "./screens/function_S1/sub_function_setting.tsx/reception";
+import s1_advanced from "./screens/function_S1/sub_function_setting.tsx/advanced";
+import s1_about from "./screens/function_S1/sub_function_setting.tsx/about";
+import s1_patrol from "./screens/function_S1/sub_function_setting.tsx/patrol";
+import s1_network from "./screens/function_S1/sub_function_setting.tsx/network";
+import s1_sound from "./screens/function_S1/sub_function_setting.tsx/sound";
 
 // TabBar — Custom Tab Bar ที่ใช้ร่วมกันทั้ง T1 และ R2
 import CustomTabBar from "./components/custotabbar";
@@ -127,9 +151,19 @@ export type RootStackParamList = {
   reception_time: undefined;
   reception_location_r2: undefined;
   voice_list: undefined;
+  about_status: undefined;
+  password_protection: undefined;
+  battery_level: undefined;
+  voice_settings: undefined;
+  volume: undefined;
+  deilvery_settings: undefined;
+  guide_explanation_settings: undefined;
+  media_settings: undefined;
+  language_setting: undefined;
+  theme_settings: undefined;
+  mode_selection: undefined;
 
   // function_S1
-
   S1_fixed_point_reception: undefined;
   S1_all_sub_function: undefined;
   S1_ai_chat: undefined;
@@ -143,6 +177,19 @@ export type RootStackParamList = {
   S1_music: undefined;
   S1_video_call: undefined;
   S1_video: undefined;
+  S1_security_patrol: undefined;
+  S1_mobile_reception: undefined;
+  S1_work_plan: undefined;
+  S1_settings: undefined;
+
+  // sub function_settings_S1
+  S1_initiative: undefined;
+  S1_reception: undefined;
+  S1_advanced: undefined;
+  S1_about: undefined;
+  S1_patrol: undefined;
+  S1_network: undefined;
+  S1_sound: undefined;
 };
 
 // สร้าง Navigator ทั้ง 2 ประเภท
@@ -259,6 +306,22 @@ export default function App() {
           <Stack.Screen name="Upload_video_r2" component={Upload_video_r2} />
           <Stack.Screen name="Settings_r2" component={Settings_r2} />
 
+          {/* Functions - S1 */}
+          <Stack.Screen
+            name="S1_fixed_point_reception"
+            component={s1_fixed_point_reception}
+          />
+          <Stack.Screen
+            name="S1_security_patrol"
+            component={s1_security_patrol}
+          />
+          <Stack.Screen
+            name="S1_mobile_reception"
+            component={s1_mobile_reception}
+          />
+          <Stack.Screen name="S1_work_plan" component={s1_work_plan} />
+          <Stack.Screen name="S1_settings" component={s1_settings} />
+
           {/* sub function_R2 */}
           <Stack.Screen name="cruise_shows" component={cruise_shows} />
           <Stack.Screen name="select_route" component={select_route} />
@@ -279,12 +342,29 @@ export default function App() {
             component={reception_location_r2}
           />
           <Stack.Screen name="voice_list" component={voice_list} />
+          <Stack.Screen name="about_status" component={about_status} />
+          <Stack.Screen
+            name="password_protection"
+            component={password_protection}
+          />
+          <Stack.Screen name="battery_level" component={battery_level} />
+          <Stack.Screen name="voice_settings" component={voice_settings} />
+          <Stack.Screen name="volume" component={volume} />
+          <Stack.Screen
+            name="deilvery_settings"
+            component={deilvery_settings}
+          />
+          <Stack.Screen
+            name="guide_explanation_settings"
+            component={guide_explanation_settings}
+          />
+          <Stack.Screen name="media_settings" component={media_settings} />
+          <Stack.Screen name="language_setting" component={language_setting} />
+          <Stack.Screen name="theme_settings" component={theme_settings} />
+          <Stack.Screen name="mode_selection" component={mode_selection} />
 
           {/* sub function_S1 */}
-          <Stack.Screen
-            name="S1_fixed_point_reception"
-            component={s1_fixed_point_reception}
-          />
+
           <Stack.Screen
             name="S1_all_sub_function"
             component={s1_all_sub_function}
@@ -303,6 +383,15 @@ export default function App() {
           <Stack.Screen name="S1_video_call" component={s1_video_call} />
           <Stack.Screen name="S1_video" component={s1_video} />
           <Stack.Screen name="S1_invitation" component={s1_invitation} />
+
+          {/* sub function_settings_S1 */}
+          <Stack.Screen name="S1_initiative" component={s1_initiative} />
+          <Stack.Screen name="S1_reception" component={s1_reception} />
+          <Stack.Screen name="S1_advanced" component={s1_advanced} />
+          <Stack.Screen name="S1_about" component={s1_about} />
+          <Stack.Screen name="S1_patrol" component={s1_patrol} />
+          <Stack.Screen name="S1_network" component={s1_network} />
+          <Stack.Screen name="S1_sound" component={s1_sound} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

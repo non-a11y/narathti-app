@@ -2,7 +2,7 @@ import { View, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_choice from "../../../components/card_choice";
+import Card_select from "../../../components/card_select";
 import { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
@@ -52,22 +52,23 @@ export default function greeting_words() {
               overflow: "hidden",
               alignItems: "center",
               shadowColor: "#5e76ffff",
-              paddingBottom: 20,
-              paddingTop: 20,
+              paddingVertical: 20,
+              paddingHorizontal: 10,
+              rowGap: 10,
             },
           ]}
         >
-          <Card_choice
+          <Card_select
             text="None"
             selected={selectedItem === "None"}
             onPress={() => handleSelect("None")}
           />
-          <Card_choice
+          <Card_select
             text="Welcome"
             selected={selectedItem === "Welcome"}
             onPress={() => handleSelect("Welcome")}
           />
-          <Card_choice
+          <Card_select
             text="I am your delivery robot joy. you can say to me Hi joy. Come and play with me!"
             selected={
               selectedItem ===
