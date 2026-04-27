@@ -25,6 +25,7 @@ export default function Home({ route }: { route: any }) {
   const [taskStatus, setTaskStatus] = useState("...");
   const [power, setPower] = useState("0%");
 
+  // ใช้ useEffect เพื่อดึงข้อมูลเมื่อ component ถูก mount
   useEffect(() => {
     const fetchData = async () => {
       try {

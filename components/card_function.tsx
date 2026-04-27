@@ -20,13 +20,9 @@ export default function card_function({ image, text, onPress }: Props) {
         }}
         source={image}
       />
-      <Text style={styles.text}>{text}</Text>
+      <Text style={{textAlign: "center",}}>{text}</Text>
     </TouchableOpacity>
   );
 }
 
-const styles = StyleSheet.create({
-  text: {
-    textAlign: "center",
-  },
-});
+

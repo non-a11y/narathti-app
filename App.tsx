@@ -75,7 +75,8 @@ import guide_explanation_settings from "./screens/functions_R2/settings/guide_ex
 import media_settings from "./screens/functions_R2/settings/media_settings";
 import language_setting from "./screens/functions_R2/settings/language_setting";
 import theme_settings from "./screens/functions_R2/settings/theme_settings";
-import Call_Robot from "./screens/functions_R2/Call_Robot";
+import Call_Robot from "./screens/functions_R2/Call_robot/Call_robot_main";
+import Call_rebot_list from "./screens/functions_R2/Call_robot/Call_rebot_list";
 
 // sub function_S1
 import s1_fixed_point_reception from "./screens/function_S1/fixed_point_reception";
@@ -164,6 +165,7 @@ export type RootStackParamList = {
   theme_settings: undefined;
   mode_selection: undefined;
   Call_Robot: undefined;
+  Call_rebot_list: undefined;
 
   // function_S1
   S1_fixed_point_reception: undefined;
@@ -365,6 +367,7 @@ export default function App() {
           <Stack.Screen name="theme_settings" component={theme_settings} />
           <Stack.Screen name="mode_selection" component={mode_selection} />
           <Stack.Screen name="Call_Robot" component={Call_Robot} />
+          <Stack.Screen name="Call_rebot_list" component={Call_rebot_list} />
 
           {/* sub function_S1 */}
 
