@@ -7,14 +7,11 @@ export default function Card_on_off({ text }: { text: string }) {
   return (
     // แถวที่มีข้อความซ้าย และ toggle ขวา
     <View style={[button_function.list]}>
-
       {/* ข้อความ label ฝั่งซ้าย */}
       <Text style={button_function.text_left}>{text}</Text>
 
       {/* Toggle ฝั่งขวา — ใช้ Toggle_switch component แยกต่างหาก */}
       <Toggle_switch />
-
-    </View> 
+    </View>
   );
 }
-

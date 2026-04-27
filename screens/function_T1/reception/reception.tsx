@@ -43,7 +43,7 @@ let globalVoiceModeValue = "Chat while working";
 let globalGreetingWordsValue = "None";
 let globalLeadTheListValue = "All locations";
 
-export default function reception() {
+export default function Reception() {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();

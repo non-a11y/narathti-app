@@ -3,7 +3,7 @@ import React from "react";
 import { globalStyles } from "../../styles/mystyles";
 import Header_sub_functions from "../../components/header_sub_functions";
 
-export default function walkthrough() {
+export default function Walkthrough() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -22,9 +22,7 @@ export default function walkthrough() {
           marginTop: -20,
           paddingHorizontal: 16,
         }}
-      >
-        
-      </View>
+      ></View>
     </View>
   );
 }

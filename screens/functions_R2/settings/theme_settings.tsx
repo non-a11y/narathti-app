@@ -3,7 +3,7 @@ import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
 
-export default function theme_settings() {
+export default function Theme_settings() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -40,19 +40,29 @@ export default function theme_settings() {
             },
           ]}
         >
-          <Text style = {{
-            color : '#7f7f7f',
-            fontSize : 16,
-            fontWeight : 'bold'
-            }}>Theme1</Text>
-          <View style={[globalStyles.ios, globalStyles.android,{
-            backgroundColor : '#fffdfdff',
-            justifyContent: "center",
-            alignItems: "center",
-            width : '80%', 
-            height : 150,
-            borderRadius : 40
-          }]}>
+          <Text
+            style={{
+              color: "#7f7f7f",
+              fontSize: 16,
+              fontWeight: "bold",
+            }}
+          >
+            Theme1
+          </Text>
+          <View
+            style={[
+              globalStyles.ios,
+              globalStyles.android,
+              {
+                backgroundColor: "#fffdfdff",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "80%",
+                height: 150,
+                borderRadius: 40,
+              },
+            ]}
+          >
             <Image
               style={{
                 width: 200,
@@ -60,21 +70,30 @@ export default function theme_settings() {
               }}
               source={require("../../../assets/icon/R2/Theme1.png")}
             />
-            
           </View>
-          <Text style = {{
-            color : '#7f7f7f',
-            fontSize : 16,
-            fontWeight : 'bold'
-            }}>Theme2</Text>
-          <View style={[globalStyles.ios, globalStyles.android,{
-            backgroundColor : '#fffdfdff',
-            justifyContent: "center",
-            alignItems: "center",
-            width : '80%', 
-            height : 150,
-            borderRadius : 40
-          }]}>
+          <Text
+            style={{
+              color: "#7f7f7f",
+              fontSize: 16,
+              fontWeight: "bold",
+            }}
+          >
+            Theme2
+          </Text>
+          <View
+            style={[
+              globalStyles.ios,
+              globalStyles.android,
+              {
+                backgroundColor: "#fffdfdff",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "80%",
+                height: 150,
+                borderRadius: 40,
+              },
+            ]}
+          >
             <Image
               style={{
                 width: 100,

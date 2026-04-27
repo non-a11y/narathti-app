@@ -11,7 +11,7 @@ const data = [
   { id: 3, name: "Route 3 - Route 4" },
 ];
 
-export default function select_route() {
+export default function Select_route() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar

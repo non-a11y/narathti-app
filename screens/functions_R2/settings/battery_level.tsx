@@ -6,7 +6,7 @@ import Card_text_des from "../../../components/card_text_des";
 import Card_on_off from "../../../components/card_on-off";
 import Card_check_front from "../../../components/card_check_front";
 
-export default function battery_level() {
+export default function Battery_level() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar

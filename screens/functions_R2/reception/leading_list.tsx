@@ -8,7 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import Card_list_r2 from "../../../components/card_list_r2";
 
-export default function leading_list() {
+export default function Leading_list() {
   const route = useRoute<any>();
 
   // นำค่า currentSelection ที่ส่งถูกส่งต่อมาจากหน้า MultiPointDelivery มาใช้เพื่อเช็คว่าประโยคล่าสุดคือข้อไหน
@@ -157,5 +157,5 @@ export default function leading_list() {
         </TouchableOpacity>
       </View>
     </View>
-  )
+  );
 }

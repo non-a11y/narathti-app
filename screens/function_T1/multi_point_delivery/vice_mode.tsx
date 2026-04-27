@@ -5,7 +5,7 @@ import Header_sub_functions from "../../../components/header_sub_functions";
 import Card_select_details from "../../../components/card_select_details";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-export default function vice_mode() {
+export default function Vice_mode() {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 

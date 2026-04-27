@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function video_call() {
+export default function Video_call() {
   return (
     <View style={{
         justifyContent: "center",

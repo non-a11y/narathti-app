@@ -5,7 +5,7 @@ import Header_sub_functions from "../../../components/header_sub_functions";
 import Card_check_front from "../../../components/card_check_front";
 import Card_set from "../../../components/card_button_function";
 
-export default function deilvery_settings() {
+export default function Deilvery_settings() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar

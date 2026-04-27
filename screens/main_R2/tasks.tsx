@@ -11,55 +11,55 @@ import { useNavigation } from "@react-navigation/native";
 const data = [
   {
     id: "1",
-    text : "Deliver goods",
-    image : require("../../assets/icon/im_functions_R2/deliver.png"),
-    screen: "Deliver"
+    text: "Deliver goods",
+    image: require("../../assets/icon/im_functions_R2/deliver.png"),
+    screen: "Deliver",
   },
   {
     id: "2",
-    text : "Cruise show",
-    image : require("../../assets/icon/im_functions_R2/cruise_r2.png"),
-    screen: "Cruise_r2"
+    text: "Cruise show",
+    image: require("../../assets/icon/im_functions_R2/cruise_r2.png"),
+    screen: "Cruise_r2",
   },
   {
     id: "3",
-    text : "Reception",
-    image : require("../../assets/icon/im_functions_R2/reception_r2.png"),
-    screen: "Reception_r2"
+    text: "Reception",
+    image: require("../../assets/icon/im_functions_R2/reception_r2.png"),
+    screen: "Reception_r2",
   },
   {
     id: "4",
-    text : "Lead the way",
-    image : require("../../assets/icon/im_functions_R2/lead.png"),
-    screen: "Lead_the_way_r2"
+    text: "Lead the way",
+    image: require("../../assets/icon/im_functions_R2/lead.png"),
+    screen: "Lead_the_way_r2",
   },
   {
     id: "5",
-    text : "Walkthrough",
-    image : require("../../assets/icon/im_functions_R2/walkthrough.png"),
-    screen: "Walkthrough_r2"
+    text: "Walkthrough",
+    image: require("../../assets/icon/im_functions_R2/walkthrough.png"),
+    screen: "Walkthrough_r2",
   },
   {
     id: "6",
-    text : "Take a Picture",
-    image : require("../../assets/icon/im_functions_R2/take.png"),
-    screen: "Take_a_picture_r2"
+    text: "Take a Picture",
+    image: require("../../assets/icon/im_functions_R2/take.png"),
+    screen: "Take_a_picture_r2",
   },
   {
     id: "7",
-    text : "Upload Video",
-    image : require("../../assets/icon/im_functions_R2/upload.png"),
-    screen: "Upload_video_r2"
+    text: "Upload Video",
+    image: require("../../assets/icon/im_functions_R2/upload.png"),
+    screen: "Upload_video_r2",
   },
   {
     id: "8",
-    text : "Settings",
-    image : require("../../assets/icon/im_functions_R2/settings_r12.png"),
-    screen: "Settings_r2"
+    text: "Settings",
+    image: require("../../assets/icon/im_functions_R2/settings_r12.png"),
+    screen: "Settings_r2",
   },
 ];
 
-export default function tasks() {
+export default function Tasks() {
   const insets = useSafeAreaInsets();
 
   // 2. เรียกใช้ useNavigation เพื่อได้ object navigation
@@ -110,7 +110,7 @@ export default function tasks() {
             />
           )}
         />
-        </View>
+      </View>
     </View>
   );
 }

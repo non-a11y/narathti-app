@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { globalStyles, main } from "../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default function pickup() {
+export default function Pickup() {
   const insets = useSafeAreaInsets();
   return (
     <View style={globalStyles.container}>

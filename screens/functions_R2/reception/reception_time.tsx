@@ -4,7 +4,7 @@ import { globalStyles, button_function } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
 import Card_time from "../../../components/card_check_front";
 
-export default function reception_time() {
+export default function Reception_time() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar

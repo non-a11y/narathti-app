@@ -14,7 +14,7 @@ import CardCruise from "../../../../components/card_list";
 import CardSelect from "./card_standby";
 import Header_sub_functions from "../../../../components/header_sub_functions";
 
-export default function standby_point() {
+export default function Standby_point() {
   // ใช้ State selectedPoints เก็บ Array ของชื่อจุดที่เลือกแทน
   const [selectedPoints, setSelectedPoints] = useState<string[]>([]);
   const insets = useSafeAreaInsets();
@@ -81,16 +81,15 @@ export default function standby_point() {
                   marginHorizontal: 10,
                   marginVertical: 10,
 
-
                   //backgroundColor: "#ac0000ff",
                 }}
               >
                 {selectedPoints.map((point, index) => (
-                  <CardSelect 
-                    key={point} 
-                    text={point} 
-                    index={index} 
-                    onDelete={() => handleDeletePoint(index)} 
+                  <CardSelect
+                    key={point}
+                    text={point}
+                    index={index}
+                    onDelete={() => handleDeletePoint(index)}
                   />
                 ))}
               </View>
@@ -171,13 +170,21 @@ export default function standby_point() {
               marginHorizontal: 10,
             }}
           >
-            <CardCruise text="Lobby001" onPress={() => handleAddPoint("Lobby001")} />
-            <CardCruise text="Lobby002" onPress={() => handleAddPoint("Lobby002")} />
-            <CardCruise text="Lobby003" onPress={() => handleAddPoint("Lobby003")} />
+            <CardCruise
+              text="Lobby001"
+              onPress={() => handleAddPoint("Lobby001")}
+            />
+            <CardCruise
+              text="Lobby002"
+              onPress={() => handleAddPoint("Lobby002")}
+            />
+            <CardCruise
+              text="Lobby003"
+              onPress={() => handleAddPoint("Lobby003")}
+            />
           </View>
         </View>
       </View>
-
     </View>
   );
 }

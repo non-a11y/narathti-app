@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 
-export default function cruise_show_select() {
+export default function Cruise_show_select() {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
   return (

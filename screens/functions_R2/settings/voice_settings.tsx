@@ -4,7 +4,7 @@ import { globalStyles } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
 import Card_set from "../../../components/card_button_function";
 
-export default function voice_settings() {
+export default function Voice_settings() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar

@@ -16,7 +16,7 @@ export type RootStackParamList = {
   S1_all_sub_function: undefined;
 };
 
-export default function mobile_reception() {
+export default function Mobile_reception() {
   const insets = useSafeAreaInsets();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();

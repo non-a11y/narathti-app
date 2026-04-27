@@ -2,15 +2,15 @@ import { TouchableWithoutFeedback, Animated } from "react-native";
 import React, { useRef, useState } from "react";
 
 // ─── ค่าคงที่กำหนดขนาดของ Toggle ───────────────────────────────────────────
-const TRACK_WIDTH = 56;  // ความกว้างของแถบ track
+const TRACK_WIDTH = 56; // ความกว้างของแถบ track
 const TRACK_HEIGHT = 32; // ความสูงของแถบ track
-const THUMB_SIZE = 26;   // ขนาดเส้นผ่านศูนย์กลางของลูกกลม (thumb)
+const THUMB_SIZE = 26; // ขนาดเส้นผ่านศูนย์กลางของลูกกลม (thumb)
 const THUMB_MARGIN = (TRACK_HEIGHT - THUMB_SIZE) / 2; // ระยะห่างจากขอบบน-ล่างของ thumb
 const THUMB_ON_X = TRACK_WIDTH - THUMB_SIZE - THUMB_MARGIN; // ตำแหน่ง X ของ thumb ตอน ON (ชิดขวา)
 
 // ─── Props ─────────────────────────────────────────────────────────────────
 interface ToggleSwitchProps {
-  value?: boolean;                    // ค่าเริ่มต้น ON/OFF (optional, default = false)
+  value?: boolean; // ค่าเริ่มต้น ON/OFF (optional, default = false)
   onValueChange?: (val: boolean) => void; // callback เมื่อค่าเปลี่ยน (optional)
 }
 
@@ -23,10 +23,10 @@ export default function Toggle_switch({
 
   // ─── Animated Values ──────────────────────────────────────────────────────
   const thumbX = useRef(
-    new Animated.Value(value ? THUMB_ON_X : THUMB_MARGIN) // เริ่มต้นตาม value ที่รับมา
+    new Animated.Value(value ? THUMB_ON_X : THUMB_MARGIN), // เริ่มต้นตาม value ที่รับมา
   ).current;
   const trackColor = useRef(
-    new Animated.Value(value ? 1 : 0) // 0 = เทา (OFF), 1 = เขียว (ON)
+    new Animated.Value(value ? 1 : 0), // 0 = เทา (OFF), 1 = เขียว (ON)
   ).current;
 
   // ─── ฟังก์ชัน toggle: เรียกเมื่อผู้ใช้กด ────────────────────────────────
@@ -62,7 +62,6 @@ export default function Toggle_switch({
   return (
     // ครอบด้วย TouchableWithoutFeedback เพื่อรับการกด
     <TouchableWithoutFeedback onPress={toggle}>
-
       {/* แถบ track — สีเปลี่ยนตาม bgColor */}
       <Animated.View
         style={{
@@ -79,9 +78,9 @@ export default function Toggle_switch({
             width: THUMB_SIZE,
             height: THUMB_SIZE,
             borderRadius: THUMB_SIZE / 2, // ทำให้กลม
-            backgroundColor: "#FFFFFF",   // thumb สีขาวเสมอ
+            backgroundColor: "#FFFFFF", // thumb สีขาวเสมอ
             position: "absolute",
-            left: thumbX,                 // ตำแหน่งแนวนอนที่ถูก animate
+            left: thumbX, // ตำแหน่งแนวนอนที่ถูก animate
             // Shadow สำหรับ iOS
             shadowColor: "#000",
             shadowOffset: { width: 0, height: 0 },
@@ -92,7 +91,6 @@ export default function Toggle_switch({
           }}
         />
       </Animated.View>
-
     </TouchableWithoutFeedback>
   );
 }

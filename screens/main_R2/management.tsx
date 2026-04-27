@@ -4,7 +4,7 @@ import { globalStyles } from "../../styles/mystyles";
 import { Ionicons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-export default function   management() {
+export default function Management() {
   return (
     <View style={globalStyles.container}>
       <Header />

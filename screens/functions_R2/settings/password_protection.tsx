@@ -4,7 +4,7 @@ import { globalStyles, button_function } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
 import Card_on_off from "../../../components/card_on-off";
 
-export default function password_protection() {
+export default function Password_protection() {
   const [autoWork, setAutoWork] = React.useState(false);
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
@@ -39,14 +39,14 @@ export default function password_protection() {
               alignItems: "center",
               shadowColor: "#5e76ffff",
               //marginBottom: 20,
-              rowGap : 10,
+              rowGap: 10,
             },
           ]}
         >
-          <Card_on_off text="Deliver goods"  />
-          <Card_on_off text="Cruise Show"  />
-          <Card_on_off text="Lead the Way"  />
-          <Card_on_off text="Reception"  />
+          <Card_on_off text="Deliver goods" />
+          <Card_on_off text="Cruise Show" />
+          <Card_on_off text="Lead the Way" />
+          <Card_on_off text="Reception" />
         </View>
       </View>
     </View>

@@ -13,7 +13,7 @@ import Card_button_function from "../../../components/card_button_function";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default function initiative() {
+export default function Initiative() {
   const insets = useSafeAreaInsets();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>

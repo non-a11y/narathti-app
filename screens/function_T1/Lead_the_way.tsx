@@ -18,7 +18,7 @@ export default function Lead_the_way() {
       {/* Blue Gradient Header */}
       <Header_sub_functions title="I can bring you to these places." />
 
-      {/* White Settings Card */} 
+      {/* White Settings Card */}
       <View
         style={{
           flex: 1,

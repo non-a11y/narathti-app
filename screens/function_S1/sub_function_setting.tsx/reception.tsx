@@ -5,7 +5,7 @@ import Header_sub_functions from "../../../components/header_sub_functions";
 import Card_0n_off from "../../../components/card_on-off";
 import Card_button_function from "../../../components/card_button_function";
 
-export default function reception() {
+export default function Reception() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -43,16 +43,10 @@ export default function reception() {
           ]}
         >
           <Card_0n_off text="Stop in mobile reception" />
-          <Card_button_function
-            text="ChatGPT Key"
-            value=""
-          />
+          <Card_button_function text="ChatGPT Key" value="" />
 
           <Card_0n_off text="Large screen display dialogue" />
-          <Card_button_function
-            text="Explain the route sequence"
-            value=""
-          />
+          <Card_button_function text="Explain the route sequence" value="" />
         </View>
       </View>
     </View>

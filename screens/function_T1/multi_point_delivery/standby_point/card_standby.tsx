@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Entypo from "@expo/vector-icons/Entypo";
 
 // เพิ่มการรับค่า index (เพื่อแสดงลำดับตัวเลข) และ onDelete (เพื่อเรียกใช้ตอนลบจุดนี้)
-export default function card_standby({
+export default function Card_standby({
   text,
   index,
   onDelete,

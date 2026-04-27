@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import CardDeilver from "../../../components/card_list";
 
-export default function reception_location() {
+export default function Reception_location() {
   const insets = useSafeAreaInsets();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
@@ -64,7 +64,7 @@ export default function reception_location() {
             },
           ]}
         >
-          {/* search */} 
+          {/* search */}
           <View
             style={{
               flexDirection: "row",

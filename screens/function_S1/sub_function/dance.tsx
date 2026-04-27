@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function dance() {
+export default function Dance() {
   return (
     <View style={{
         justifyContent: "center",

@@ -16,7 +16,7 @@ const data = [
   { id: "3", text: "office", screen: "office" },
 ];
 
-export default function lead_the_way() {
+export default function Lead_the_way() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -65,9 +65,7 @@ export default function lead_the_way() {
               marginBottom: 20,
             }}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <Card_picture item={item} />
-            )}
+            renderItem={({ item }) => <Card_picture item={item} />}
           />
         </View>
       </View>

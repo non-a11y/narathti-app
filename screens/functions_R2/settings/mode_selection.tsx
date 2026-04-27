@@ -5,7 +5,7 @@ import Header_sub_functions from "../../../components/header_sub_functions";
 import Card_check_front from "../../../components/card_check_front";
 import Card_button_function from "../../../components/card_button_function";
 
-export default function mode_selection() {
+export default function Mode_selection() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -63,7 +63,10 @@ export default function mode_selection() {
             },
           ]}
         >
-          <Card_button_function text="Hotel Daily Mode" value="oneFloor reception" />
+          <Card_button_function
+            text="Hotel Daily Mode"
+            value="oneFloor reception"
+          />
         </View>
       </View>
     </View>

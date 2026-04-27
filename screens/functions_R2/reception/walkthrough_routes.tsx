@@ -8,7 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import Card_list_r2 from "../../../components/card_list_r2";
 
-export default function walkthrough_routes() {
+export default function Walkthrough_routes() {
   const route = useRoute<any>();
 
   // นำค่า currentSelection ที่ส่งถูกส่งต่อมาจากหน้า MultiPointDelivery มาใช้เพื่อเช็คว่าประโยคล่าสุดคือข้อไหน

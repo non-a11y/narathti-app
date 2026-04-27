@@ -55,14 +55,16 @@ export default function Card_check_front({
           />
         )}
       </View>
-      
+
       {/* test ยาวเกิน 30 ตัวอักษร ขึ้นบรรทัดใหม่ */}
       {text.length > 45 ? (
-        <Text style={{fontSize: 14, color: "#000000", fontWeight: "500"}}>
+        <Text style={{ fontSize: 14, color: "#000000", fontWeight: "500" }}>
           {text.match(/.{1,44}/g)?.join("\n")}
         </Text>
       ) : (
-        <Text style={{fontSize: 14, color: "#000000", fontWeight: "500"}}>{text}</Text>
+        <Text style={{ fontSize: 14, color: "#000000", fontWeight: "500" }}>
+          {text}
+        </Text>
       )}
     </View>
   );

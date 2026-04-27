@@ -6,7 +6,7 @@ import Card_select_details from "../../../components/card_select_details";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 
-export default function lead_the_list() {
+export default function Lead_the_list() {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 
@@ -35,7 +35,6 @@ export default function lead_the_list() {
       {/* Blue Gradient Header */}
       <Header_sub_functions title="Please select leading route" />
 
-      
       {/* White Settings Card */}
       <View
         style={{

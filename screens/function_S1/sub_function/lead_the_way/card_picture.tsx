@@ -5,7 +5,7 @@ import { globalStyles } from '../../../../styles/mystyles'
 // คำนวณความกว้าง: (จอทั้งหมด - padding สองข้าง - gap ตรงกลาง) / 2
 const cardWidth = (Dimensions.get('window').width - 64) / 2; 
 
-export default function card_picture({ item }: any) {
+export default function Card_picture({ item }: any) {
   return (
     <TouchableOpacity 
     activeOpacity={0.8} 

@@ -4,7 +4,7 @@ import { globalStyles } from "../../styles/mystyles";
 import Header_sub_functions from "../../components/header_sub_functions";
 import UploadVideoCard from "../../components/card_button_function";
 
-export default function upload_video() {
+export default function Upload_video() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar

@@ -98,7 +98,7 @@ const data: TaskItem[] = [
   },
 ];
 
-export default function all_sub_function() {
+export default function All_sub_function() {
   const insets = useSafeAreaInsets();
   const navigation =
     useNavigation<NativeStackNavigationProp<all_sub_function>>();
@@ -162,7 +162,6 @@ export default function all_sub_function() {
           ]}
         >
           <FlatList
-            
             data={data}
             keyExtractor={(item) => item.id}
             numColumns={3}

@@ -3,7 +3,7 @@ import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
 import Header_sub_functions from "../../../components/header_sub_functions";
 
-export default function about_status() {
+export default function About_status() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar

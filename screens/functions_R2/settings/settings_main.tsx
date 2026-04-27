@@ -25,7 +25,7 @@ export type RootStackParamList = {
   mode_selection: undefined;
 };
 
-export default function settings() {
+export default function Settings() {
   // State สำหรับจัดการค่า Voice Mode ของหุ่นยนต์
   const [doorMode, setDoorMode] = useState("Door Open");
   const [lightMode, setLightMode] = useState("Light");
@@ -137,45 +137,45 @@ export default function settings() {
 
             {/* Guide explanation settings */}
             <Card_set
-            text="Guide explanation settings" 
-            value=""
-            onPress={() => navigation.navigate("guide_explanation_settings")}
-             />
+              text="Guide explanation settings"
+              value=""
+              onPress={() => navigation.navigate("guide_explanation_settings")}
+            />
 
             {/* Media settings */}
-            <Card_set 
-            text="Media settings" 
-            value=""
-            onPress={() => navigation.navigate("media_settings")}
-             />
+            <Card_set
+              text="Media settings"
+              value=""
+              onPress={() => navigation.navigate("media_settings")}
+            />
 
             {/* Voice settings */}
-            <Card_set 
-            text="Voice settings" 
-            value="" 
-            onPress={() => navigation.navigate("voice_settings")}
+            <Card_set
+              text="Voice settings"
+              value=""
+              onPress={() => navigation.navigate("voice_settings")}
             />
 
             {/* Language setting */}
             <Card_set
-             text="Language settings" 
-             value="" 
-             onPress={() => navigation.navigate("language_setting")}
-             />
+              text="Language settings"
+              value=""
+              onPress={() => navigation.navigate("language_setting")}
+            />
 
             {/* Theme settings */}
-            <Card_set 
-            text="Theme settings" 
-            value=""
-            onPress={() => navigation.navigate("theme_settings")}
-             />
+            <Card_set
+              text="Theme settings"
+              value=""
+              onPress={() => navigation.navigate("theme_settings")}
+            />
 
             {/* Mode selection */}
-            <Card_set 
-            text="Mode selection" 
-            value=""
-            onPress={() => navigation.navigate("mode_selection")}
-             />
+            <Card_set
+              text="Mode selection"
+              value=""
+              onPress={() => navigation.navigate("mode_selection")}
+            />
 
             {/* About status */}
             <Card_set

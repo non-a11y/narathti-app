@@ -1,35 +1,35 @@
-import { View, Text, StatusBar } from 'react-native'
-import React from 'react'
-import { globalStyles } from '../../../styles/mystyles'
-import Header_sub_functions from '../../../components/header_sub_functions'
-import Card_check_front from '../../../components/card_check_front'
+import { View, Text, StatusBar } from "react-native";
+import React from "react";
+import { globalStyles } from "../../../styles/mystyles";
+import Header_sub_functions from "../../../components/header_sub_functions";
+import Card_check_front from "../../../components/card_check_front";
 
-export default function language_setting() {
+export default function Language_setting() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
-          <StatusBar
-            barStyle="light-content"
-            backgroundColor="transparent"
-            translucent={true} // ← สำคัญ! ให้ status bar โปร่งใส
-          />
-    
-          {/* Blue Gradient Header */}
-          <Header_sub_functions title="Language setting R2" />
-    
-          {/* White Settings Card */}
-          <View
-            style={{
-              flex: 1,
-              marginTop: -20,
-              paddingHorizontal: 16,
-            }}
-          >
-            <View
-              style={[
-                globalStyles.ios,
-                globalStyles.android,
-                {
-                   minHeight: 200,
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent={true} // ← สำคัญ! ให้ status bar โปร่งใส
+      />
+
+      {/* Blue Gradient Header */}
+      <Header_sub_functions title="Language setting R2" />
+
+      {/* White Settings Card */}
+      <View
+        style={{
+          flex: 1,
+          marginTop: -20,
+          paddingHorizontal: 16,
+        }}
+      >
+        <View
+          style={[
+            globalStyles.ios,
+            globalStyles.android,
+            {
+              minHeight: 200,
               backgroundColor: "#FFFFFF",
               borderRadius: 20,
               overflow: "hidden",
@@ -38,13 +38,13 @@ export default function language_setting() {
               alignItems: "center",
               shadowColor: "#5e76ffff",
               rowGap: 10,
-                },
-              ]}
-            >
-              <Card_check_front text="English"  />
-              <Card_check_front text="Thailand"  />
-            </View>
-          </View>
+            },
+          ]}
+        >
+          <Card_check_front text="English" />
+          <Card_check_front text="Thailand" />
         </View>
-  )
+      </View>
+    </View>
+  );
 }

@@ -5,7 +5,7 @@ import Header_sub_functions from "../../../components/header_sub_functions";
 import Card_text from "../../../components/card_button_function";
 import Card_check_front from "../../../components/card_check_front";
 
-export default function guide_explanation_settings() {
+export default function Guide_explanation_settings() {
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -56,7 +56,7 @@ export default function guide_explanation_settings() {
           <Card_text text="Delivery settings" value="Test" />
           <Card_text text="Cruise Show" value="Test" />
           <Card_text text="Reception" value="Test" />
-           <Text
+          <Text
             style={{
               width: "100%",
               textAlign: "left",

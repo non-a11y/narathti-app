@@ -2,10 +2,18 @@ import { View, Text, Dimensions, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { globalStyles } from "../styles/mystyles";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type RootStackParamList = {
+  TabT1: { screen: string; params: { uuid: string } };
+  TabR2: { screen: string; params: { uuid: string } };
+  TabS1: { screen: string; params: { uuid: string } };
+};
 
 const screenWidth = Dimensions.get("window").width;
 
 type CardProps = {
+  uuid: string; // เพิ่ม uuid
   robot: string;
   name: string;
   jobId: string;
@@ -14,7 +22,8 @@ type CardProps = {
   image: any; // require(...)
 };
 
-export default function card_main({
+export default function Card_main({
+  uuid,
   robot,
   name,
   jobId,
@@ -22,15 +31,17 @@ export default function card_main({
   status,
   image,
 }: CardProps) {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const handlePress = () => {
+    // ส่ง uuid แนบไปด้วยเวลาเปลี่ยนหน้า
     if (robot === "T1") {
-      navigation.navigate("TabT1" as never);
+      navigation.navigate("TabT1", { screen: "Home", params: { uuid } });
     } else if (robot === "R2") {
-      navigation.navigate("TabR2" as never);
+      navigation.navigate("TabR2", { screen: "Home", params: { uuid } });
     } else if (robot === "S1") {
-      navigation.navigate("TabS1" as never);
+      navigation.navigate("TabS1", { screen: "Home", params: { uuid } });
     }
   };
 

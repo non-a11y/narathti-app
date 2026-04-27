@@ -6,7 +6,7 @@ import Card_select_details from "../../../components/card_select_details";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 
-export default function voice_mode() {
+export default function Voice_mode() {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 

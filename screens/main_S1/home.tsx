@@ -1,11 +1,10 @@
 import { View, Text, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "../../components/header";
-
 import { globalStyles, main } from "../../styles/mystyles";
-import { Shadow } from "react-native-shadow-2";
 
-export default function home() {
+
+export default function Home() {
   const insets = useSafeAreaInsets();
   return (
     <View style={globalStyles.container}>

@@ -7,7 +7,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import CallStatus from "../../components/call_status";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default function sos() {
+export default function Sos() {
   const insets = useSafeAreaInsets();
   return (
     <View style={globalStyles.container}>
@@ -102,11 +102,11 @@ export default function sos() {
             >
               <View
                 style={{
-                   backgroundColor: "#80A0FF",
-                borderRadius: 12,
-                paddingHorizontal: 15,
-                paddingVertical: 2,
-                marginRight: 10,
+                  backgroundColor: "#80A0FF",
+                  borderRadius: 12,
+                  paddingHorizontal: 15,
+                  paddingVertical: 2,
+                  marginRight: 10,
                 }}
               >
                 <Text

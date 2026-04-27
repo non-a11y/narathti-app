@@ -5,7 +5,7 @@ import Header_sub_functions from "../../components/header_sub_functions";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import CardLTW from "../../components/card_list";
 
-export default function lead_the_way() {
+export default function Lead_the_way() {
   const insets = useSafeAreaInsets();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>

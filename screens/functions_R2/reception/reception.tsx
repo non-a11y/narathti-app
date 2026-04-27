@@ -36,7 +36,7 @@ export type RootStackParamList = {
   voice_list: undefined;
 };
 
-export default function reception() {
+export default function Reception() {
   const [leading_list, setleading_list] = useState(globallist);
   const [walkthrough_routes, setwalkthrough_routes] = useState(
     globalwalkthrough_routes,

@@ -6,7 +6,7 @@ import Card_select from "../../../components/card_select";
 import { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-export default function greeting_words() {
+export default function Greeting_words() {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 

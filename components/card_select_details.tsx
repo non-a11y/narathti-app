@@ -43,7 +43,6 @@ export default function card_select_details({
           <Text style={button_function.text_left}>{text}</Text>
         )}
 
-
         {/* details ตัวอักษรยาวเกิน 30 ให้ตัดขึ้นบรรทัดใหม่ */}
         {details.length > 45 ? (
           <Text

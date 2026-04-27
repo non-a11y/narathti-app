@@ -16,7 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import Card_re from "../../../components/card_button_function";
 
-export default function cruise_setting() {
+export default function Cruise_setting() {
   const navigation = useNavigation();
   const [autoWork, setAutoWork] = useState(false);
   const [repeatType, setRepeatType] = useState("one-time"); // 'one-time' or 'multiple'

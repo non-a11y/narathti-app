@@ -14,7 +14,7 @@ export type RootStackParamList = {
   S1_all_sub_function: undefined;
 };
 
-export default function fixed_point_reception() {
+export default function Fixed_point_reception() {
   const insets = useSafeAreaInsets();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -42,7 +42,7 @@ export default function fixed_point_reception() {
             globalStyles.ios,
             globalStyles.android,
             {
-              flex:1,
+              flex: 1,
               minHeight: 100, // ✅ ขยายตามเนื้อหา
               backgroundColor: "#FFFFFF",
               borderRadius: 30,
@@ -50,7 +50,6 @@ export default function fixed_point_reception() {
               alignItems: "center",
               shadowColor: "#5e76ffff",
               paddingBottom: 20,
-              
             },
           ]}
         >
@@ -89,7 +88,7 @@ export default function fixed_point_reception() {
             globalStyles.ios,
             globalStyles.android,
             {
-              flex:1,
+              flex: 1,
               minHeight: 100, // ✅ ขยายตามเนื้อหา
               backgroundColor: "#FFFFFF",
               borderRadius: 30,

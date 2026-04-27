@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Entypo from "@expo/vector-icons/Entypo";
 
-export default function card_select({ text }: { text: string }) {
+export default function Card_select({ text }: { text: string }) {
   return (
     <LinearGradient
       colors={["#76CFFF", "#008CFF"]}

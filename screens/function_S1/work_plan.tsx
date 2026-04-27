@@ -6,7 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
-export default function work_plan() {
+export default function Work_plan() {
   const insets = useSafeAreaInsets();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
@@ -18,7 +18,7 @@ export default function work_plan() {
 
       {/* Blue Gradient Header */}
       <Header_sub_functions title="Work plan" />
-      
+
       {/* button settings */}
       <View
         style={{

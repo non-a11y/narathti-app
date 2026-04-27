@@ -5,7 +5,7 @@ import Header_sub_functions from "../../../components/header_sub_functions";
 import Card_select from "../../../components/card_select";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-export default function notice_setting() {
+export default function Notice_setting() {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
   const currentSelection =

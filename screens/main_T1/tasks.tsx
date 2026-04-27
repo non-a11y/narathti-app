@@ -29,44 +29,45 @@ export type TaskItem = {
 const data: TaskItem[] = [
   {
     id: "1",
-    text : "Multi-Point\nDelivery",
-    image : require("../../assets/icon/multi-point_delivery.png"),
-    screen: "MultiPointDelivery"
+    text: "Multi-Point\nDelivery",
+    image: require("../../assets/icon/multi-point_delivery.png"),
+    screen: "MultiPointDelivery",
   },
   {
     id: "2",
-    text : "Cruise",
-    image : require("../../assets/icon/cruise.png"),
-    screen: "Cruise"
+    text: "Cruise",
+    image: require("../../assets/icon/cruise.png"),
+    screen: "Cruise",
   },
   {
     id: "3",
-    text : "Music",
-    image : require("../../assets/icon/musics.png"),
-    screen: "Music"
+    text: "Music",
+    image: require("../../assets/icon/musics.png"),
+    screen: "Music",
   },
   {
     id: "4",
-    text : "Lead the way",
-    image : require("../../assets/icon/lead the way.png"),  
-    screen: "Lead_the_way"
+    text: "Lead the way",
+    image: require("../../assets/icon/lead the way.png"),
+    screen: "Lead_the_way",
   },
   {
     id: "5",
-    text : "Reception",
-    image : require("../../assets/icon/reception.png"),
-    screen: "Reception"
+    text: "Reception",
+    image: require("../../assets/icon/reception.png"),
+    screen: "Reception",
   },
 ];
 
 // 1. Import useNavigation hook จาก React Navigation
 import { useNavigation } from "@react-navigation/native";
 
-export default function tasks() {
+export default function Tasks() {
   const insets = useSafeAreaInsets();
 
   // 2. เรียกใช้ useNavigation เพื่อได้ object navigation
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <View style={globalStyles.container}>
@@ -87,8 +88,6 @@ export default function tasks() {
             borderRadius: 30,
             alignItems: "center",
             justifyContent: "center",
-            
-        
           },
         ]}
       >
@@ -116,7 +115,6 @@ export default function tasks() {
             />
           )}
         />
-        
       </View>
     </View>
   );

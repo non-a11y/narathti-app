@@ -5,7 +5,7 @@ import Header_sub_functions from "../../../components/header_sub_functions";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-export default function cruise_show() {
+export default function Cruise_show() {
   const navigation = useNavigation<any>();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
@@ -47,7 +47,7 @@ export default function cruise_show() {
           ]}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("cruise_setting")}
+            onPress={() => navigation.navigate("cruise_show_select")}
             style={[
               globalStyles.ios,
               globalStyles.android,

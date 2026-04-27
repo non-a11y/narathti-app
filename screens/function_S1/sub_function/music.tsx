@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function music() {
+export default function Music() {
   return (
     <View style={{
         justifyContent: "center",

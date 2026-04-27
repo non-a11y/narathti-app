@@ -19,15 +19,14 @@ export type RootStackParamList = {
   S1_mobile_reception: undefined;
   S1_work_plan: undefined;
   S1_settings: undefined;
-
 };
 
-export default function tasks() {
+export default function Tasks() {
   const insets = useSafeAreaInsets();
 
-
   // 2. เรียกใช้ useNavigation เพื่อได้ object navigation
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <View style={globalStyles.container}>
@@ -99,7 +98,7 @@ export default function tasks() {
           >
             {/* card 1 button fixed-point reception */}
             <TouchableOpacity
-              onPress={() => navigation.navigate('S1_fixed_point_reception')}
+              onPress={() => navigation.navigate("S1_fixed_point_reception")}
               style={{
                 backgroundColor: "#A8ACFF",
                 borderRadius: 40,
@@ -125,7 +124,7 @@ export default function tasks() {
             </TouchableOpacity>
             {/* card 2 button mobile reception */}
             <TouchableOpacity
-              onPress={() => navigation.navigate('S1_mobile_reception')}
+              onPress={() => navigation.navigate("S1_mobile_reception")}
               style={{
                 backgroundColor: "#A8ACFF",
                 borderRadius: 40,
@@ -187,7 +186,8 @@ export default function tasks() {
                 color: "#7f7f7fff",
               }}
             >
-              after clicking patrol,joy will go to the designated place to start patrolling
+              after clicking patrol,joy will go to the designated place to start
+              patrolling
             </Text>
           </View>
           <View
@@ -199,7 +199,7 @@ export default function tasks() {
           >
             {/* card 3 button security patrol */}
             <TouchableOpacity
-            onPress={() => navigation.navigate('S1_security_patrol')}
+              onPress={() => navigation.navigate("S1_security_patrol")}
               style={{
                 backgroundColor: "#A8ACFF",
                 borderRadius: 40,
@@ -262,7 +262,7 @@ export default function tasks() {
         >
           {/* button work plan */}
           <TouchableOpacity
-            onPress={() => navigation.navigate('S1_work_plan')}
+            onPress={() => navigation.navigate("S1_work_plan")}
             style={{
               backgroundColor: "#FFE4A1",
               paddingHorizontal: 20,
@@ -287,7 +287,7 @@ export default function tasks() {
 
           {/* button settings */}
           <TouchableOpacity
-          onPress={() => navigation.navigate('S1_settings')}
+            onPress={() => navigation.navigate("S1_settings")}
             style={{
               backgroundColor: "#FFE4A1",
               paddingHorizontal: 20,

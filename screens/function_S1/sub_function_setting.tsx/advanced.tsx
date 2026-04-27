@@ -13,7 +13,7 @@ export type RootStackParamList = {
   S1_reception: undefined;
 };
 
-export default function advanced() {
+export default function Advanced() {
   const insets = useSafeAreaInsets();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();

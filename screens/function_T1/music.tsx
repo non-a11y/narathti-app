@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import Header_sub_functions from "../../components/header_sub_functions";
 
-export default function music() {
+export default function Music() {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   return (

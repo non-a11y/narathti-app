@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import CardDeilver from "../../components/card_list";
 
-export default function deliver_good() { 
+export default function Deliver_good() {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   return (

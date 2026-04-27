@@ -5,7 +5,7 @@ import Header_sub_functions from "../../components/header_sub_functions";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default function take_a_picture() {
+export default function Take_a_picture() {
   const insets = useSafeAreaInsets();
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>

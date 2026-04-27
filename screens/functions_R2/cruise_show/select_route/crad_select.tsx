@@ -8,7 +8,7 @@ interface crad_selectProps {
   name: string;
 }
 
-export default function crad_select({ id, name }: crad_selectProps) {
+export default function Crad_select({ id, name }: crad_selectProps) {
   return (
     <View style={[button_function.list]}>
       {/* Right */}

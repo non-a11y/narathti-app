@@ -15,7 +15,7 @@ import CardSelect from "./card_select";
 import { MaterialIcons } from "@expo/vector-icons";
 import Header_sub_functions from "../../../components/header_sub_functions";
 
-export default function cruise() {
+export default function Cruise() {
   const [isTrue, setIsTrue] = useState(true);
   const insets = useSafeAreaInsets();
   return (
@@ -181,9 +181,8 @@ export default function cruise() {
             <CardCruise text="Lobby001" />
             <CardCruise text="Lobby002" />
             <CardCruise text="Lobby003" />
-            
           </View>
-        </View> 
+        </View>
       </View>
 
       {/* Set off Button */}
@@ -191,7 +190,7 @@ export default function cruise() {
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          alignItems: "center", 
+          alignItems: "center",
           paddingHorizontal: 16,
           paddingTop: 16,
           backgroundColor: "#EEF2FF",

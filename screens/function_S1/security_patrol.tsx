@@ -16,7 +16,7 @@ export type RootStackParamList = {
   S1_all_sub_function: undefined;
 };
 
-export default function security_patrol() {
+export default function Security_patrol() {
   const insets = useSafeAreaInsets();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -78,7 +78,7 @@ export default function security_patrol() {
               Choose the patrol route
             </Text>
           </View>
-          <Card_list_icon_s1 title="Floor4"  />
+          <Card_list_icon_s1 title="Floor4" />
         </View>
 
         {/* card 2 */}

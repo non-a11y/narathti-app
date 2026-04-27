@@ -14,7 +14,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import CardDeilver from "../../../components/card_list";
 import Header_sub_functions from "../../../components/header_sub_functions";
 
-export default function cruise_shows() {
+export default function Cruise_shows() {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   return (
@@ -39,7 +39,7 @@ export default function cruise_shows() {
         }}
       >
         {/* Back Button */}
-       
+
         <TouchableOpacity
           onPress={() => {
             navigation.goBack();
