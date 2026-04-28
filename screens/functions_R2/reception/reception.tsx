@@ -418,7 +418,7 @@ export default function Reception() {
               text="Door"
               value={doorMode}
               onPress={() => setDoorModalVisible(true)}
-            /> 
+            />
 
             {/* Walkthrough routes */}
             <Card_button_function

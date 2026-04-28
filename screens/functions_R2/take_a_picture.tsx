@@ -48,7 +48,6 @@ export default function Take_a_picture() {
           <View
             style={{
               flex: 0.9,
-
               alignContent: "center",
               justifyContent: "center",
             }}

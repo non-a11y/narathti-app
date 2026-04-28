@@ -1,15 +1,26 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import Header from "../../src/components/header";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { globalStyles, main } from "../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+export type RootStackParamList = {
+  delivery_information: undefined;
+};
+
 
 export default function Pickup() {
+  const [show_robot, setShow_robot] = useState(true);
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={globalStyles.container}>
       <Header />
       <Text style={main.textheader}>Pickup/Delivery assistance</Text>
+
       {/* Choose a robot */}
       <View
         style={[
@@ -53,40 +64,113 @@ export default function Pickup() {
             style={{ marginRight: 20, transform: [{ rotate: "-180deg" }] }}
           />
         </View>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+
+        {/* show_robot === true */}
+        {show_robot ? (
           <View
             style={{
-              alignItems: "center",
+              flex: 1,
               justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <Image
+            <View
               style={{
-                width: 100,
-                height: 80,
-                resizeMode: "contain",
-                //backgroundColor: "#0a60ff",
-              }}
-              source={require("../../assets/icon/Choose_your.png")}
-            />
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: "500",
-                color: "#7F7F7F",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              Choose your delivery staff
-            </Text>
+              <View
+                style={{
+                  width: "100%",
+                  minHeight: 50,
+                  borderRadius: 20,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingHorizontal: 20,
+                  paddingVertical: 10,
+                  // กรอบ
+                  borderWidth: 1,
+                  borderColor: "#ffffffff",
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 12,
+                  }}
+                >
+                  <Image
+                    source={require("../../assets/icon/R2-008.png")}
+                    style={{
+                      width: 60,
+                      height: 110,
+                      resizeMode: "contain",
+                    }}
+                  />
+                  <View>
+                    <Text>Robot id </Text>
+                    <Text>Status </Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    //backgroundColor: "#ffffffff",
+                    justifyContent: "space-around",
+                    alignItems: "flex-end",
+                  }}
+                >
+                  <View>
+                    <Text>100%</Text>
+                  </View>
+                  <MaterialIcons
+                    name="radio-button-checked"
+                    size={20}
+                    color="#1B00B6"
+                  />
+                </View>
+              </View>
+            </View>
           </View>
-        </View>
+        ) : (
+          // show_robot === false
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                style={{
+                  width: 100,
+                  height: 80,
+                  resizeMode: "contain",
+                  //backgroundColor: "#0a60ff",
+                }}
+                source={require("../../assets/icon/Choose_your.png")}
+              />
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: "500",
+                  color: "#7F7F7F",
+                }}
+              >
+                Choose your delivery staff
+              </Text>
+            </View>
+          </View>
+        )}
       </View>
+
       {/* Address */}
       <View
         style={[
@@ -112,7 +196,9 @@ export default function Pickup() {
         >
           Address
         </Text>
-        <View
+        {/* Where to deliver from ? */}
+        <TouchableOpacity
+        onPress={() => navigation.navigate("delivery_information")}
           style={{
             width: "90%",
             height: 85,
@@ -146,7 +232,7 @@ export default function Pickup() {
                 fontWeight: "500",
               }}
             >
-              Where to deliver from?
+              Where to deliver from ?
             </Text>
             <Text
               style={{
@@ -157,9 +243,11 @@ export default function Pickup() {
               Click to fill in delivery information
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View
+        {/* To where? */}
+        <TouchableOpacity
+        onPress={() => navigation.navigate("delivery_information")}
           style={{
             width: "90%",
             height: 85,
@@ -204,7 +292,7 @@ export default function Pickup() {
               Click to fill in receive information
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
 
       {/* Call button */}

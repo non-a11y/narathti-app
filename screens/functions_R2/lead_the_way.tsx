@@ -36,7 +36,6 @@ export default function Lead_the_way() {
               backgroundColor: "#FFFFFF",
               borderRadius: 20,
               overflow: "hidden",
-              //alignItems: "center",
               shadowColor: "#5e76ffff",
               marginBottom: 80 + Math.max(insets.bottom, 0),
             },

@@ -142,6 +142,7 @@ export default function Deliver_good() {
               placeholderTextColor="#999999"
             />
           </View>
+          
           {/* body */}
           <View
             style={{

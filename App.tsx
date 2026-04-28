@@ -80,6 +80,7 @@ import Call_rebot_list from "./screens/functions_R2/Call_robot/Call_rebot_list";
 import Work_report from "./screens/functions_R2/work_report";
 import All_R2 from './screens/functions_R2/order_data/All';
 import task_datas from "./screens/functions_R2/task_data/task_datas";
+import delivery_information from "./screens/functions_R2/delivery_information";
 
 // sub function_S1
 import s1_fixed_point_reception from "./screens/function_S1/fixed_point_reception";
@@ -175,6 +176,7 @@ export type RootStackParamList = {
   Work_report: undefined;
   All_R2: undefined;
   Task_datas: undefined;
+  delivery_information: undefined;
 
   // function_S1
   S1_fixed_point_reception: undefined;
@@ -378,6 +380,7 @@ export default function App() {
           <Stack.Screen name="Call_Robot" component={Call_Robot} />
           <Stack.Screen name="Call_rebot_list" component={Call_rebot_list} />
           <Stack.Screen name="All_R2" component={All_R2} />
+          <Stack.Screen name="delivery_information" component={delivery_information} />
 
           {/* sub function_S1 */}
 
