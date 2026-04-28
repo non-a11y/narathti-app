@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
-import Header_sub_functions from "../../components/header_sub_functions";
+import Header_sub_functions from "../../src/components/header_sub_functions";
 
 export default function Music() {
   const navigation = useNavigation();

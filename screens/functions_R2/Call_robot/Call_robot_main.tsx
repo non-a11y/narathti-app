@@ -3,25 +3,76 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
-  Image,
   TextInput,
+  Alert,
+  Image,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MaterialIcons } from "@expo/vector-icons";
+import Card_list from "../../../src/components/card_list";
 
 export type RootStackParamList = {
-  Call_rebot_list: undefined;
+  Call_rebot_list: {
+    uuid: string;
+    onSelect?: (name: string, pointUuid: string) => void;
+  };
 };
 
 export default function Call_Robot() {
+  const [choice, setChoice] = useState(true);
+  const [button_call, setbutton_call] = useState(false);
+
+  const route = useRoute();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
+  const [selectedPointName, setSelectedPointName] = useState("");
+  const [selectedPointUuid, setSelectedPointUuid] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const updateSelectedPoint = (pointName: string, pointUuid: string) => {
+    setSelectedPointName(pointName);
+    setSelectedPointUuid(pointUuid);
+    setChoice(false);
+    setbutton_call(true);
+  };
+
+  const handleCallRobot = async () => {
+    try {
+      const response = await fetch("http://10.0.2.2:3000/api/call", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          robotUuid: (route.params as any)?.uuid,
+          pointUuid: selectedPointUuid,
+          phone: phone,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        Alert.alert("Success", "Robot called successfully");
+        navigation.goBack();
+      } else {
+        Alert.alert("Error", result.message || "Failed to call robot");
+      }
+    } catch (error) {
+      console.error("Error calling robot:", error);
+      Alert.alert("Error", "Network error. Please check your connection.");
+    }
+  };
+
+  //console.log("Call_robot_main params:", route.params);
+  //console.log("selectedPointName :" + selectedPointName);
+  //console.log("selectedPointUuid :" + selectedPointUuid);
   return (
     <LinearGradient
       colors={["#008CFF", "#dcf3ffff"]}
@@ -163,7 +214,8 @@ export default function Call_Robot() {
               </View>
               <View
                 style={{
-                  justifyContent: "space-between",
+                  //backgroundColor: "#ffffffff",
+                  justifyContent: "space-around",
                   alignItems: "flex-end",
                 }}
               >
@@ -202,11 +254,14 @@ export default function Call_Robot() {
               Call location information
             </Text>
             <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => {
-              navigation.navigate("Call_rebot_list");
-            }}
-            style={{
+              activeOpacity={0.7}
+              onPress={() => {
+                navigation.navigate("Call_rebot_list", {
+                  uuid: (route.params as any)?.uuid ?? "",
+                  onSelect: updateSelectedPoint,
+                });
+              }}
+              style={{
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -221,7 +276,22 @@ export default function Call_Robot() {
               >
                 Select Other Locations
               </Text>
-              <Ionicons name="chevron-forward" size={18} color="#636363ff" />
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 4,
+                }}
+              >
+                {choice ? (
+                  // เข้ามาครั้งเเรก เป็นค่าว่าง จะปิด Button
+                  <Text></Text>
+                ) : (
+                  <Card_list text={selectedPointName || "Select point"} />
+                )}
+
+                <Ionicons name="chevron-forward" size={18} color="#636363ff" />
+              </View>
             </TouchableOpacity>
             <View
               style={{ width: "100%", height: 1, backgroundColor: "#868686ff" }}
@@ -240,6 +310,8 @@ export default function Call_Robot() {
                 placeholder="Enter Phone Number"
                 placeholderTextColor="#999999"
                 keyboardType="number-pad"
+                value={phone}
+                onChangeText={setPhone}
               />
             </View>
           </View>
@@ -254,33 +326,59 @@ export default function Call_Robot() {
           paddingBottom: insets.bottom + 20,
         }}
       >
-        <TouchableOpacity
-          activeOpacity={0.85}
-          style={{ borderRadius: 30, overflow: "hidden" }}
-        >
-          <LinearGradient
-            colors={["#2979FF", "#4AB0FF"]}
-            start={{ x: 0, y: 0.5 }}
-            end={{ x: 1, y: 0.5 }}
-            style={{
-              height: 54,
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 30,
-            }}
+        {button_call ? (
+          <TouchableOpacity
+            activeOpacity={0.85}
+            style={{ borderRadius: 30, overflow: "hidden" }}
+            onPress={handleCallRobot}
           >
-            <Text
+            <LinearGradient
+              colors={["#2979FF", "#4AB0FF"]}
+              start={{ x: 0, y: 0.5 }}
+              end={{ x: 1, y: 0.5 }}
               style={{
-                color: "#FFFFFF",
-                fontSize: 20,
-                fontWeight: "600",
-                letterSpacing: 0.5,
+                height: 54,
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 30,
               }}
             >
-              Call Robot
-            </Text>
-          </LinearGradient>
-        </TouchableOpacity>
+              <Text
+                style={{
+                  color: "#FFFFFF",
+                  fontSize: 20,
+                  fontWeight: "600",
+                  letterSpacing: 0.5,
+                }}
+              >
+                Call Robot
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        ) : (
+          <View style={{ borderRadius: 30, overflow: "hidden" }}>
+            <View
+              style={{
+                height: 54,
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 30,
+                backgroundColor: "#787878ff",
+              }}
+            >
+              <Text
+                style={{
+                  color: "#FFFFFF",
+                  fontSize: 20,
+                  fontWeight: "600",
+                  letterSpacing: 0.5,
+                }}
+              >
+                Call Robot
+              </Text>
+            </View>
+          </View>
+        )}
       </View>
     </LinearGradient>
   );

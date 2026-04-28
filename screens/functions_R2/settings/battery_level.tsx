@@ -1,10 +1,10 @@
 import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_text_des from "../../../components/card_text_des";
-import Card_on_off from "../../../components/card_on-off";
-import Card_check_front from "../../../components/card_check_front";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
+import Card_text_des from "../../../src/components/card_text_des";
+import Card_on_off from "../../../src/components/card_on-off";
+import Card_check_front from "../../../src/components/card_check_front";
 
 export default function Battery_level() {
   return (

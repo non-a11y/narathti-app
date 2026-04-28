@@ -1,9 +1,9 @@
 import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles } from "../../styles/mystyles";
-import Header_sub_functions from "../../components/header_sub_functions";
+import Header_sub_functions from "../../src/components/header_sub_functions";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import CardLTW from "../../components/card_list";
+import CardLTW from "../../src/components/card_list";
 
 export default function Lead_the_way() {
   const insets = useSafeAreaInsets();

@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { button_function } from "../styles/mystyles";
+import { button_function } from "../../styles/mystyles";
 import { FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons";
 
 interface card_list_r2Props {

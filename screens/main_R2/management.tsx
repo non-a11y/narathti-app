@@ -1,15 +1,27 @@
-import { View, Text, Image } from "react-native";
-import Header from "../../components/header";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import Header from "../../src/components/header";
 import { globalStyles } from "../../styles/mystyles";
 import { Ionicons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+export type RootStackParamList = {
+  Work_report: undefined;
+  All_R2: undefined;
+  Task_datas: undefined;
+};
 
 export default function Management() {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={globalStyles.container}>
       <Header />
       {/* card 1 */}
-      <View
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Work_report")}
+        activeOpacity={0.8}
         style={[
           // เงา
           globalStyles.ios,
@@ -29,7 +41,7 @@ export default function Management() {
           style={{
             width: "100%",
             height: 50,
-            backgroundColor: "#D9F2FF",
+            backgroundColor: "#e6f0ffff",
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             flexDirection: "row",
@@ -167,10 +179,11 @@ export default function Management() {
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
 
-      {/* card 2 */}
-      <View
+      {/* card 2 Order data */}
+      <TouchableOpacity
+        onPress={() => navigation.navigate("All_R2")}
         style={[
           globalStyles.ios,
           globalStyles.android,
@@ -202,10 +215,12 @@ export default function Management() {
             Check the delivery order.
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
 
-      {/* card 3 */}
-      <View
+      {/* card 3 Task data */}
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Task_datas")}
+        activeOpacity={0.8}
         style={[
           globalStyles.ios,
           globalStyles.android,
@@ -237,7 +252,7 @@ export default function Management() {
             View the task execution details of the robot.
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }

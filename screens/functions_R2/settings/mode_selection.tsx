@@ -1,9 +1,9 @@
 import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_check_front from "../../../components/card_check_front";
-import Card_button_function from "../../../components/card_button_function";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
+import Card_check_front from "../../../src/components/card_check_front";
+import Card_button_function from "../../../src/components/card_button_function";
 
 export default function Mode_selection() {
   return (

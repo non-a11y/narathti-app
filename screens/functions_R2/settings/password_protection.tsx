@@ -1,8 +1,8 @@
 import { View, Text, StatusBar, Switch } from "react-native";
 import React from "react";
 import { globalStyles, button_function } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_on_off from "../../../components/card_on-off";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
+import Card_on_off from "../../../src/components/card_on-off";
 
 export default function Password_protection() {
   const [autoWork, setAutoWork] = React.useState(false);

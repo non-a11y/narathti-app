@@ -2,7 +2,7 @@ import { View, StatusBar, Image, Text, FlatList } from "react-native";
 import React from "react";
 import { globalStyles } from "../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Card_function from "../../components/card_function";
+import Card_function from "../../src/components/card_function";
 import { LinearGradient } from "expo-linear-gradient";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";

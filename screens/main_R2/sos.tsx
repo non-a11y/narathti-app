@@ -1,10 +1,10 @@
 import { View, Text, Image, ScrollView } from "react-native";
-import Header from "../../components/header";
+import Header from "../../src/components/header";
 import { globalStyles } from "../../styles/mystyles";
 import { Foundation } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import CallStatus from "../../components/call_status";
+import CallStatus from "../../src/components/call_status";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Sos() {

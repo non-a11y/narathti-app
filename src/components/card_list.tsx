@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { globalStyles } from "../styles/mystyles";
+import { globalStyles } from "../../styles/mystyles";
 import { LinearGradient } from "expo-linear-gradient";
 
 interface card_listProps {

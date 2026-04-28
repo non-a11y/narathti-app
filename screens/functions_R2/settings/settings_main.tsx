@@ -1,11 +1,11 @@
 import { View, Text, StatusBar, Modal } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import Card_set from "../../../components/card_button_function";
+import Card_set from "../../../src/components/card_button_function";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";

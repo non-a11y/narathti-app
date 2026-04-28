@@ -1,7 +1,7 @@
 import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
 
 export default function About_status() {
   return (

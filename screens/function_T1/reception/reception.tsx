@@ -7,8 +7,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
-import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_button_function from "../../../components/card_button_function";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
+import Card_button_function from "../../../src/components/card_button_function";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {

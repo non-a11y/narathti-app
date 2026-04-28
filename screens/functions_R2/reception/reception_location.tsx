@@ -1,10 +1,10 @@
 import { View, Text, StatusBar, TextInput } from "react-native";
 import React from "react";
-import Header_sub_functions from "../../../components/header_sub_functions";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
 import { globalStyles } from "../../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import CardDeilver from "../../../components/card_list";
+import CardDeilver from "../../../src/components/card_list";
 
 export default function Reception_location() {
   const insets = useSafeAreaInsets();

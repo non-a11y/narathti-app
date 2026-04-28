@@ -1,8 +1,8 @@
 import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_set from "../../../components/card_button_function";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
+import Card_set from "../../../src/components/card_button_function";
 
 export default function Voice_settings() {
   return (

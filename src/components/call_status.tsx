@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { globalStyles } from "../styles/mystyles";
+import { globalStyles } from "../../styles/mystyles";
 import { Foundation } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import Entypo from "@expo/vector-icons/Entypo";

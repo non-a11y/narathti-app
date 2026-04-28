@@ -1,13 +1,19 @@
-import { View, Text, Image, ActivityIndicator, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
 import { useState, useEffect } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Header from "../../components/header";
+import Header from "../../src/components/header";
 import { globalStyles, main } from "../../styles/mystyles";
 import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack"; 
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
-  Call_Robot: undefined;
+  Call_Robot: { uuid: string };
 };
 
 export default function Home({ route }: { route: any }) {
@@ -24,6 +30,7 @@ export default function Home({ route }: { route: any }) {
   const [robotNumber, setRobotNumber] = useState("...");
   const [taskStatus, setTaskStatus] = useState("...");
   const [power, setPower] = useState("0%");
+  const [offline, setOffline] = useState(route?.params?.status === "offline");
 
   // ใช้ useEffect เพื่อดึงข้อมูลเมื่อ component ถูก mount
   useEffect(() => {
@@ -31,7 +38,9 @@ export default function Home({ route }: { route: any }) {
       try {
         // ถ้าไม่มี UUID ส่งมา ให้หยุดโหลดและยกเลิกการดึงข้อมูล
         if (!uuid) {
-          console.error("UUID is missing! Please select a robot from the main screen.");
+          console.error(
+            "UUID is missing! Please select a robot from the main screen.",
+          );
           setLoading(false);
           return;
         }
@@ -181,30 +190,56 @@ export default function Home({ route }: { route: any }) {
               source={require("../../assets/icon/R2-008.png")}
             />
             {/* button */}
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#0a60ff",
-                height: 50,
-                width: "90%",
-                alignSelf: "center",
-                borderRadius: 25,
-                marginTop: 20,
-                marginBottom: 20,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onPress={() => navigation.navigate("Call_Robot")}
-            >
-              <Text
+            {offline ? (
+              <View
                 style={{
-                  color: "#ffffff",
-                  fontSize: 18,
-                  fontWeight: "bold",
+                  backgroundColor: "#9c9c9cff",
+                  height: 50,
+                  width: "90%",
+                  alignSelf: "center",
+                  borderRadius: 25,
+                  marginTop: 20,
+                  marginBottom: 20,
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                Call
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={{
+                    color: "#ffffff",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Call
+                </Text>
+              </View>
+            ) : (
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#0a60ff",
+                  height: 50,
+                  width: "90%",
+                  alignSelf: "center",
+                  borderRadius: 25,
+                  marginTop: 20,
+                  marginBottom: 20,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onPress={() => navigation.navigate("Call_Robot", { uuid })}
+              >
+                <Text
+                  style={{
+                    color: "#ffffff",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Call
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </>
       )}

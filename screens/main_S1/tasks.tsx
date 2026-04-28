@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Header from "../../components/header";
+import Header from "../../src/components/header";
 import { globalStyles, main } from "../../styles/mystyles";
 import { StyleSheet } from "react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";

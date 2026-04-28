@@ -1,7 +1,7 @@
 import { View, StatusBar, FlatList } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../../styles/mystyles";
-import Header_sub_functions from "../../../../components/header_sub_functions";
+import Header_sub_functions from "../../../../src/components/header_sub_functions";
 import Card_picture from "./card_picture";
 
 export type all_sub_function = {

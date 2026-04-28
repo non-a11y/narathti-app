@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { globalStyles, button_function } from "../styles/mystyles";
+import { globalStyles, button_function } from "../../styles/mystyles";
 import { Ionicons } from "@expo/vector-icons";
 
 interface card_setProps {

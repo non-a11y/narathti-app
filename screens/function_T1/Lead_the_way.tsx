@@ -2,8 +2,8 @@ import { View, Text, StatusBar, TouchableOpacity } from "react-native";
 import React from "react";
 import { globalStyles } from "../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Card_list from "../../components/card_list";
-import Header_sub_functions from "../../components/header_sub_functions";
+import Card_list from "../../src/components/card_list";
+import Header_sub_functions from "../../src/components/header_sub_functions";
 
 export default function Lead_the_way() {
   const insets = useSafeAreaInsets();

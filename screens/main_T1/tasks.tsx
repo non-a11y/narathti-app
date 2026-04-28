@@ -1,9 +1,9 @@
 import { View, Text, Image, FlatList } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Header from "../../components/header";
+import Header from "../../src/components/header";
 import { globalStyles, main } from "../../styles/mystyles";
 import { StyleSheet } from "react-native";
-import Card_function from "../../components/card_function";
+import Card_function from "../../src/components/card_function";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {

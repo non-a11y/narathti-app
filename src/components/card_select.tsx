@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { button_function } from "../styles/mystyles";
+import { button_function } from "../../styles/mystyles";
 
 interface card_choiceProps {
   text: string;

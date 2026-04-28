@@ -1,8 +1,8 @@
 import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_select_details from "../../../components/card_select_details";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
+import Card_select_details from "../../../src/components/card_select_details";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 

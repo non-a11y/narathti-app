@@ -1,10 +1,10 @@
 import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles } from "../../styles/mystyles";
-import Header_sub_functions from "../../components/header_sub_functions";
+import Header_sub_functions from "../../src/components/header_sub_functions";
 import { FontAwesome6, Octicons } from "@expo/vector-icons";
-import Card_list_icon_s1 from "../../components/card_list_icon_s1";
-import Card_list_time from "../../components/card_list_time";
+import Card_list_icon_s1 from "../../src/components/card_list_icon_s1";
+import Card_list_time from "../../src/components/card_list_time";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";

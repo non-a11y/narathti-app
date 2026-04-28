@@ -7,9 +7,9 @@ import {
 } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_0n_off from "../../../components/card_on-off";
-import Card_button_function from "../../../components/card_button_function";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
+import Card_0n_off from "../../../src/components/card_on-off";
+import Card_button_function from "../../../src/components/card_button_function";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 

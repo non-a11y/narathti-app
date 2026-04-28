@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
-import Card_list_r2 from "../../../components/card_list_r2";
+import Card_list_r2 from "../../../src/components/card_list_r2";
 
 export default function Leading_list() {
   const route = useRoute<any>();

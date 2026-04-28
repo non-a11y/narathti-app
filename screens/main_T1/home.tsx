@@ -1,6 +1,6 @@
 import { View, Text, Image, ActivityIndicator } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Header from "../../components/header";
+import Header from "../../src/components/header";
 import { globalStyles, main } from "../../styles/mystyles";
 import { useEffect, useState } from "react";
 
@@ -22,7 +22,9 @@ export default function Home({ route }: { route: any }) {
       try {
         // ถ้าไม่มี UUID ส่งมา ให้หยุดโหลดและยกเลิกการดึงข้อมูล
         if (!uuid) {
-          console.error("UUID is missing! Please select a robot from the main screen.");
+          console.error(
+            "UUID is missing! Please select a robot from the main screen.",
+          );
           setLoading(false);
           return;
         }

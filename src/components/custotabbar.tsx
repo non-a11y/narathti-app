@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { View, Text, Image, TouchableOpacity, Animated } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { globalStyles } from "../styles/mystyles";
+import { globalStyles } from "../../styles/mystyles";
 
 // คอมโพเนนต์ย่อยสำหรับปุ่มแต่ละปุ่มบน TabBar พร้อม Animation
 const TabItem = ({
@@ -30,14 +30,14 @@ const TabItem = ({
   if (isCenter) {
     // ขยายใหญ่ขึ้น 15% เมื่อถูกเลือก
     const centerScale = animValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [1, 1.15] 
+      inputRange: [0, 1], // 
+      outputRange: [1, 1.15], // [1, 1.15]
     });
-    
+
     // ดรอปความสว่างลงเมื่อไม่ได้เลือก (0.6) และสว่างเต็มที่เมื่อถูกเลือก (1.0)
     const centerOpacity = animValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0.6, 1] 
+      outputRange: [0.6, 1],
     });
 
     return (
@@ -46,16 +46,18 @@ const TabItem = ({
         style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         activeOpacity={0.8}
       >
-        <Animated.View style={{ 
-          transform: [{ scale: centerScale }], 
-          opacity: centerOpacity,
-          // เพิ่มเงาเบาๆ เวลาถูกเลือกให้ดูเด้งออกมา
-          shadowColor: isActive ? "#3BA3E3" : "transparent",
-          shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.4,
-          shadowRadius: 5,
-          elevation: isActive ? 5 : 0
-        }}>
+        <Animated.View
+          style={{
+            transform: [{ scale: centerScale }],
+            opacity: centerOpacity,
+            // เพิ่มเงาเบาๆ เวลาถูกเลือกให้ดูเด้งออกมา
+            shadowColor: isActive ? "#3BA3E3" : "transparent",
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 0.4,
+            shadowRadius: 5,
+            elevation: isActive ? 5 : 0,
+          }}
+        >
           <Image
             source={iconSource}
             style={{ width: 60, height: 60, resizeMode: "contain" }}
@@ -106,7 +108,7 @@ const TabItem = ({
         <Image
           source={iconSource}
           style={{
-            width: 24,
+            width: 24, // 24
             height: 24,
             resizeMode: "contain",
             tintColor: isActive ? "#FFFFFF" : inactiveColor,
@@ -172,21 +174,21 @@ export default function CustomTabBar({
         <TabItem
           routeName="Home"
           label="Home"
-          iconSource={require("../assets/icon/home.png")}
+          iconSource={require("../../assets/icon/home.png")}
           isActive={activeRouteName === "Home"}
           onPress={() => handlePress("Home")}
         />
         <TabItem
           routeName="Tasks"
           label="Tasks"
-          iconSource={require("../assets/icon/tasks.png")}
+          iconSource={require("../../assets/icon/tasks.png")}
           isActive={activeRouteName === "Tasks"}
           onPress={() => handlePress("Tasks")}
         />
         <TabItem
           routeName="Pickup"
           label=""
-          iconSource={require("../assets/icon/pickup.png")}
+          iconSource={require("../../assets/icon/pickup.png")}
           isActive={activeRouteName === "Pickup"}
           onPress={() => handlePress("Pickup")}
           isCenter={true}
@@ -194,14 +196,14 @@ export default function CustomTabBar({
         <TabItem
           routeName="Management"
           label="Activity"
-          iconSource={require("../assets/icon/management.png")}
+          iconSource={require("../../assets/icon/management.png")}
           isActive={activeRouteName === "Management"}
           onPress={() => handlePress("Management")}
         />
         <TabItem
           routeName="SOS"
           label="sos"
-          iconSource={require("../assets/icon/sos.png")}
+          iconSource={require("../../assets/icon/sos.png")}
           isActive={activeRouteName === "SOS"}
           onPress={() => handlePress("SOS")}
         />

@@ -1,8 +1,8 @@
 import { View, Text, StatusBar } from "react-native";
 import React from "react";
 import { globalStyles, button_function } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_time from "../../../components/card_check_front";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
+import Card_time from "../../../src/components/card_check_front";
 
 export default function Reception_time() {
   return (

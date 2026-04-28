@@ -16,7 +16,7 @@ import SOST1 from "./screens/main_T1/sos";
 import HomeR2 from "./screens/main_R2/home";
 import TasksR2 from "./screens/main_R2/tasks";
 import PickupR2 from "./screens/main_R2/pickup";
-import ManagementR2 from "./screens/main_R2/management";
+import ManagementR2 from "./screens/main_R2/management"; 
 import SOSR2 from "./screens/main_R2/sos";
 
 // function_T1 — หน้า Function ต่างๆ ที่เปิดทับ Tab Bar
@@ -77,6 +77,9 @@ import language_setting from "./screens/functions_R2/settings/language_setting";
 import theme_settings from "./screens/functions_R2/settings/theme_settings";
 import Call_Robot from "./screens/functions_R2/Call_robot/Call_robot_main";
 import Call_rebot_list from "./screens/functions_R2/Call_robot/Call_rebot_list";
+import Work_report from "./screens/functions_R2/work_report";
+import All_R2 from './screens/functions_R2/order_data/All';
+import task_datas from "./screens/functions_R2/task_data/task_datas";
 
 // sub function_S1
 import s1_fixed_point_reception from "./screens/function_S1/fixed_point_reception";
@@ -107,7 +110,7 @@ import s1_network from "./screens/function_S1/sub_function_setting.tsx/network";
 import s1_sound from "./screens/function_S1/sub_function_setting.tsx/sound";
 
 // TabBar — Custom Tab Bar ที่ใช้ร่วมกันทั้ง T1 และ R2
-import CustomTabBar from "./components/custotabbar";
+import CustomTabBar from "./src/components/custotabbar";
 
 // types/navigation.ts
 export type RootStackParamList = {
@@ -164,8 +167,14 @@ export type RootStackParamList = {
   language_setting: undefined;
   theme_settings: undefined;
   mode_selection: undefined;
-  Call_Robot: undefined;
-  Call_rebot_list: undefined;
+  Call_Robot: { uuid: string };
+  Call_rebot_list: {
+    uuid: string;
+    onSelect?: (name: string, pointUuid: string) => void;
+  };
+  Work_report: undefined;
+  All_R2: undefined;
+  Task_datas: undefined;
 
   // function_S1
   S1_fixed_point_reception: undefined;
@@ -368,6 +377,7 @@ export default function App() {
           <Stack.Screen name="mode_selection" component={mode_selection} />
           <Stack.Screen name="Call_Robot" component={Call_Robot} />
           <Stack.Screen name="Call_rebot_list" component={Call_rebot_list} />
+          <Stack.Screen name="All_R2" component={All_R2} />
 
           {/* sub function_S1 */}
 
@@ -389,6 +399,8 @@ export default function App() {
           <Stack.Screen name="S1_video_call" component={s1_video_call} />
           <Stack.Screen name="S1_video" component={s1_video} />
           <Stack.Screen name="S1_invitation" component={s1_invitation} />
+          <Stack.Screen name="Work_report" component={Work_report} />
+          <Stack.Screen name="Task_datas" component={task_datas} />
 
           {/* sub function_settings_S1 */}
           <Stack.Screen name="S1_initiative" component={s1_initiative} />

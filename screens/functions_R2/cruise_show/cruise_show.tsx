@@ -11,8 +11,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import CardDeilver from "../../../components/card_list";
-import Header_sub_functions from "../../../components/header_sub_functions";
+import CardDeilver from "../../../src/components/card_list";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
 
 export default function Cruise_shows() {
   const navigation = useNavigation();

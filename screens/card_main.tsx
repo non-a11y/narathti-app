@@ -5,9 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type RootStackParamList = {
-  TabT1: { screen: string; params: { uuid: string } };
-  TabR2: { screen: string; params: { uuid: string } };
-  TabS1: { screen: string; params: { uuid: string } };
+  TabT1: { screen: string; params: { uuid: string; status: string } };
+  TabR2: { screen: string; params: { uuid: string; status: string } };
+  TabS1: { screen: string; params: { uuid: string; status: string } };
 };
 
 const screenWidth = Dimensions.get("window").width;
@@ -37,11 +37,20 @@ export default function Card_main({
   const handlePress = () => {
     // ส่ง uuid แนบไปด้วยเวลาเปลี่ยนหน้า
     if (robot === "T1") {
-      navigation.navigate("TabT1", { screen: "Home", params: { uuid } });
+      navigation.navigate("TabT1", {
+        screen: "Home",
+        params: { uuid, status },
+      });
     } else if (robot === "R2") {
-      navigation.navigate("TabR2", { screen: "Home", params: { uuid } });
+      navigation.navigate("TabR2", {
+        screen: "Home",
+        params: { uuid, status },
+      });
     } else if (robot === "S1") {
-      navigation.navigate("TabS1", { screen: "Home", params: { uuid } });
+      navigation.navigate("TabS1", {
+        screen: "Home",
+        params: { uuid, status },
+      });
     }
   };
 

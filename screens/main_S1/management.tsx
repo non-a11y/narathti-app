@@ -1,5 +1,5 @@
 import { View, Text, Image } from "react-native";
-import Header from "../../components/header";
+import Header from "../../src/components/header";
 import { globalStyles } from "../../styles/mystyles";
 import { Ionicons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";

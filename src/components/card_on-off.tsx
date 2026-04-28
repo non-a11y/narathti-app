@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { button_function } from "../styles/mystyles";
+import { button_function } from "../../styles/mystyles";
 import Toggle_switch from "./toggle_switch"; // นำเข้า Toggle_switch component
 
 export default function Card_on_off({ text }: { text: string }) {

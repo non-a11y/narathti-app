@@ -1,6 +1,6 @@
 import { View, StatusBar, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { headerStyles } from "../styles/mystyles";
+import { headerStyles } from "../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 
@@ -37,7 +37,7 @@ export default function header() {
               resizeMode: "contain", // ปรับขนาดรูปให้พอดีกับกรอบ
               alignSelf: "center", // จัดให้อยู่ตรงกลาง
             }}
-            source={require("../assets/icon/naratai.png")}
+            source={require("../../assets/icon/naratai.png")}
           />
         </View>
         <View>
@@ -47,7 +47,7 @@ export default function header() {
               height: 40,
               resizeMode: "contain",
             }}
-            source={require("../assets/icon/user.png")}
+            source={require("../../assets/icon/user.png")}
           />
         </View>
       </View>

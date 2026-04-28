@@ -11,7 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import CardDeilver from "../../components/card_list";
+import CardDeilver from "../../src/components/card_list";
 
 export default function Deliver_good() {
   const navigation = useNavigation();

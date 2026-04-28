@@ -1,8 +1,8 @@
 import { View, Text, StatusBar, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { globalStyles } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_select from "../../../components/card_select";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
+import Card_select from "../../../src/components/card_select";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";

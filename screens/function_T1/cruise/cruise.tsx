@@ -10,10 +10,10 @@ import { globalStyles, cruiseStyles } from "../../../styles/mystyles";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState } from "react";
-import CardCruise from "../../../components/card_list";
+import CardCruise from "../../../src/components/card_list";
 import CardSelect from "./card_select";
 import { MaterialIcons } from "@expo/vector-icons";
-import Header_sub_functions from "../../../components/header_sub_functions";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
 
 export default function Cruise() {
   const [isTrue, setIsTrue] = useState(true);

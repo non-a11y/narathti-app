@@ -1,8 +1,7 @@
 import { View, Text, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Header from "../../components/header";
+import Header from "../../src/components/header";
 import { globalStyles, main } from "../../styles/mystyles";
-
 
 export default function Home() {
   const insets = useSafeAreaInsets();

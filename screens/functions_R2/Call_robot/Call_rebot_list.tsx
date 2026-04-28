@@ -12,45 +12,76 @@ import { globalStyles } from "../../../styles/mystyles";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import CardDeilver from "../../../components/card_list";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
+import CardDeilver from "../../../src/components/card_list";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+export type RootStackParamList = {
+  Call_rebot_list: {
+    uuid: string;
+    onSelect?: (name: string, pointUuid: string) => void;
+  };
+};
 
 export default function Call_rebot_list() {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const route = useRoute<RouteProp<RootStackParamList, "Call_rebot_list">>();
   const insets = useSafeAreaInsets();
 
   const [points, setPoints] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchPoints = async () => {
+    const fetchData = async () => {
       try {
-        const mapUuid = "da00cd478541475f8cf21bb1cc8cb3ad"; // ไม่ต้อง ฟิก mapUuid
-        const res = await fetch(`http://10.0.2.2:3000/api/maps/${mapUuid}/points`);
+        // Get robot uuid from navigation params
+        const { uuid } = (route.params as any) ?? {};
+        if (!uuid) {
+          setError("Robot UUID not provided");
+          setLoading(false);
+          return;
+        }
+        // Fetch robot detail to obtain mapUuid
+        const robotRes = await fetch(`http://10.0.2.2:3000/api/robots/${uuid}`);
+        if (!robotRes.ok) {
+          throw new Error("Failed to fetch robot detail");
+        }
+        const robotJson = await robotRes.json();
+        const robotData = robotJson.data || robotJson;
+        const mapUuid = robotData.mapUuid;
+        if (!mapUuid) {
+          throw new Error("mapUuid not found in robot data");
+        }
+        const res = await fetch(
+          `http://10.0.2.2:3000/api/maps/${mapUuid}/points`,
+        );
+        if (!res.ok) {
+          throw new Error("Failed to fetch map points");
+        }
         const data = await res.json();
-
         // Handle response data structure
         let list = [];
         if (Array.isArray(data)) list = data;
         else if (data && Array.isArray(data.data)) list = data.data;
-        else if (data && data.data && Array.isArray(data.data.list)) list = data.data.list;
+        else if (data && data.data && Array.isArray(data.data.list))
+          list = data.data.list;
 
-        // Filter out "DEFAULT_CHARGE_BASE"
+        // Filter out points where pointGroupType is DEFAULT_CHARGE_BASE
         const filteredList = list.filter(
-          (point: any) => point.pointGroupType !== "DEFAULT_CHARGE_BASE"
+          (item: any) => item.pointGroupType !== "DEFAULT_CHARGE_BASE",
         );
-
         setPoints(filteredList);
       } catch (error) {
-        console.error("Error fetching map points:", error);
+        console.error("Error fetching data:", error);
+        setError(error instanceof Error ? error.message : String(error));
       } finally {
         setLoading(false);
       }
     };
-
-    fetchPoints();
+    fetchData();
   }, []);
-
   return (
     <View style={[globalStyles.container, { backgroundColor: "#EEF2FF" }]}>
       <StatusBar
@@ -178,9 +209,6 @@ export default function Call_rebot_list() {
             />
           </View>
           {/* body */}
-          <View>
-            <Text>Recommended Location</Text>
-          </View>
           <ScrollView
             contentContainerStyle={{
               flexDirection: "row",
@@ -192,13 +220,44 @@ export default function Call_rebot_list() {
             }}
           >
             {loading ? (
-              <ActivityIndicator size="large" color="#0a60ff" style={{ width: "100%", marginTop: 20 }} />
+              <ActivityIndicator
+                size="large"
+                color="#0a60ff"
+                style={{ width: "100%", marginTop: 20 }}
+              />
+            ) : error ? (
+              <Text
+                style={{
+                  width: "100%",
+                  textAlign: "center",
+                  marginTop: 20,
+                  color: "#ff4444",
+                }}
+              >
+                {error}
+              </Text>
             ) : points.length > 0 ? (
               points.map((point, index) => (
-                <CardDeilver key={index} text={point.name} />
+                <CardDeilver
+                  key={index}
+                  text={point.name}
+                  onPress={() => {
+                    if (route.params?.onSelect) {
+                      route.params.onSelect(point.name, point.pointUuid);
+                    }
+                    navigation.goBack();
+                  }}
+                />
               ))
             ) : (
-              <Text style={{ width: "100%", textAlign: "center", marginTop: 20, color: "#999" }}>
+              <Text
+                style={{
+                  width: "100%",
+                  textAlign: "center",
+                  marginTop: 20,
+                  color: "#999",
+                }}
+              >
                 No locations found
               </Text>
             )}

@@ -6,14 +6,14 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
-import Card_list_r2 from "../../../components/card_list_r2";
+import Card_list_r2 from "../../../src/components/card_list_r2";
 
 export default function Walkthrough_routes() {
   const route = useRoute<any>();
 
   // นำค่า currentSelection ที่ส่งถูกส่งต่อมาจากหน้า MultiPointDelivery มาใช้เพื่อเช็คว่าประโยคล่าสุดคือข้อไหน
   const currentSelection =
-    route.params?.currentSelection ||
+    route.params?.currentSelection || 
     "Your food has arrived. Please pick up in time";
 
   // สร้าง State สำหรับเก็บตัวเลือกปัจจุบัน โดยใช้ค่าที่ถูกส่งมาจากหน้าหลัก (currentSelection) เป็นค่า Initial State ให้วงกลมไปอยู่ที่ตัวเลือกล่าสุดเสมอ

@@ -1,8 +1,8 @@
 import { StatusBar, View } from "react-native";
 import React, { useState } from "react";
 import { globalStyles } from "../../../styles/mystyles";
-import Header_sub_functions from "../../../components/header_sub_functions";
-import Card_select from "../../../components/card_select";
+import Header_sub_functions from "../../../src/components/header_sub_functions";
+import Card_select from "../../../src/components/card_select";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 export default function Notice_setting() {
