@@ -3,6 +3,7 @@ import React from "react";
 import { globalStyles } from "../styles/mystyles";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useRobot } from "../contexts/RobotContext";
 
 type RootStackParamList = {
   TabT1: { screen: string; params: { uuid: string; status: string } };
@@ -20,6 +21,7 @@ type CardProps = {
   battery: number;
   status: "online" | "offline";
   image: any; // require(...)
+  taskStatus?: string;
 };
 
 export default function Card_main({
@@ -30,12 +32,15 @@ export default function Card_main({
   battery,
   status,
   image,
+  taskStatus,
 }: CardProps) {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { setUuid } = useRobot();
 
   const handlePress = () => {
-    // ส่ง uuid แนบไปด้วยเวลาเปลี่ยนหน้า
+    // บันทึก uuid ลง Context เพื่อให้ทุก Tab อ่านได้เสมอ
+    setUuid(uuid);
     if (robot === "T1") {
       navigation.navigate("TabT1", {
         screen: "Home",
@@ -108,15 +113,36 @@ export default function Card_main({
           <Text>{jobId}</Text>
 
           {/* แบตเตอรี่ */}
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              columnGap: 5,
+            }}
+          >
             <Image
               style={{
                 width: 20,
-                height: 20,
+                aspectRatio: 2 / 3,
                 resizeMode: "contain",
                 marginRight: 5,
+                // ปรับภาพให้เป็นแนวนอน
+                transform: [{ rotate: "90deg" }],
               }}
-              source={require("../assets/icon/power.png")}
+              source={(() => {
+                if (taskStatus === "CHARGE") {
+                  return require("../assets/icon/battery/CHARGE.webp");
+                }
+                if (battery <= 25) {
+                  return require("../assets/icon/battery/0-25.webp");
+                } else if (battery <= 50) {
+                  return require("../assets/icon/battery/25-50.webp");
+                } else if (battery <= 75) {
+                  return require("../assets/icon/battery/50-75.webp");
+                } else {
+                  return require("../assets/icon/battery/75-100.webp");
+                }
+              })()}
             />
             <Text style={[globalStyles.defaulttextstyles, { fontSize: 12 }]}>
               {battery}%

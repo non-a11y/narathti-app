@@ -113,6 +113,7 @@ export const button_function = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "#ffffffff",
     paddingHorizontal: 20,
+    
     borderRadius: 30,
     // เส้นขอบ
     borderWidth: 2,

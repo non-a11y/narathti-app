@@ -1,21 +1,90 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../src/components/header";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { globalStyles, main } from "../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useRobot } from "../../contexts/RobotContext";
 
 export type RootStackParamList = {
-  delivery_information: undefined;
+  delivery_information: {
+    uuid: string;
+    onSelect?: (name: string, phone: string) => void;
+  };
 };
-
 
 export default function Pickup() {
   const [show_robot, setShow_robot] = useState(true);
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const route = useRoute();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const { uuid } = useRobot(); // อ่าน uuid จาก RobotContext (เสถียรกว่าการอ่านจาก navigation state)
+
+  const [fromPoint, setFromPoint] = useState<string>("");
+  const [toPoint, setToPoint] = useState<string>("");
+  const [deliveryPhone, setDeliveryPhone] = useState<string>("");
+  const [button_go, setbutton_go] = useState(false);
+
+  // ตรวจสอบอัตโนมัติ: ถ้าเลือกจุดครบทั้งสองฝั่ง ให้เปิดปุ่ม Go เป็นสีน้ำเงิน
+  useEffect(() => {
+    if (fromPoint !== "" && toPoint !== "") {
+      setbutton_go(true);
+    } else {
+      setbutton_go(false);
+    }
+  }, [fromPoint, toPoint]);
+
+  // ฟังก์ชันสำหรับส่งคำสั่งทำงาน (API: /api/order)
+  const handleOrder = async () => {
+    // ตรวจสอบความพร้อมของข้อมูล
+    if (!fromPoint || !toPoint) {
+      alert("Please select both points");
+      return;
+    }
+    const payload = {
+      source: "THRID_UNIONPAY_HELP_DELIVER",
+      thridOrderNum: `HELP-${Date.now()}`,
+      phone: deliveryPhone,
+      callBackUrl: "http://10.0.2.2:3000/api/callback/order", // localhost สำหรับ android emulator
+      deliveryType: "HELP_SEND",
+      fromPointName: fromPoint,
+      toPointName: toPoint,
+      robotUuid: uuid,
+    };
+
+    console.log("Sending Order Payload:", payload);
+
+    try {
+      const res = await fetch("http://10.0.2.2:3000/api/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      console.log("Order Response:", data);
+
+      if (res.ok) {
+        alert("Order sent successfully");
+        // เครียค่า
+        setFromPoint("");
+        setToPoint("");
+        setDeliveryPhone("");
+      } else {
+        alert(`Order failed: ${data.msg || "Unknown error"}`);
+      }
+    } catch (error) {
+      console.error("Error sending order:", error);
+      alert("Error sending order. Please check your connection.");
+    }
+  };
+
   return (
     <View style={globalStyles.container}>
       <Header />
@@ -39,7 +108,7 @@ export default function Pickup() {
           style={{
             width: "100%",
             height: 50,
-            backgroundColor: "#E8E8E8",
+            backgroundColor: "#e6f0ffff",
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             flexDirection: "row",
@@ -89,9 +158,6 @@ export default function Pickup() {
                   justifyContent: "space-between",
                   paddingHorizontal: 20,
                   paddingVertical: 10,
-                  // กรอบ
-                  borderWidth: 1,
-                  borderColor: "#ffffffff",
                 }}
               >
                 <View
@@ -182,27 +248,37 @@ export default function Pickup() {
             marginHorizontal: 20,
             marginTop: 20,
             borderRadius: 30,
+            paddingHorizontal: 10,
+            paddingVertical: 20,
           },
         ]}
       >
         <Text
           style={{
-            marginLeft: 20,
-            marginTop: 20,
+            marginLeft: 10,
             fontSize: 20,
             fontWeight: "bold",
-            color: "#7F7F7F",
+            color: "#4e4e4eff",
           }}
         >
           Address
         </Text>
         {/* Where to deliver from ? */}
         <TouchableOpacity
-        onPress={() => navigation.navigate("delivery_information")}
+          activeOpacity={0.8}
+          onPress={() =>
+            navigation.navigate("delivery_information", {
+              uuid,
+              onSelect: (name, phone) => {
+                setFromPoint(name);
+                if (phone) setDeliveryPhone(phone); // เก็บเบอร์โทรถ้ามีการกรอก
+              },
+            })
+          }
           style={{
-            width: "90%",
+            width: "100%",
             height: 85,
-            backgroundColor: "#EFEFEF",
+            backgroundColor: "#d0effc74",
             alignSelf: "center",
             borderRadius: 20,
             marginTop: 20,
@@ -229,15 +305,17 @@ export default function Pickup() {
             <Text
               style={{
                 fontSize: 16,
-                fontWeight: "500",
+                color: fromPoint ? "#000DFF" : "#000000ff",
+                fontWeight: fromPoint ? "bold" : "500",
               }}
             >
-              Where to deliver from ?
+              {fromPoint || "Where to deliver from ?"}
             </Text>
             <Text
               style={{
                 fontSize: 16,
                 color: "#7F7F7F",
+                fontWeight: "500",
               }}
             >
               Click to fill in delivery information
@@ -247,11 +325,20 @@ export default function Pickup() {
 
         {/* To where? */}
         <TouchableOpacity
-        onPress={() => navigation.navigate("delivery_information")}
+          activeOpacity={0.8}
+          onPress={() =>
+            navigation.navigate("delivery_information", {
+              uuid,
+              onSelect: (name, phone) => {
+                setToPoint(name);
+                if (phone) setDeliveryPhone(phone); // เก็บเบอร์โทรถ้ามีการกรอก
+              },
+            })
+          }
           style={{
-            width: "90%",
+            width: "100%",
             height: 85,
-            backgroundColor: "#EFEFEF",
+            backgroundColor: "#ffdaab6d",
             alignSelf: "center",
             borderRadius: 20,
             marginTop: 20,
@@ -278,15 +365,17 @@ export default function Pickup() {
             <Text
               style={{
                 fontSize: 16,
-                fontWeight: "500",
+                color: toPoint ? "#FF6600" : "#000000ff",
+                fontWeight: toPoint ? "bold" : "500",
               }}
             >
-              To where?
+              {toPoint || "To where ?"}
             </Text>
             <Text
               style={{
                 fontSize: 16,
                 color: "#7F7F7F",
+                fontWeight: "500",
               }}
             >
               Click to fill in receive information
@@ -295,32 +384,60 @@ export default function Pickup() {
         </TouchableOpacity>
       </View>
 
-      {/* Call button */}
-      <View
-        style={{
-          backgroundColor: "#0a60ff",
-          height: 50,
-          width: "90%",
-          alignSelf: "center",
-          borderRadius: 25,
-          marginTop: 20,
-          // เพิ่ม marginBottom ไม่ให้ปุ่มติดขอบแผ่นกระดาษขาวด้านล่างมากเกินไป
-          marginBottom: 100 + Math.max(insets.bottom, 0), // เกิดเป็นค่าลบขึ้นมา ให้ใช้ 0 แทน
-          // จัดตำแหน่งกึ่งกลางด้วย Flexbox แทนการดัน Component ด้วย margin
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Text
+      {button_go ? (
+        // Call button (Go)
+        // button_go = true เมื่อเลือกจุดครบทั้งสองฝั่ง
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={handleOrder}
           style={{
-            color: "#ffffff",
-            fontSize: 18,
-            fontWeight: "bold",
+            backgroundColor: "#0a60ff",
+            height: 50,
+            width: "90%",
+            alignSelf: "center",
+            borderRadius: 25,
+            marginTop: 20,
+            marginBottom: 100 + Math.max(insets.bottom, 0),
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          Go
-        </Text>
-      </View>
+          <Text
+            style={{
+              color: "#ffffff",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
+            Go
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        // button_go = false เมื่อเลือกจุดไม่ครบทั้งสองฝั่ง
+        <View
+          style={{
+            backgroundColor: "#c3c3c3ff",
+            height: 50,
+            width: "90%",
+            alignSelf: "center",
+            borderRadius: 25,
+            marginTop: 20,
+            marginBottom: 100 + Math.max(insets.bottom, 0),
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              color: "#ffffffff",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
+            Go
+          </Text>
+        </View>
+      )}
     </View>
   );
 }

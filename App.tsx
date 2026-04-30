@@ -2,6 +2,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { RobotProvider } from "./contexts/RobotContext";
 
 import Main from "./screens/main";
 
@@ -168,7 +169,7 @@ export type RootStackParamList = {
   language_setting: undefined;
   theme_settings: undefined;
   mode_selection: undefined;
-  Call_Robot: { uuid: string };
+  Call_robot_main: { uuid: string; onSelect?: (name: string, pointUuid: string) => void };
   Call_rebot_list: {
     uuid: string;
     onSelect?: (name: string, pointUuid: string) => void;
@@ -176,7 +177,7 @@ export type RootStackParamList = {
   Work_report: undefined;
   All_R2: undefined;
   Task_datas: undefined;
-  delivery_information: undefined;
+  delivery_information: { uuid: string; onSelect?: (name: string, phone: string) => void };
 
   // function_S1
   S1_fixed_point_reception: undefined;
@@ -265,6 +266,7 @@ function TabNavigatorS1() {
 export default function App() {
   return (
     // SafeAreaProvider — ให้ทุกหน้าใช้ useSafeAreaInsets() เพื่อเว้นระยะ Notch และ Home Bar ได้
+    <RobotProvider>
     <SafeAreaProvider>
       {/* NavigationContainer — ครอบสุดนอก ทำหน้าที่เก็บ Navigation State ทั้งหมด */}
       <NavigationContainer>
@@ -377,7 +379,7 @@ export default function App() {
           <Stack.Screen name="language_setting" component={language_setting} />
           <Stack.Screen name="theme_settings" component={theme_settings} />
           <Stack.Screen name="mode_selection" component={mode_selection} />
-          <Stack.Screen name="Call_Robot" component={Call_Robot} />
+          <Stack.Screen name="Call_robot_main" component={Call_Robot} />
           <Stack.Screen name="Call_rebot_list" component={Call_rebot_list} />
           <Stack.Screen name="All_R2" component={All_R2} />
           <Stack.Screen name="delivery_information" component={delivery_information} />
@@ -416,5 +418,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
+    </RobotProvider>
   );
 }

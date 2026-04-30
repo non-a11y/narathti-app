@@ -17,6 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import Card_button_function from "../../../src/components/card_button_function";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import Toggle_switch from "../../../src/components/toggle_switch";
 
 let globalwalkthrough_routes = "No Walkthrough";
 let globallist = "Test";
@@ -158,16 +159,15 @@ export default function Reception() {
                   flexDirection: "row",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  paddingVertical: 15,
+                  //paddingVertical: 10,
+                   height: 60, // ความสูงของการการ์ด
                 }}
               >
                 <Text style={button_function.text_left}>Automatic Cruise</Text>
-                <Switch
+                
+                <Toggle_switch
                   value={autoWork}
                   onValueChange={setAutoWork}
-                  trackColor={{ false: "#E0E0E0", true: "#8ae9a2ff" }}
-                  thumbColor={autoWork ? "#34C759" : "#FFFFFF"}
-                  ios_backgroundColor="#E0E0E0"
                 />
               </View>
 
@@ -441,13 +441,8 @@ export default function Reception() {
               {/* Text left */}
               <Text style={button_function.text_left}>Lead the Way</Text>
               {/* Text right */}
-              <Switch
-                value={leadTheWay}
-                onValueChange={setLeadTheWay}
-                trackColor={{ false: "#E0E0E0", true: "#8ae9a2ff" }}
-                thumbColor={leadTheWay ? "#34C759" : "#FFFFFF"}
-                ios_backgroundColor="#E0E0E0"
-              />
+              <Toggle_switch />
+              
             </View>
 
             {/* Leading List */}
@@ -471,13 +466,7 @@ export default function Reception() {
               {/* Text left */}
               <Text style={button_function.text_left}>Take a Picture</Text>
               {/* Text right */}
-              <Switch
-                value={takeAPicture}
-                onValueChange={setTakeAPicture}
-                trackColor={{ false: "#E0E0E0", true: "#8ae9a2ff" }}
-                thumbColor={takeAPicture ? "#34C759" : "#FFFFFF"}
-                ios_backgroundColor="#E0E0E0"
-              />
+               <Toggle_switch />
             </View>
 
             {/* Enable delivery during reception */}
@@ -487,13 +476,7 @@ export default function Reception() {
                 Enable delivery during reception
               </Text>
               {/* Text right */}
-              <Switch
-                value={enableDelivery}
-                onValueChange={setEnableDelivery}
-                trackColor={{ false: "#E0E0E0", true: "#8ae9a2ff" }}
-                thumbColor={enableDelivery ? "#34C759" : "#FFFFFF"}
-                ios_backgroundColor="#E0E0E0"
-              />
+               <Toggle_switch />
             </View>
           </ScrollView>
         </View>

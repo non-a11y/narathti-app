@@ -32,6 +32,7 @@ export default function Call_rebot_list() {
   const [points, setPoints] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -206,6 +207,8 @@ export default function Call_rebot_list() {
               }}
               placeholder="Search"
               placeholderTextColor="#999999"
+              value={searchQuery}
+              onChangeText={setSearchQuery}
             />
           </View>
           {/* body */}
@@ -237,18 +240,33 @@ export default function Call_rebot_list() {
                 {error}
               </Text>
             ) : points.length > 0 ? (
-              points.map((point, index) => (
-                <CardDeilver
-                  key={index}
-                  text={point.name}
-                  onPress={() => {
-                    if (route.params?.onSelect) {
-                      route.params.onSelect(point.name, point.pointUuid);
-                    }
-                    navigation.goBack();
-                  }}
-                />
-              ))
+              (() => {
+                // 1. กรองรายการ points ตามชื่อที่พิมพ์ในช่อง Search (ตัวเล็ก/ใหญ่ไม่มีผล)
+                const filtered = points.filter((p) =>
+                  p.name.toLowerCase().includes(searchQuery.toLowerCase()),
+                );
+                // 2. ถ้ากรองแล้วไม่พบรายการที่ตรงกับคำค้นหาเลย ให้แสดงข้อความแจ้งเตือน
+                if (filtered.length === 0) {
+                  return (
+                    <Text style={{ color: "#999", marginTop: 10 }}>
+                      No results for "{searchQuery}"
+                    </Text>
+                  );
+                }
+                // 3. แสดงรายการที่กรองแล้ว
+                return filtered.map((point, index) => (
+                  <CardDeilver
+                    key={index}
+                    text={point.name}
+                    onPress={() => {
+                      if (route.params?.onSelect) {
+                        route.params.onSelect(point.name, point.pointUuid);
+                      }
+                      navigation.goBack();
+                    }}
+                  />
+                ));
+              })()
             ) : (
               <Text
                 style={{

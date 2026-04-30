@@ -15,6 +15,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MaterialIcons } from "@expo/vector-icons";
 import Card_list from "../../../src/components/card_list";
+import { useRobot } from "../../../contexts/RobotContext";
 
 export type RootStackParamList = {
   Call_rebot_list: {
@@ -31,6 +32,7 @@ export default function Call_Robot() {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
+  const { uuid } = useRobot(); // อ่าน uuid จาก RobotContext (เสถียรกว่า route.params)
   const [selectedPointName, setSelectedPointName] = useState("");
   const [selectedPointUuid, setSelectedPointUuid] = useState("");
   const [phone, setPhone] = useState("");
@@ -136,7 +138,7 @@ export default function Call_Robot() {
             marginVertical: 10,
             marginHorizontal: 10,
             alignItems: "center",
-            paddingHorizontal: 20,
+            paddingHorizontal: 16,
             paddingVertical: 20,
             rowGap: 10,
           }}
@@ -148,8 +150,8 @@ export default function Call_Robot() {
               justifyContent: "space-between",
               alignItems: "center",
               gap: 10,
-              paddingHorizontal: 16,
-              paddingVertical: 16,
+              paddingHorizontal: 10,
+              paddingVertical: 20,
               borderRadius: 20,
             }}
           >
@@ -239,8 +241,8 @@ export default function Call_Robot() {
               backgroundColor: "#eeeeee4b",
               width: "100%",
               gap: 10,
-              paddingHorizontal: 16,
-              paddingVertical: 16,
+              paddingHorizontal: 10,
+              paddingVertical: 20,
               borderRadius: 20,
               rowGap: 20,
             }}
@@ -257,7 +259,7 @@ export default function Call_Robot() {
               activeOpacity={0.7}
               onPress={() => {
                 navigation.navigate("Call_rebot_list", {
-                  uuid: (route.params as any)?.uuid ?? "",
+                  uuid: uuid,
                   onSelect: updateSelectedPoint,
                 });
               }}
@@ -287,7 +289,23 @@ export default function Call_Robot() {
                   // เข้ามาครั้งเเรก เป็นค่าว่าง จะปิด Button
                   <Text></Text>
                 ) : (
-                  <Card_list text={selectedPointName || "Select point"} />
+                  <View
+                    style={{
+                      backgroundColor: "#ffffffff",
+                      paddingHorizontal: 12,
+                      paddingVertical: 6,
+                      borderRadius: 20,
+                      // เส้นขอบ
+                      borderWidth: 1,
+                      borderColor: "#868686ff",
+                    }}
+                  >
+                    <Text>{selectedPointName}</Text>
+                  </View>
+                  // <Card_list
+                  //   text={selectedPointName || "Select point"}
+                  //   isSelected={true}
+                  // />
                 )}
 
                 <Ionicons name="chevron-forward" size={18} color="#636363ff" />
@@ -363,7 +381,7 @@ export default function Call_Robot() {
                 justifyContent: "center",
                 alignItems: "center",
                 borderRadius: 30,
-                backgroundColor: "#787878ff",
+                backgroundColor: "#bcbcbcff",
               }}
             >
               <Text
