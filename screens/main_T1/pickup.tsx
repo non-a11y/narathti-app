@@ -3,9 +3,13 @@ import Header from "../../src/components/header";
 import { Ionicons } from "@expo/vector-icons";
 import { globalStyles, main } from "../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useState } from "react";
+
+
 
 export default function Pickup() {
   const insets = useSafeAreaInsets();
+    const [show_robot, setShow_robot] = useState(true);
   return (
     <View style={globalStyles.container}>
       <Header />

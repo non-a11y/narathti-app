@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useRobot } from "../../contexts/RobotContext";
+import BatteryIcon from "../../src/components/BatteryIcon";
 
 export type RootStackParamList = {
   delivery_information: {
@@ -28,14 +29,68 @@ export default function Pickup() {
   const [toPoint, setToPoint] = useState<string>("");
   const [deliveryPhone, setDeliveryPhone] = useState<string>("");
   const [button_go, setbutton_go] = useState(false);
+  //ตัวแปรสำหรับเก็บข้อมูลหุ่นยนต์
+  const [robotNumber, setRobotnumber] = useState("...");
+  const [status, setStatus] = useState("...");
+  const [taskStatus, setTaskStatus] = useState("...");
+  const [power, setPower] = useState("0%");
 
   // ตรวจสอบอัตโนมัติ: ถ้าเลือกจุดครบทั้งสองฝั่ง ให้เปิดปุ่ม Go เป็นสีน้ำเงิน
   useEffect(() => {
+    const fetchRobotData = async () => {
+      try {
+        const robotRes = await fetch(`http://10.0.2.2:3000/api/robots/${uuid}`);
+        const robotJson = await robotRes.json();
+        const robotData = robotJson.data || robotJson;
+
+        if (robotData) {
+          if (robotData.number) setRobotnumber(robotData.number);
+          if (robotData.taskStatus) setTaskStatus(robotData.taskStatus);
+          if (robotData.power !== undefined) {
+          setPower(`${Math.round(parseFloat(robotData.power))}%`);
+        }
+        }
+      } catch (error) {
+        console.error("Error fetching robot data:", error);
+      }
+    };
+
+    // ดึงค่า ที่อยู่ใน http://localhost:3000/api/robots "state": "IDLING"
+    const fetchRobotState = async () => {
+      try {
+        const robotStateRes = await fetch("http://10.0.2.2:3000/api/robots");
+        const robotStateJson = await robotStateRes.json();
+
+        // ตรวจสอบข้อมูลว่าเป็น Array หรือไม่ (รองรับหลายรูปแบบ response)
+        let robotsList = [];
+        if (Array.isArray(robotStateJson)) robotsList = robotStateJson;
+        else if (robotStateJson && Array.isArray(robotStateJson.data))
+          robotsList = robotStateJson.data;
+        else if (
+          robotStateJson &&
+          robotStateJson.data &&
+          Array.isArray(robotStateJson.data.list)
+        )
+          robotsList = robotStateJson.data.list;
+
+        // ค้นหาหุ่นยนต์ตัวที่ตรงกับ uuid ปัจจุบัน
+        const currentRobot = robotsList.find((r: any) => r.uuid === uuid);
+
+        if (currentRobot && currentRobot.state) {
+          setStatus(currentRobot.state);
+        }
+      } catch (error) {
+        console.error("Error fetching robot state from list:", error);
+      }
+    };
+
     if (fromPoint !== "" && toPoint !== "") {
       setbutton_go(true);
     } else {
       setbutton_go(false);
     }
+    fetchRobotState();
+    fetchRobotData();
   }, [fromPoint, toPoint]);
 
   // ฟังก์ชันสำหรับส่งคำสั่งทำงาน (API: /api/order)
@@ -170,14 +225,30 @@ export default function Pickup() {
                   <Image
                     source={require("../../assets/icon/R2-008.png")}
                     style={{
-                      width: 60,
-                      height: 110,
+                      width: 65,
+                      aspectRatio: 2 / 3,
                       resizeMode: "contain",
+                      //backgroundColor: "#00000085",
                     }}
                   />
-                  <View>
-                    <Text>Robot id </Text>
-                    <Text>Status </Text>
+                  <View style={{ rowGap: 10 }}>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {robotNumber}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: "500",
+                        color: "#4b4b4bff",
+                      }}
+                    >
+                      {status}
+                    </Text>
                   </View>
                 </View>
                 <View
@@ -187,8 +258,27 @@ export default function Pickup() {
                     alignItems: "flex-end",
                   }}
                 >
-                  <View>
-                    <Text>100%</Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      columnGap: 10,
+                    }}
+                  >
+                    <BatteryIcon
+                      battery={power}
+                      taskStatus={taskStatus}
+                      style={{ width: 20 }} // ปรับขนาดตามความต้องการของหน้านี้
+                    />
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: "500",
+                        color: "#030303ff",
+                      }}
+                    >
+                      {power}
+                    </Text>
                   </View>
                   <MaterialIcons
                     name="radio-button-checked"
@@ -231,7 +321,7 @@ export default function Pickup() {
                 }}
               >
                 Choose your delivery staff
-              </Text>
+              </Text> 
             </View>
           </View>
         )}

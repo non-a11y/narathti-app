@@ -54,6 +54,8 @@ import reception_location from "./screens/function_T1/reception/reception_locati
 import voice_mode from "./screens/function_T1/reception/voice_mode";
 import greeting_words from "./screens/function_T1/reception/greeting_words";
 import lead_the_list from "./screens/function_T1/reception/lead_the_list";
+import Call_robot_T1 from "./screens/function_T1/Call_robot/Call_robot_T1";
+import Call_rebot_list_T1 from "./screens/function_T1/Call_robot/Call_rebot_list_T1";
 
 // sub function_R2
 import cruise_shows from "./screens/functions_R2/cruise_show/cruise_show";
@@ -76,8 +78,8 @@ import guide_explanation_settings from "./screens/functions_R2/settings/guide_ex
 import media_settings from "./screens/functions_R2/settings/media_settings";
 import language_setting from "./screens/functions_R2/settings/language_setting";
 import theme_settings from "./screens/functions_R2/settings/theme_settings";
-import Call_Robot from "./screens/functions_R2/Call_robot/Call_robot_main";
-import Call_rebot_list from "./screens/functions_R2/Call_robot/Call_rebot_list";
+import Call_Robot_R2 from "./screens/functions_R2/Call_robot/Call_robot_R2";
+import Call_rebot_list_R2 from "./screens/functions_R2/Call_robot/Call_rebot_list_R2";
 import Work_report from "./screens/functions_R2/work_report";
 import All_R2 from './screens/functions_R2/order_data/All';
 import task_datas from "./screens/functions_R2/task_data/task_datas";
@@ -138,6 +140,11 @@ export type RootStackParamList = {
   voice_mode: undefined;
   greeting_words: undefined;
   lead_the_list: undefined;
+  Call_robot_T1: { uuid: string };
+  Call_rebot_list_T1: {
+    uuid: string;
+    onSelect?: (name: string, pointUuid: string) => void;
+  };
 
   // function_R2
   Deliver: undefined;
@@ -169,8 +176,8 @@ export type RootStackParamList = {
   language_setting: undefined;
   theme_settings: undefined;
   mode_selection: undefined;
-  Call_robot_main: { uuid: string; onSelect?: (name: string, pointUuid: string) => void };
-  Call_rebot_list: {
+  Call_robot_R2: { uuid: string; onSelect?: (name: string, pointUuid: string) => void };
+  Call_rebot_list_R2: {
     uuid: string;
     onSelect?: (name: string, pointUuid: string) => void;
   };
@@ -309,6 +316,8 @@ export default function App() {
           <Stack.Screen name="voice_mode" component={voice_mode} />
           <Stack.Screen name="greeting_words" component={greeting_words} />
           <Stack.Screen name="lead_the_list" component={lead_the_list} />
+          <Stack.Screen name="Call_robot_T1" component={Call_robot_T1} />
+          <Stack.Screen name="Call_rebot_list_T1" component={Call_rebot_list_T1} />
 
           {/* Functions - R2 */}
           <Stack.Screen name="Deliver" component={Deliver} />
@@ -379,8 +388,8 @@ export default function App() {
           <Stack.Screen name="language_setting" component={language_setting} />
           <Stack.Screen name="theme_settings" component={theme_settings} />
           <Stack.Screen name="mode_selection" component={mode_selection} />
-          <Stack.Screen name="Call_robot_main" component={Call_Robot} />
-          <Stack.Screen name="Call_rebot_list" component={Call_rebot_list} />
+          <Stack.Screen name="Call_robot_R2" component={Call_Robot_R2} />
+          <Stack.Screen name="Call_rebot_list_R2" component={Call_rebot_list_R2} />
           <Stack.Screen name="All_R2" component={All_R2} />
           <Stack.Screen name="delivery_information" component={delivery_information} />
 

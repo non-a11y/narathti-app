@@ -17,16 +17,16 @@ import CardDeilver from "../../../src/components/card_list";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
-  Call_rebot_list: {
+  Call_rebot_list_R2: {
     uuid: string;
     onSelect?: (name: string, pointUuid: string) => void;
   };
 };
 
-export default function Call_rebot_list() {
+export default function Call_rebot_list_R2() {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const route = useRoute<RouteProp<RootStackParamList, "Call_rebot_list">>();
+  const route = useRoute<RouteProp<RootStackParamList, "Call_rebot_list_R2">>();
   const insets = useSafeAreaInsets();
 
   const [points, setPoints] = useState<any[]>([]);

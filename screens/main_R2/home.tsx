@@ -13,9 +13,11 @@ import Header from "../../src/components/header";
 import { globalStyles, main } from "../../styles/mystyles";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useRobot } from "../../contexts/RobotContext"; // 👈 นำเข้า Context
+import BatteryIcon from "../../src/components/BatteryIcon";
 
 export type RootStackParamList = {
-  Call_robot_main: { uuid: string };
+  Call_robot_R2: { uuid: string };
 };
 
 export default function Home({ route }: { route: any }) {
@@ -23,10 +25,13 @@ export default function Home({ route }: { route: any }) {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  // รับ uuid จากหน้าแรก (Screen1) แบบไม่มีการ Hardcode ค่าสำรอง
-  const uuid = route?.params?.uuid;
+  // 1. ดึงค่า uuid และฟังก์ชัน setUuid จาก Context
+  const { uuid: contextUuid, setUuid } = useRobot();
 
-  // สร้าง State สำหรับเก็บข้อมูลที่ดึงมาจาก API
+  // 2. ตรวจสอบค่า uuid (ลำดับความสำคัญ: params > context)
+  const uuidFromParams = route?.params?.uuid;
+  const uuid = uuidFromParams || contextUuid;
+
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [buildingNum, setBuildingNum] = useState("Project Name");
@@ -35,14 +40,19 @@ export default function Home({ route }: { route: any }) {
   const [power, setPower] = useState("0%");
   const [offline, setOffline] = useState(route?.params?.status === "offline");
 
-  // ฟังก์ชันดึงข้อมูล (แยกออกมาเพื่อให้เรียกใช้ซ้ำได้)
+  // อัปเดต Context เมื่อได้รับ UUID ใหม่จาก Params
+  useEffect(() => {
+    if (uuidFromParams && uuidFromParams !== contextUuid) {
+      setUuid(uuidFromParams);
+    }
+  }, [uuidFromParams, contextUuid, setUuid]);
+
+  // ฟังก์ชันดึงข้อมูล
   const fetchData = useCallback(async () => {
     try {
-      // ถ้าไม่มี UUID ส่งมา ให้หยุดโหลดและยกเลิกการดึงข้อมูล
       if (!uuid) {
-        console.error(
-          "UUID is missing! Please select a robot from the main screen.",
-        );
+        // ถ้าไม่มีทั้งใน Params และ Context ค่อยแสดง Error
+        console.error("UUID is missing!");
         setLoading(false);
         return;
       }
@@ -78,10 +88,10 @@ export default function Home({ route }: { route: any }) {
         if (matchedMap && matchedMap.buildingNum) {
           setBuildingNum(matchedMap.buildingNum);
         } else {
-          setBuildingNum("demo_CPF"); // Fallback
+          setBuildingNum("demo_CPF");
         }
       } else {
-        setBuildingNum("demo_CPF"); // Fallback
+        setBuildingNum("demo_CPF");
       }
     } catch (error) {
       console.error("Error fetching robot details:", error);
@@ -91,7 +101,7 @@ export default function Home({ route }: { route: any }) {
     }
   }, [uuid]);
 
-  // ใช้ useEffect เพื่อดึงข้อมูลเมื่อ component ถูก mount
+  // รันดึงข้อมูล
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -151,7 +161,9 @@ export default function Home({ route }: { route: any }) {
                 }}
               >
                 {/* หมายเลขหุ่นยนต์ */}
-                <Text style={[globalStyles.defaulttextstyles, { fontSize: 20 }]}>
+                <Text
+                  style={[globalStyles.defaulttextstyles, { fontSize: 20 }]}
+                >
                   {robotNumber}
                 </Text>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -175,33 +187,21 @@ export default function Home({ route }: { route: any }) {
                       {taskStatus}
                     </Text>
                   </View>
-                  <Image
+                  <View
                     style={{
-                      width: 20,
-                      aspectRatio: 2 / 3,
-                      resizeMode: "contain",
-                      marginRight: 5,
-                      // ปรับภาพให้เป็นแนวนอน
-                      transform: [{ rotate: "90deg" }],
+                      flexDirection: "row",
+                      alignItems: "center",
+                      columnGap: 10,
                     }}
-                    source={(() => {
-                      if (taskStatus === "CHARGE") {
-                        return require("../../assets/icon/battery/CHARGE.webp");
-                      }
-                      const pValue = Number(power.replace("%", ""));
-                      if (pValue <= 25) {
-                        return require("../../assets/icon/battery/0-25.webp");
-                      } else if (pValue <= 50) {
-                        return require("../../assets/icon/battery/25-50.webp");
-                      } else if (pValue <= 75) {
-                        return require("../../assets/icon/battery/50-75.webp");
-                      } else {
-                        return require("../../assets/icon/battery/75-100.webp");
-                      }
-                    })()}
-                  />
-                  {/* แบตเตอรี่ */}
-                  <Text style={globalStyles.defaulttextstyles}>{power}</Text>
+                  >
+                    <BatteryIcon
+                      battery={power}
+                      taskStatus={taskStatus}
+                      style={{ width: 25 }} // ปรับขนาดตามความต้องการของหน้านี้
+                    />
+                    {/* แบตเตอรี่ */}
+                    <Text style={globalStyles.defaulttextstyles}>{power}</Text>
+                  </View>
                 </View>
               </View>
               {/* click to map */}
@@ -217,7 +217,7 @@ export default function Home({ route }: { route: any }) {
               <Image
                 style={{
                   width: "100%",
-                  height: 450, // 👈 กำหนดความสูงที่แน่นอนเพื่อไม่ให้ล้น ScrollView
+                  height: 450,
                   alignSelf: "center",
                   marginTop: 10,
                   resizeMode: "contain",
@@ -262,7 +262,7 @@ export default function Home({ route }: { route: any }) {
                     justifyContent: "center",
                     alignItems: "center",
                   }}
-                  onPress={() => navigation.navigate("Call_robot_main", { uuid })}
+                  onPress={() => navigation.navigate("Call_robot_R2", { uuid })}
                 >
                   <Text
                     style={{

@@ -6,6 +6,7 @@ import {
   TextInput,
   Alert,
   Image,
+  StyleSheet,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -14,17 +15,17 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MaterialIcons } from "@expo/vector-icons";
-import Card_list from "../../../src/components/card_list";
 import { useRobot } from "../../../contexts/RobotContext";
+import BatteryIcon from "../../../src/components/BatteryIcon";
 
 export type RootStackParamList = {
-  Call_rebot_list: {
+  Call_rebot_list_T1: {
     uuid: string;
     onSelect?: (name: string, pointUuid: string) => void;
   };
 };
 
-export default function Call_Robot() {
+export default function Call_Robot_T1() {
   const [choice, setChoice] = useState(true);
   const [button_call, setbutton_call] = useState(false);
 
@@ -37,12 +38,70 @@ export default function Call_Robot() {
   const [selectedPointUuid, setSelectedPointUuid] = useState("");
   const [phone, setPhone] = useState("");
 
+  const [robotNumber, setRobotnumber] = useState("...");
+  const [status, setStatus] = useState("...");
+  const [taskStatus, setTaskStatus] = useState("...");
+  const [power, setPower] = useState("0%");
+
   const updateSelectedPoint = (pointName: string, pointUuid: string) => {
     setSelectedPointName(pointName);
     setSelectedPointUuid(pointUuid);
     setChoice(false);
     setbutton_call(true);
   };
+
+  // การดึงข้อมูล
+  useEffect(() => {
+    const fetchRobotData = async () => {
+      try {
+        const robotRes = await fetch(`http://10.0.2.2:3000/api/robots/${uuid}`);
+        const robotJson = await robotRes.json();
+        const robotData = robotJson.data || robotJson;
+
+        if (robotData) {
+          if (robotData.number) setRobotnumber(robotData.number);
+          if (robotData.taskStatus) setTaskStatus(robotData.taskStatus);
+          if (robotData.power !== undefined) {
+          setPower(`${Math.round(parseFloat(robotData.power))}%`);
+        }
+        }
+      } catch (error) {
+        console.error("Error fetching robot data:", error);
+      }
+    };
+
+    // ดึงค่า ที่อยู่ใน http://localhost:3000/api/robots "state": "IDLING"
+    const fetchRobotState = async () => {
+      try {
+        const robotStateRes = await fetch("http://10.0.2.2:3000/api/robots");
+        const robotStateJson = await robotStateRes.json();
+
+        // ตรวจสอบข้อมูลว่าเป็น Array หรือไม่ (รองรับหลายรูปแบบ response)
+        let robotsList = [];
+        if (Array.isArray(robotStateJson)) robotsList = robotStateJson;
+        else if (robotStateJson && Array.isArray(robotStateJson.data))
+          robotsList = robotStateJson.data;
+        else if (
+          robotStateJson &&
+          robotStateJson.data &&
+          Array.isArray(robotStateJson.data.list)
+        )
+          robotsList = robotStateJson.data.list;
+
+        // ค้นหาหุ่นยนต์ตัวที่ตรงกับ uuid ปัจจุบัน
+        const currentRobot = robotsList.find((r: any) => r.uuid === uuid);
+
+        if (currentRobot && currentRobot.state) {
+          setStatus(currentRobot.state);
+        }
+      } catch (error) {
+        console.error("Error fetching robot state from list:", error);
+      }
+    };
+
+    fetchRobotData();
+    fetchRobotState();
+  }, [uuid]);
 
   const handleCallRobot = async () => {
     try {
@@ -162,23 +221,8 @@ export default function Call_Robot() {
                 justifyContent: "space-between",
               }}
             >
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: "600",
-                }}
-              >
-                Robot Selected
-              </Text>
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: "500",
-                  color: "#636363ff",
-                }}
-              >
-                Robot name
-              </Text>
+              <Text style={[button_function.text_left]}>Robot Selected</Text>
+              <Text style={[button_function.text_right]}>Robot name</Text>
             </View>
             <View
               style={{
@@ -202,16 +246,31 @@ export default function Call_Robot() {
                 }}
               >
                 <Image
-                  source={require("../../../assets/icon/R2-008.png")}
+                  source={require("../../../assets/icon/T1-007.png")}
                   style={{
                     width: 60,
                     height: 110,
                     resizeMode: "contain",
                   }}
                 />
-                <View>
-                  <Text>Robot id </Text>
-                  <Text>Status </Text>
+                <View style={{ rowGap: 10 }}>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {robotNumber}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "500",
+                      color: "#4b4b4bff",
+                    }}
+                  >
+                    {status}
+                  </Text>
                 </View>
               </View>
               <View
@@ -221,13 +280,34 @@ export default function Call_Robot() {
                   alignItems: "flex-end",
                 }}
               >
-                <View>
-                  <Text>100%</Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    columnGap: 10,
+                  }}
+                >
+                  <BatteryIcon
+                    battery={power}
+                    taskStatus={taskStatus}
+                    style={{ width: 20 }} // ปรับขนาดตามความต้องการของหน้านี้
+                  />
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "500",
+                      color: "#484848ff",
+                    }}
+                  >
+                    {/* ไม่เอาทศนิยม */}
+                    {Math.round(parseFloat(power))}%
+                    {/* {power}% */}
+                  </Text>
                 </View>
                 <MaterialIcons
                   name="radio-button-checked"
                   size={20}
-                  color="#1B00B6"
+                  color="#140a4fff"
                 />
               </View>
             </View>
@@ -258,7 +338,7 @@ export default function Call_Robot() {
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => {
-                navigation.navigate("Call_rebot_list", {
+                navigation.navigate("Call_rebot_list_T1", {
                   uuid: uuid,
                   onSelect: updateSelectedPoint,
                 });
@@ -401,3 +481,15 @@ export default function Call_Robot() {
     </LinearGradient>
   );
 }
+
+export const button_function = StyleSheet.create({
+  text_left: {
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  text_right: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#595959",
+  },
+});
