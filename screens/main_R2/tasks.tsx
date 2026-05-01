@@ -7,54 +7,55 @@ import Card_function from "../../src/components/card_function";
 
 // 1. Import useNavigation hook จาก React Navigation
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const data = [
   {
     id: "1",
     text: "Deliver goods",
-    image: require("../../assets/icon/im_functions_R2/deliver.png"),
+    image: require("../../assets/icon/im_functions_R2/deliver.webp"),
     screen: "Deliver",
   },
   {
     id: "2",
     text: "Cruise show",
-    image: require("../../assets/icon/im_functions_R2/cruise_r2.png"),
+    image: require("../../assets/icon/im_functions_R2/cruise_r2.webp"),
     screen: "Cruise_r2",
   },
   {
     id: "3",
     text: "Reception",
-    image: require("../../assets/icon/im_functions_R2/reception_r2.png"),
+    image: require("../../assets/icon/im_functions_R2/reception_r2.webp"),
     screen: "Reception_r2",
   },
   {
     id: "4",
     text: "Lead the way",
-    image: require("../../assets/icon/im_functions_R2/lead.png"),
+    image: require("../../assets/icon/im_functions_R2/lead.webp"),
     screen: "Lead_the_way_r2",
   },
   {
     id: "5",
     text: "Walkthrough",
-    image: require("../../assets/icon/im_functions_R2/walkthrough.png"),
+    image: require("../../assets/icon/im_functions_R2/walkthrough.webp"),
     screen: "Walkthrough_r2",
   },
   {
     id: "6",
     text: "Take a Picture",
-    image: require("../../assets/icon/im_functions_R2/take.png"),
+    image: require("../../assets/icon/im_functions_R2/take.webp"),
     screen: "Take_a_picture_r2",
   },
   {
     id: "7",
     text: "Upload Video",
-    image: require("../../assets/icon/im_functions_R2/upload.png"),
+    image: require("../../assets/icon/im_functions_R2/upload.webp"),
     screen: "Upload_video_r2",
   },
   {
     id: "8",
     text: "Settings",
-    image: require("../../assets/icon/im_functions_R2/settings_r12.png"),
+    image: require("../../assets/icon/im_functions_R2/settings_r12.webp"),
     screen: "Settings_r2",
   },
 ];
@@ -63,7 +64,7 @@ export default function Tasks() {
   const insets = useSafeAreaInsets();
 
   // 2. เรียกใช้ useNavigation เพื่อได้ object navigation
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   return (
     <View style={globalStyles.container}>
@@ -106,7 +107,7 @@ export default function Tasks() {
             <Card_function
               image={item.image}
               text={item.text}
-              onPress={() => navigation.navigate(item.screen as never)}
+              onPress={() => navigation.navigate(item.screen)}
             />
           )}
         />

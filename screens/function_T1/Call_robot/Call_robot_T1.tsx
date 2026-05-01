@@ -11,17 +11,27 @@ import {
 import React, { useState, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRobot } from "../../../contexts/RobotContext";
 import BatteryIcon from "../../../src/components/BatteryIcon";
+import { API_BASE_URL } from "../../../src/config";
 
 export type RootStackParamList = {
   Call_rebot_list_T1: {
     uuid: string;
-    onSelect?: (name: string, pointUuid: string) => void;
+    target?: string;
+  };
+  Call_robot_T1: {
+    uuid: string;
+    returnedPointName?: string;
+    returnedPointUuid?: string;
+    target?: string;
+  };
+  TabT1: {
+    screen: "Home";
   };
 };
 
@@ -29,7 +39,7 @@ export default function Call_Robot_T1() {
   const [choice, setChoice] = useState(true);
   const [button_call, setbutton_call] = useState(false);
 
-  const route = useRoute();
+  const route = useRoute<RouteProp<RootStackParamList, "Call_robot_T1">>();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
@@ -50,11 +60,25 @@ export default function Call_Robot_T1() {
     setbutton_call(true);
   };
 
+  // ตรวจสอบค่าที่ส่งกลับมาจากหน้า Call_rebot_list_T1 (ผ่าน merge: true)
+  useEffect(() => {
+    const params = route.params;
+    if (params?.returnedPointName && params?.returnedPointUuid) {
+      updateSelectedPoint(params.returnedPointName, params.returnedPointUuid);
+      
+      // ล้างค่า params เพื่อไม่ให้ทำงานซ้ำ
+      navigation.setParams({
+        returnedPointName: undefined,
+        returnedPointUuid: undefined,
+      });
+    }
+  }, [route.params, navigation]);
+
   // การดึงข้อมูล
   useEffect(() => {
     const fetchRobotData = async () => {
       try {
-        const robotRes = await fetch(`http://10.0.2.2:3000/api/robots/${uuid}`);
+        const robotRes = await fetch(`${API_BASE_URL}/api/robots/${uuid}`);
         const robotJson = await robotRes.json();
         const robotData = robotJson.data || robotJson;
 
@@ -73,7 +97,7 @@ export default function Call_Robot_T1() {
     // ดึงค่า ที่อยู่ใน http://localhost:3000/api/robots "state": "IDLING"
     const fetchRobotState = async () => {
       try {
-        const robotStateRes = await fetch("http://10.0.2.2:3000/api/robots");
+        const robotStateRes = await fetch(`${API_BASE_URL}/api/robots`);
         const robotStateJson = await robotStateRes.json();
 
         // ตรวจสอบข้อมูลว่าเป็น Array หรือไม่ (รองรับหลายรูปแบบ response)
@@ -105,7 +129,7 @@ export default function Call_Robot_T1() {
 
   const handleCallRobot = async () => {
     try {
-      const response = await fetch("http://10.0.2.2:3000/api/call", {
+      const response = await fetch(`${API_BASE_URL}/api/call`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -160,7 +184,8 @@ export default function Call_Robot_T1() {
           {/* Back Button */}
           <TouchableOpacity
             onPress={() => {
-              navigation.goBack();
+              // บังคับกลับไปหน้า Home เพื่อไม่ให้เกิดการซ้อนทับของ Stack
+              navigation.navigate("TabT1", { screen: "Home" });
             }}
             hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }} // ขยายพื้นที่กดออกไปรอบๆ
             delayPressIn={0} // ลด delay ก่อนรับ input เป็น 0
@@ -340,7 +365,6 @@ export default function Call_Robot_T1() {
               onPress={() => {
                 navigation.navigate("Call_rebot_list_T1", {
                   uuid: uuid,
-                  onSelect: updateSelectedPoint,
                 });
               }}
               style={{

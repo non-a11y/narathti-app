@@ -171,10 +171,13 @@ export default function Sos() {
         {/* SOS button */}
         <View
           style={{
-            width: "95%",
+            width: "100%",
             marginTop: 50,
             flexDirection: "row",
-            justifyContent: "space-between",
+            justifyContent: "center",
+            alignItems: "center",
+            columnGap: 5,
+            paddingHorizontal: 10,
           }}
         >
           {/* cart 1 */}
@@ -183,25 +186,21 @@ export default function Sos() {
               globalStyles.ios,
               globalStyles.android,
               {
-                width: 125,
+                flex: 1,
                 height: 150,
                 backgroundColor: "#ffffffff",
                 borderRadius: 20,
-                //justifyContent : 'center',
-                //alignItems : 'center',
               },
             ]}
           >
             <LinearGradient
               colors={["#7699FF", "#0040FF"]}
-              //start={{ x: 0, y: 0 }}
-              //end={{ x: 0, y: 1 }}
               style={[
                 globalStyles.ios,
                 globalStyles.android,
                 {
-                  width: 40,
-                  height: 40,
+                  width: 30,
+                  height: 30,
                   borderRadius: 10,
                   justifyContent: "center",
                   alignItems: "center",
@@ -213,7 +212,7 @@ export default function Sos() {
                 },
               ]}
             >
-              <Foundation name="telephone" size={25} color="white" />
+              <Foundation name="telephone" size={20} color="white" />
             </LinearGradient>
             <View
               style={{
@@ -232,6 +231,7 @@ export default function Sos() {
                 style={{
                   fontSize: 10,
                   color: "#7F7F7F",
+                  flexShrink: 1,
                 }}
               >
                 Fastest way to get support
@@ -279,25 +279,21 @@ export default function Sos() {
               globalStyles.ios,
               globalStyles.android,
               {
-                width: 125,
+                flex: 1,
                 height: 150,
                 backgroundColor: "#ffffffff",
                 borderRadius: 20,
-                //justifyContent : 'center',
-                //alignItems : 'center',
               },
             ]}
           >
             <LinearGradient
               colors={["#7699FF", "#FF6ABC"]}
-              //start={{ x: 0, y: 0 }}
-              //end={{ x: 0, y: 1 }}
               style={[
                 globalStyles.ios,
                 globalStyles.android,
                 {
-                  width: 40,
-                  height: 40,
+                  width: 30,
+                  height: 30,
                   borderRadius: 10,
                   justifyContent: "center",
                   alignItems: "center",
@@ -309,7 +305,7 @@ export default function Sos() {
                 },
               ]}
             >
-              <Ionicons name="videocam" size={25} color="white" />
+              <Ionicons name="videocam" size={20} color="white" />
             </LinearGradient>
             <View
               style={{
@@ -328,6 +324,7 @@ export default function Sos() {
                 style={{
                   fontSize: 10,
                   color: "#7F7F7F",
+                  flexShrink: 1,
                 }}
               >
                 Real-time visual support
@@ -375,25 +372,21 @@ export default function Sos() {
               globalStyles.ios,
               globalStyles.android,
               {
-                width: 125,
+                flex: 1,
                 height: 150,
                 backgroundColor: "#ffffffff",
                 borderRadius: 20,
-                //justifyContent : 'center',
-                //alignItems : 'center',
               },
             ]}
           >
             <LinearGradient
               colors={["#76CFFF", "#008CFF"]}
-              //start={{ x: 0, y: 0 }}
-              //end={{ x: 0, y: 1 }}
               style={[
                 globalStyles.ios,
                 globalStyles.android,
                 {
-                  width: 40,
-                  height: 40,
+                  width: 30,
+                  height: 30,
                   borderRadius: 10,
                   justifyContent: "center",
                   alignItems: "center",
@@ -405,7 +398,7 @@ export default function Sos() {
                 },
               ]}
             >
-              <Ionicons name="chatbubbles" size={25} color="white" />
+              <Ionicons name="chatbubbles" size={20} color="white" />
             </LinearGradient>
             <View
               style={{
@@ -424,6 +417,7 @@ export default function Sos() {
                 style={{
                   fontSize: 10,
                   color: "#7F7F7F",
+                  flexShrink: 1,
                 }}
               >
                 Send message to engineer
@@ -431,9 +425,6 @@ export default function Sos() {
             </View>
             {/* button call */}
             <View
-              //colors={["#0022FF", "#4AB0FF"]}
-              //start={{ x: 0, y: 0.5 }}
-              //end={{ x: 1, y: 0.5 }}
               style={[
                 globalStyles.ios,
                 globalStyles.android,

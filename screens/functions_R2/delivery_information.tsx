@@ -9,22 +9,61 @@ import React, { useState, useEffect } from "react";
 import { globalStyles } from "../../styles/mystyles";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import Header_sub_functions from "../../src/components/header_sub_functions";
 import Card_list from "../../src/components/card_list";
+import { API_BASE_URL } from "../../src/config";
 import { StyleSheet } from "react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
-  delivery_information: { uuid: string; onSelect?: (name: string, phone: string) => void };
+  delivery_information: {
+    uuid: string;
+    target?: string;
+    returnTab?: "TabR2" | "TabT1";
+    returnScreen?: "Pickup";
+    currentFrom?: string;
+    currentTo?: string;
+    currentPhone?: string;
+  };
+  TabR2: {
+    screen: "Pickup";
+    params: {
+      returnedPointName?: string;
+      returnedPhone?: string;
+      target?: string;
+      currentFrom?: string;
+      currentTo?: string;
+      currentPhone?: string;
+    };
+  };
+  TabT1: {
+    screen: "Pickup";
+    params: {
+      returnedPointName?: string;
+      returnedPhone?: string;
+      target?: string;
+      currentFrom?: string;
+      currentTo?: string;
+      currentPhone?: string;
+    };
+  };
+  Pickup: {
+    returnedPointName?: string;
+    returnedPhone?: string;
+    target?: string;
+    currentFrom?: string;
+    currentTo?: string;
+    currentPhone?: string;
+  };
 };
 
 export default function Delivery_information() {
   const insets = useSafeAreaInsets();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const route = useRoute();
+  const route = useRoute<RouteProp<RootStackParamList, "delivery_information">>();
 
   const [points, setPoints] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -47,7 +86,7 @@ export default function Delivery_information() {
         }
 
         // ดึง robot detail เพื่อหา mapUuid
-        const robotRes = await fetch(`http://10.0.2.2:3000/api/robots/${uuid}`);
+        const robotRes = await fetch(`${API_BASE_URL}/api/robots/${uuid}`);
         if (!robotRes.ok) throw new Error("Failed to fetch robot detail");
         const robotJson = await robotRes.json();
         const robotData = robotJson.data || robotJson;
@@ -58,7 +97,7 @@ export default function Delivery_information() {
           return;
         }
         const res = await fetch(
-          `http://10.0.2.2:3000/api/maps/${mapUuid}/points`,
+          `${API_BASE_URL}/api/maps/${mapUuid}/points`,
         );
         if (!res.ok) throw new Error("Failed to fetch map points");
         const data = await res.json();
@@ -284,14 +323,66 @@ export default function Delivery_information() {
               alert("Please select a point");
               return;
             }
-            const { onSelect } = (route.params as any) ?? {};
-            if (onSelect) {
-              const fullPhone = phoneNumber
-                ? `${phonePrefix}${phoneNumber}`
-                : "";
-              onSelect(selectedPointName, fullPhone);
+            const { target, returnTab, returnScreen } = route.params ?? {};
+            const fullPhone = phoneNumber
+              ? `${phonePrefix}${phoneNumber}`
+              : "";
+            
+            if (returnTab === "TabR2") {
+              console.log("Delivery_info returning to TabR2 with params:", {
+                returnedPointName: selectedPointName,
+                target: target,
+              });
+              navigation.navigate({
+                name: "TabR2",
+                params: {
+                  screen: returnScreen as "Pickup",
+                  params: {
+                    returnedPointName: selectedPointName,
+                    returnedPhone: fullPhone || route.params?.currentPhone,
+                    target: target,
+                    currentFrom: route.params?.currentFrom,
+                    currentTo: route.params?.currentTo,
+                    currentPhone: route.params?.currentPhone,
+                  },
+                },
+                merge: true,
+              });
+            } else if (returnTab === "TabT1") {
+              navigation.navigate({
+                name: "TabT1",
+                params: {
+                  screen: returnScreen as "Pickup",
+                  params: {
+                    returnedPointName: selectedPointName,
+                    returnedPhone: fullPhone || route.params?.currentPhone,
+                    target: target,
+                    currentFrom: route.params?.currentFrom,
+                    currentTo: route.params?.currentTo,
+                    currentPhone: route.params?.currentPhone,
+                  },
+                },
+                merge: true,
+              });
+            } else {
+              // สำรองในกรณีที่ไม่ได้ส่ง Tab/Screen มา
+              console.log("Delivery_info returning to Pickup (Fallback) with params:", {
+                returnedPointName: selectedPointName,
+                target: target,
+              });
+              navigation.navigate({
+                name: "Pickup",
+                params: {
+                  returnedPointName: selectedPointName,
+                  returnedPhone: fullPhone || route.params?.currentPhone,
+                  target: target,
+                  currentFrom: route.params?.currentFrom,
+                  currentTo: route.params?.currentTo,
+                  currentPhone: route.params?.currentPhone,
+                },
+                merge: true,
+              });
             }
-            navigation.goBack();
           }}
         >
           <LinearGradient

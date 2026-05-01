@@ -13,13 +13,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
+import { API_BASE_URL } from "../../../src/config";
 import CardDeilver from "../../../src/components/card_list";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
   Call_rebot_list_R2: {
     uuid: string;
-    onSelect?: (name: string, pointUuid: string) => void;
+    target?: string;
   };
 };
 
@@ -45,7 +46,7 @@ export default function Call_rebot_list_R2() {
           return;
         }
         // Fetch robot detail to obtain mapUuid
-        const robotRes = await fetch(`http://10.0.2.2:3000/api/robots/${uuid}`);
+        const robotRes = await fetch(`${API_BASE_URL}/api/robots/${uuid}`);
         if (!robotRes.ok) {
           throw new Error("Failed to fetch robot detail");
         }
@@ -56,7 +57,7 @@ export default function Call_rebot_list_R2() {
           throw new Error("mapUuid not found in robot data");
         }
         const res = await fetch(
-          `http://10.0.2.2:3000/api/maps/${mapUuid}/points`,
+          `${API_BASE_URL}/api/maps/${mapUuid}/points`,
         );
         if (!res.ok) {
           throw new Error("Failed to fetch map points");
@@ -259,10 +260,18 @@ export default function Call_rebot_list_R2() {
                     key={index}
                     text={point.name}
                     onPress={() => {
-                      if (route.params?.onSelect) {
-                        route.params.onSelect(point.name, point.pointUuid);
-                      }
-                      navigation.goBack();
+                      const { target } = (route.params as any) ?? {};
+                      
+                      // ส่งค่ากลับไปที่หน้า Call_robot_R2 ด้วยพารามิเตอร์แทนการใช้ Callback
+                      navigation.navigate({
+                        name: "Call_robot_R2",
+                        params: {
+                          returnedPointName: point.name,
+                          returnedPointUuid: point.pointUuid,
+                          target: target,
+                        },
+                        merge: true,
+                      } as any);
                     }}
                   />
                 ));

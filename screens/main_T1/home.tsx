@@ -6,82 +6,161 @@ import {
   TouchableOpacity,
   ScrollView,
   RefreshControl,
+  useWindowDimensions,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "../../src/components/header";
 import { globalStyles, main } from "../../styles/mystyles";
 import { useEffect, useState, useCallback } from "react";
-import { useNavigation } from "@react-navigation/native";
+import {
+  useNavigation,
+  useIsFocused,
+  useRoute,
+  RouteProp,
+} from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { API_BASE_URL } from "../../src/config";
 import BatteryIcon from "../../src/components/BatteryIcon";
+import { useRobot } from "../../contexts/RobotContext";
 
-export type RootStackParamList = {
+// --- Types ---
+type RootStackParamList = {
+  Home: { uuid: string; status?: string };
   Call_robot_T1: { uuid: string };
 };
 
-export default function Home({ route }: { route: any }) {
+interface RobotDetail {
+  number?: string;
+  taskStatus?: string;
+  power?: string | number;
+  mapUuid?: string;
+}
+
+interface MapItem {
+  mapUuid?: string;
+  buildingNum?: string;
+}
+
+export default function Home() {
+  /**
+   * [ React Navigation Hooks ]
+   * 1. useRoute: ดึงข้อมูลพารามิเตอร์ (uuid) จากหน้าจอก่อนหน้า
+   */
+  const route = useRoute<RouteProp<RootStackParamList, "Home">>();
+
   const insets = useSafeAreaInsets();
+
+  /**
+   * 2. useNavigation: สั่งงานนำทาง
+   */
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  // รับ uuid จากหน้าแรก (Screen1) แบบไม่มีการ Hardcode ค่าสำรอง
-  const uuid = route?.params?.uuid;
+  /**
+   * 3. useWindowDimensions: ใช้ปรับขนาดภาพตามหน้าจอเครื่อง
+   */
+  const { height: windowHeight } = useWindowDimensions();
 
-  // สร้าง State สำหรับเก็บข้อมูลที่ดึงมาจาก API
+  /**
+   * 4. useIsFocused: เช็คสถานะการแสดงผลของหน้าจอ (ป้องกันการแย่งอัปเดต Context)
+   */
+  const isFocused = useIsFocused();
+
+  /**
+   * 5. useRobot (Context): เข้าถึงรหัสหุ่นยนต์ที่เลือกไว้ในระบบ
+   */
+  const { uuid: contextUuid, setUuid } = useRobot();
+
+  // ตรวจสอบค่า uuid (ลำดับความสำคัญ: params > context)
+  const uuidFromParams = route?.params?.uuid;
+  const uuid = uuidFromParams || contextUuid;
+
+  // --- State สำหรับเก็บข้อมูลที่ดึงมาจาก API ---
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [buildingNum, setBuildingNum] = useState("Project Name");
   const [robotNumber, setRobotNumber] = useState("...");
   const [taskStatus, setTaskStatus] = useState("...");
   const [power, setPower] = useState("0%");
+  const [offline, setOffline] = useState(route?.params?.status === "offline");
 
-  // ฟังก์ชันดึงข้อมูล
+  /**
+   * [ Sync UUID to Context ]
+   */
+  useEffect(() => {
+    if (isFocused && uuidFromParams && uuidFromParams !== contextUuid) {
+      setUuid(uuidFromParams);
+    }
+  }, [isFocused, uuidFromParams, contextUuid, setUuid]);
+
+  /**
+   * [ fetchData ]: ดึงข้อมูลสถานะหุ่นยนต์และแผนที่จาก API
+   */
   const fetchData = useCallback(async () => {
     try {
-      // ถ้าไม่มี UUID ส่งมา ให้หยุดโหลดและยกเลิกการดึงข้อมูล
       if (!uuid) {
-        console.error(
-          "UUID is missing! Please select a robot from the main screen.",
-        );
+        console.error("UUID is missing!");
         setLoading(false);
         return;
       }
 
       // 1. ดึงข้อมูลหุ่นยนต์รายละเอียดเชิงลึก
-      const robotRes = await fetch(`http://10.0.2.2:3000/api/robots/${uuid}`);
-      const robotJson = await robotRes.json();
-      const robotData = robotJson.data || robotJson;
+      const robotRes = await fetch(`${API_BASE_URL}/api/robots/${uuid}`);
+      const robotJson = (await robotRes.json()) as
+        | { data?: RobotDetail }
+        | RobotDetail;
+      const robotData =
+        (robotJson as { data?: RobotDetail }).data ||
+        (robotJson as RobotDetail);
 
       if (robotData) {
         if (robotData.number) setRobotNumber(robotData.number);
         if (robotData.taskStatus) setTaskStatus(robotData.taskStatus);
         if (robotData.power !== undefined) {
-          setPower(`${Math.round(parseFloat(robotData.power))}%`);
+          setPower(`${Math.round(parseFloat(String(robotData.power)))}%`);
         }
       }
 
       // 2. ดึงข้อมูลแผนที่ทั้งหมด เพื่อเอามาเทียบหา buildingNum
-      const mapsRes = await fetch("http://10.0.2.2:3000/api/maps");
-      const mapsJson = await mapsRes.json();
-      let mapsList = [];
-      if (Array.isArray(mapsJson)) mapsList = mapsJson;
-      else if (mapsJson && Array.isArray(mapsJson.data))
-        mapsList = mapsJson.data;
-      else if (mapsJson && mapsJson.data && Array.isArray(mapsJson.data.list))
-        mapsList = mapsJson.data.list;
+      const mapsRes = await fetch(`${API_BASE_URL}/api/maps`);
+      const mapsJson = (await mapsRes.json()) as
+        | MapItem[]
+        | { data: MapItem[] | { list: MapItem[] } }
+        | { list: MapItem[] };
+
+      let mapsList: MapItem[] = [];
+      if (Array.isArray(mapsJson)) {
+        mapsList = mapsJson;
+      } else if (mapsJson && "data" in mapsJson) {
+        if (Array.isArray(mapsJson.data)) {
+          mapsList = mapsJson.data;
+        } else if (
+          mapsJson.data &&
+          "list" in mapsJson.data &&
+          Array.isArray(mapsJson.data.list)
+        ) {
+          mapsList = mapsJson.data.list;
+        }
+      } else if (
+        mapsJson &&
+        "list" in mapsJson &&
+        Array.isArray(mapsJson.list)
+      ) {
+        mapsList = mapsJson.list;
+      }
 
       // 3. จับคู่ mapUuid เพื่อหาชื่อตึก
       if (robotData && robotData.mapUuid) {
         const matchedMap = mapsList.find(
-          (m: any) => m.mapUuid === robotData.mapUuid,
+          (m: MapItem) => m.mapUuid === robotData.mapUuid,
         );
         if (matchedMap && matchedMap.buildingNum) {
           setBuildingNum(matchedMap.buildingNum);
         } else {
-          setBuildingNum("demo_CPF"); // Fallback
+          setBuildingNum("demo_CPF");
         }
       } else {
-        setBuildingNum("demo_CPF"); // Fallback
+        setBuildingNum("demo_CPF");
       }
     } catch (error) {
       console.error("Error fetching robot details:", error);
@@ -91,21 +170,23 @@ export default function Home({ route }: { route: any }) {
     }
   }, [uuid]);
 
+  // Initial Fetch
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, [uuid]);
 
-  // ฟังก์ชันเมื่อมีการ Pull to Refresh
+  // Pull to Refresh
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchData();
   }, [fetchData]);
+
   return (
     <View style={globalStyles.container}>
-      {/* ----- HEADER-----*/}
+      {/* ----- ส่วนหัว (Header) ----- */}
       <Header />
 
-      {/* ----- CONTENT-----*/}
+      {/* ----- ส่วนเนื้อหา (Content) ----- */}
       {loading ? (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -119,7 +200,6 @@ export default function Home({ route }: { route: any }) {
           <ScrollView
             contentContainerStyle={{ flexGrow: 1 }}
             refreshControl={
-              // ดึงข้อมูลใหม่เมื่อ Pull to Refresh
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           >
@@ -203,7 +283,7 @@ export default function Home({ route }: { route: any }) {
               <Image
                 style={{
                   width: "100%",
-                  height: 450,
+                  height: windowHeight * 0.43, // ปรับความสูงเป็น 45% ของหน้าจอ
                   alignSelf: "center",
                   marginTop: 10,
                   resizeMode: "contain",
@@ -211,34 +291,58 @@ export default function Home({ route }: { route: any }) {
                 source={require("../../assets/icon/T1-007.png")}
               />
               {/* button */}
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("Call_robot_T1", { uuid });
-                }}
-                style={{
-                  backgroundColor: "#0a60ff",
-                  height: 50,
-                  width: "90%",
-                  alignSelf: "center",
-                  borderRadius: 25,
-                  marginTop: 20,
-                  // ส่วนที่ 3: เพิ่ม marginBottom ไม่ให้ปุ่มติดขอบแผ่นกระดาษขาวด้านล่างมากเกินไป
-                  marginBottom: 20,
-                  // จัดตำแหน่งกึ่งกลางด้วย Flexbox แทนการดัน Component ด้วย margin
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text
+              {offline ? (
+                <View
                   style={{
-                    color: "#ffffff",
-                    fontSize: 18,
-                    fontWeight: "bold",
+                    backgroundColor: "#9c9c9cff",
+                    height: 50,
+                    width: "90%",
+                    alignSelf: "center",
+                    borderRadius: 25,
+                    marginTop: 20,
+                    marginBottom: 20,
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
-                  Call
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    style={{
+                      color: "#ffffff",
+                      fontSize: 18,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Call
+                  </Text>
+                </View>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Call_robot_T1", { uuid });
+                  }}
+                  style={{
+                    backgroundColor: "#0a60ff",
+                    height: 50,
+                    width: "90%",
+                    alignSelf: "center",
+                    borderRadius: 25,
+                    marginTop: 20,
+                    marginBottom: 20,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#ffffff",
+                      fontSize: 18,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Call
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
           </ScrollView>
         </>

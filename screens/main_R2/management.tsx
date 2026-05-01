@@ -165,16 +165,28 @@ export default function Management() {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              marginHorizontal: 20,
+              paddingHorizontal: 20,
               marginTop: 10,
               columnGap: 10,
             }}
           >
             <AntDesign name="exclamation-circle" size={24} color="#7E7E7E" />
-            <View>
-              <Text style={[globalStyles.defaulttextstyles, { fontSize: 14 }]}>
+            <View
+              style={{
+                flex: 1,
+              }}
+            >
+              <Text
+                style={[
+                  globalStyles.defaulttextstyles,
+                  {
+                    fontSize: 12,
+                    flexShrink: 1, // ยืดหยุ่นเรื่องข้อความยาวๆ
+                  },
+                ]}
+              >
                 We have 1 friends in the project. We have been together for 29
-                days
+                days.
               </Text>
             </View>
           </View>

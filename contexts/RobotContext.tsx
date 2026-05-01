@@ -12,8 +12,11 @@ const RobotContext = createContext<{
 
 export function RobotProvider({ children }: { children: React.ReactNode }) {
   const [uuid, setUuid] = useState("");
+
+  const value = React.useMemo(() => ({ uuid, setUuid }), [uuid]);
+
   return (
-    <RobotContext.Provider value={{ uuid, setUuid }}>
+    <RobotContext.Provider value={value}>
       {children}
     </RobotContext.Provider>
   );

@@ -6,11 +6,13 @@ import {
   FlatList,
   ActivityIndicator,
   RefreshControl,
+  ImageSourcePropType,
 } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
 import { globalStyles } from "../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Card_main from "./card_main";
+import { API_BASE_URL } from "../src/config";
 
 export type RobotData = {
   id: string;
@@ -19,9 +21,25 @@ export type RobotData = {
   jobId: string;
   battery: number;
   status: "online" | "offline";
-  image: any;
+  image: ImageSourcePropType | undefined;
   taskStatus?: string;
 };
+
+interface RawRobot {
+  uuid?: string;
+  number?: string;
+  online?: boolean | string;
+  status?: string | number | boolean;
+  mapUuid?: string;
+  power?: string | number;
+  nickname?: string;
+  taskStatus?: string;
+}
+
+interface RawMap {
+  mapUuid?: string;
+  buildingNum?: string;
+}
 
 export default function Main() {
   const insets = useSafeAreaInsets();
@@ -35,28 +53,63 @@ export default function Main() {
   const fetchData = useCallback(async () => {
     try {
       // ─── ขั้นที่ 1: ดึงรายชื่อหุ่นยนต์ทั้งหมด ────────────────────────
-      const response = await fetch("http://10.0.2.2:3000/api/robots");
-      const json = await response.json();
+      const response = await fetch(`${API_BASE_URL}/api/robots`);
+      const json = (await response.json()) as
+        | RawRobot[]
+        | { data: RawRobot[] | { list: RawRobot[] } | { data: RawRobot[] } }
+        | { list: RawRobot[] };
 
-      let rawData: any[] = [];
-      if (Array.isArray(json)) rawData = json;
-      else if (json && Array.isArray(json.data)) rawData = json.data;
-      else if (json && json.data && Array.isArray(json.data.list))
-        rawData = json.data.list;
-      else if (json && json.data && Array.isArray(json.data.data))
-        rawData = json.data.data;
-      else if (json && Array.isArray(json.list)) rawData = json.list;
+      let rawData: RawRobot[] = [];
+      if (Array.isArray(json)) {
+        rawData = json;
+      } else if (json && "data" in json) {
+        if (Array.isArray(json.data)) {
+          rawData = json.data;
+        } else if (
+          json.data &&
+          "list" in json.data &&
+          Array.isArray(json.data.list)
+        ) {
+          rawData = json.data.list;
+        } else if (
+          json.data &&
+          "data" in json.data &&
+          Array.isArray(json.data.data)
+        ) {
+          rawData = json.data.data;
+        }
+      } else if (json && "list" in json && Array.isArray(json.list)) {
+        rawData = json.list;
+      }
 
       // ─── ขั้นที่ 2: ดึงข้อมูลแผนที่ทั้งหมด เพื่อเอา buildingNum ───────────
-      let mapsList: any[] = [];
+      let mapsList: RawMap[] = [];
       try {
-        const mapRes = await fetch("http://10.0.2.2:3000/api/maps");
-        const mapJson = await mapRes.json();
-        if (Array.isArray(mapJson)) mapsList = mapJson;
-        else if (mapJson && Array.isArray(mapJson.data))
-          mapsList = mapJson.data;
-        else if (mapJson && mapJson.data && Array.isArray(mapJson.data.list))
-          mapsList = mapJson.data.list;
+        const mapRes = await fetch(`${API_BASE_URL}/api/maps`);
+        const mapJson = (await mapRes.json()) as
+          | RawMap[]
+          | { data: RawMap[] | { list: RawMap[] } }
+          | { list: RawMap[] };
+
+        if (Array.isArray(mapJson)) {
+          mapsList = mapJson;
+        } else if (mapJson && "data" in mapJson) {
+          if (Array.isArray(mapJson.data)) {
+            mapsList = mapJson.data;
+          } else if (
+            mapJson.data &&
+            "list" in mapJson.data &&
+            Array.isArray(mapJson.data.list)
+          ) {
+            mapsList = mapJson.data.list;
+          }
+        } else if (
+          mapJson &&
+          "list" in mapJson &&
+          Array.isArray(mapJson.list)
+        ) {
+          mapsList = mapJson.list;
+        }
       } catch (err) {
         console.error("Error fetching maps:", err);
       }
@@ -64,14 +117,17 @@ export default function Main() {
       // ─── ขั้นที่ 3: วนลูปเพื่อไปขอรายละเอียด (Detail) ของหุ่นแต่ละตัว ────────
       // เพื่อให้ได้ข้อมูลแบตเตอรี่ (power), mapUuid และ สถานะ (online) ที่แท้จริง
       const detailedRobots = await Promise.all(
-        rawData.map(async (robot: any) => {
+        rawData.map(async (robot: RawRobot): Promise<RawRobot> => {
           try {
             if (!robot.uuid) return robot;
             const detailRes = await fetch(
-              `http://10.0.2.2:3000/api/robots/${robot.uuid}`,
+              `${API_BASE_URL}/api/robots/${robot.uuid}`,
             );
-            const detailJson = await detailRes.json();
-            const detail = detailJson.data || detailJson;
+            const detailJson = (await detailRes.json()) as
+              | { data?: RawRobot }
+              | RawRobot;
+            const detail =
+              ("data" in detailJson ? detailJson.data : detailJson) || {};
 
             // รวมข้อมูลตั้งต้น กับ ข้อมูล detail ที่เพิ่งดึงมา
             return { ...robot, ...detail };
@@ -84,7 +140,7 @@ export default function Main() {
 
       // ─── ขั้นที่ 4: แปลงข้อมูลดิบให้ตรงกับ RobotData type ───────────
       const mappedData: RobotData[] = detailedRobots.map(
-        (item: any, index: number) => {
+        (item: RawRobot, index: number) => {
           // เช็คสถานะออนไลน์
           let isOnline = false;
           if (item.online === true || item.online === "true") {
@@ -117,7 +173,7 @@ export default function Main() {
           let buildingName = "demo_CPF";
           if (item.mapUuid) {
             const matchedMap = mapsList.find(
-              (m: any) => m.mapUuid === item.mapUuid,
+              (m: RawMap) => m.mapUuid === item.mapUuid,
             );
             if (matchedMap && matchedMap.buildingNum) {
               buildingName = matchedMap.buildingNum;
@@ -132,7 +188,7 @@ export default function Main() {
             jobId: item.number || "HR1381",
             battery:
               item.power !== undefined
-                ? Math.round(parseFloat(item.power))
+                ? Math.round(parseFloat(String(item.power)))
                 : 100,
             status: isOnline ? "online" : "offline",
             image: robotImage,

@@ -1,56 +1,134 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import Header from "../../src/components/header";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { globalStyles, main } from "../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useRobot } from "../../contexts/RobotContext";
 import BatteryIcon from "../../src/components/BatteryIcon";
+import { API_BASE_URL } from "../../src/config";
 
 export type RootStackParamList = {
+  // ข้อมูลที่หน้า Pickup คาดหวังได้รับกลับมาจากหน้าเลือกจุด (Delivery Information)
+  Pickup: {
+    returnedPointName?: string; // ชื่อจุดที่เลือก
+    returnedPhone?: string;     // เบอร์โทรที่กรอก
+    target?: string;            // ระบุว่าเป็นข้อมูลของฝั่ง 'from' หรือ 'to'
+    currentFrom?: string;       // รักษาค่าเดิมไว้ไม่ให้หายตอนสลับหน้า
+    currentTo?: string;
+    currentPhone?: string;
+  };
   delivery_information: {
     uuid: string;
-    onSelect?: (name: string, phone: string) => void;
+    target?: string;
+    returnTab?: string;
+    returnScreen?: string;
+    currentFrom?: string;
+    currentTo?: string;
+    currentPhone?: string;
   };
 };
+
+// --- Interfaces สำหรับข้อมูลจาก API ---
+interface RobotDetail {
+  number?: string;
+  taskStatus?: string;
+  power?: string | number;
+}
+
+interface RobotListItem {
+  uuid: string;
+  state: string;
+}
 
 export default function Pickup() {
   const [show_robot, setShow_robot] = useState(true);
   const insets = useSafeAreaInsets();
-  const route = useRoute();
+  const route = useRoute<RouteProp<RootStackParamList, "Pickup">>();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const { uuid } = useRobot(); // อ่าน uuid จาก RobotContext (เสถียรกว่าการอ่านจาก navigation state)
+  const { uuid } = useRobot(); // ดึง UUID หุ่นยนต์ที่กำลังใช้งานมาจาก Context
 
-  const [fromPoint, setFromPoint] = useState<string>("");
-  const [toPoint, setToPoint] = useState<string>("");
-  const [deliveryPhone, setDeliveryPhone] = useState<string>("");
-  const [button_go, setbutton_go] = useState(false);
-  //ตัวแปรสำหรับเก็บข้อมูลหุ่นยนต์
+  // --- State สำหรับเก็บข้อมูลการรับ-ส่งของ ---
+  const [fromPoint, setFromPoint] = useState<string>("");         // จุดต้นทาง
+  const [toPoint, setToPoint] = useState<string>("");             // จุดปลายทาง
+  const [deliveryPhone, setDeliveryPhone] = useState<string>("");     // เบอร์โทรศัพท์
+  const [button_go, setbutton_go] = useState(false);              // ควบคุมสถานะปุ่ม "Go"
+  
+  // --- State สำหรับเก็บข้อมูลหุ่นยนต์ที่ดึงจาก API ---
   const [robotNumber, setRobotnumber] = useState("...");
   const [status, setStatus] = useState("...");
   const [taskStatus, setTaskStatus] = useState("...");
   const [power, setPower] = useState("0%");
 
-  // ตรวจสอบอัตโนมัติ: ถ้าเลือกจุดครบทั้งสองฝั่ง ให้เปิดปุ่ม Go เป็นสีน้ำเงิน
+  /**
+   * [ useEffect: รับค่ากลับมาจากหน้าเลือกจุด ]
+   * เมื่อผู้ใช้เลือกจุดเสร็จและกดตกลง ข้อมูลจะถูกส่งกลับมาผ่าน params
+   */
+  useEffect(() => {
+    const params = route.params;
+    if (params?.returnedPointName) {
+      console.log("Pickup received params:", params);
+      const {
+        returnedPointName,
+        returnedPhone,
+        target,
+        currentFrom,
+        currentTo,
+        currentPhone,
+      } = params;
+
+      // อัปเดตข้อมูลตาม target ที่ส่งมา (from หรือ to)
+      if (target === "from") {
+        setFromPoint(returnedPointName);
+        if (currentTo) setToPoint(currentTo); // กู้คืนค่าฝั่งตรงข้ามเพื่อไม่ให้ข้อมูลหาย
+      } else if (target === "to") {
+        setToPoint(returnedPointName);
+        if (currentFrom) setFromPoint(currentFrom);
+      }
+
+      // จัดการเรื่องเบอร์โทรศัพท์
+      if (returnedPhone) {
+        setDeliveryPhone(returnedPhone);
+      } else if (currentPhone) {
+        setDeliveryPhone(currentPhone);
+      }
+
+      // สำคัญ: ต้องล้างพารามิเตอร์ทิ้ง เพื่อป้องกันไม่ให้ useEffect ทำงานซ้ำตอนรีรันหน้าจอ
+      navigation.setParams({
+        returnedPointName: undefined,
+        returnedPhone: undefined,
+        target: undefined,
+        currentFrom: undefined,
+        currentTo: undefined,
+        currentPhone: undefined,
+      });
+    }
+  }, [route.params, navigation]);
+
+  // อัปเดตสถานะหุ่นยนต์อัตโนมัติ
   useEffect(() => {
     const fetchRobotData = async () => {
       try {
-        const robotRes = await fetch(`http://10.0.2.2:3000/api/robots/${uuid}`);
-        const robotJson = await robotRes.json();
-        const robotData = robotJson.data || robotJson;
+        const robotRes = await fetch(`${API_BASE_URL}/api/robots/${uuid}`);
+        const robotJson = (await robotRes.json()) as
+          | { data?: RobotDetail }
+          | RobotDetail;
+        const robotData =
+          (robotJson as { data?: RobotDetail }).data ||
+          (robotJson as RobotDetail);
 
         if (robotData) {
           if (robotData.number) setRobotnumber(robotData.number);
           if (robotData.taskStatus) setTaskStatus(robotData.taskStatus);
           if (robotData.power !== undefined) {
-          setPower(`${Math.round(parseFloat(robotData.power))}%`);
+            setPower(`${Math.round(parseFloat(String(robotData.power)))}%`);
+          }
         }
-        }
-      } catch (error) {
+      } catch (error: unknown) {
         console.error("Error fetching robot data:", error);
       }
     };
@@ -58,7 +136,7 @@ export default function Pickup() {
     // ดึงค่า ที่อยู่ใน http://localhost:3000/api/robots "state": "IDLING"
     const fetchRobotState = async () => {
       try {
-        const robotStateRes = await fetch("http://10.0.2.2:3000/api/robots");
+        const robotStateRes = await fetch(`${API_BASE_URL}/api/robots`);
         const robotStateJson = await robotStateRes.json();
 
         // ตรวจสอบข้อมูลว่าเป็น Array หรือไม่ (รองรับหลายรูปแบบ response)
@@ -74,7 +152,9 @@ export default function Pickup() {
           robotsList = robotStateJson.data.list;
 
         // ค้นหาหุ่นยนต์ตัวที่ตรงกับ uuid ปัจจุบัน
-        const currentRobot = robotsList.find((r: any) => r.uuid === uuid);
+        const currentRobot = robotsList.find(
+          (r: RobotListItem) => r.uuid === uuid,
+        );
 
         if (currentRobot && currentRobot.state) {
           setStatus(currentRobot.state);
@@ -93,9 +173,12 @@ export default function Pickup() {
     fetchRobotData();
   }, [fromPoint, toPoint]);
 
-  // ฟังก์ชันสำหรับส่งคำสั่งทำงาน (API: /api/order)
+  /**
+   * [ handleOrder ]: ฟังก์ชันส่งคำสั่งงาน (Order) ให้หุ่นยนต์
+   * ทำการรวบรวมข้อมูลทั้งหมดส่งไปยัง API เพื่อเริ่มการทำงาน
+   */
   const handleOrder = async () => {
-    // ตรวจสอบความพร้อมของข้อมูล
+    // ตรวจสอบความพร้อม: ต้องมีทั้งต้นทางและปลายทาง
     if (!fromPoint || !toPoint) {
       alert("Please select both points");
       return;
@@ -104,7 +187,7 @@ export default function Pickup() {
       source: "THRID_UNIONPAY_HELP_DELIVER",
       thridOrderNum: `HELP-${Date.now()}`,
       phone: deliveryPhone,
-      callBackUrl: "http://10.0.2.2:3000/api/callback/order", // localhost สำหรับ android emulator
+      callBackUrl: `${API_BASE_URL}/api/callback/order`,
       deliveryType: "HELP_SEND",
       fromPointName: fromPoint,
       toPointName: toPoint,
@@ -114,7 +197,7 @@ export default function Pickup() {
     console.log("Sending Order Payload:", payload);
 
     try {
-      const res = await fetch("http://10.0.2.2:3000/api/order", {
+      const res = await fetch(`${API_BASE_URL}/api/order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -122,7 +205,7 @@ export default function Pickup() {
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
+      const data = (await res.json()) as { msg?: string };
       console.log("Order Response:", data);
 
       if (res.ok) {
@@ -134,7 +217,7 @@ export default function Pickup() {
       } else {
         alert(`Order failed: ${data.msg || "Unknown error"}`);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Error sending order:", error);
       alert("Error sending order. Please check your connection.");
     }
@@ -144,17 +227,17 @@ export default function Pickup() {
     <View style={globalStyles.container}>
       <Header />
       <Text style={main.textheader}>Pickup/Delivery assistance</Text>
-
       {/* Choose a robot */}
       <View
         style={[
           globalStyles.ios,
           globalStyles.android,
           {
+            // ลบ flex: 0.5 ออกเพื่อให้ขนาดขยายตามเนื้อหา
             flex: 1,
             backgroundColor: "#ffffffff",
             marginHorizontal: 20,
-            marginTop: 20,
+            marginTop: 10,
             borderRadius: 20,
           },
         ]}
@@ -169,11 +252,11 @@ export default function Pickup() {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            paddingHorizontal: 20,
           }}
         >
           <Text
             style={{
-              marginLeft: 20,
               fontSize: 20,
               fontWeight: "bold",
               color: "#7F7F7F",
@@ -185,7 +268,7 @@ export default function Pickup() {
             name="caret-back-sharp"
             size={20}
             color="#7F7F7F"
-            style={{ marginRight: 20, transform: [{ rotate: "-180deg" }] }}
+            style={{ transform: [{ rotate: "-180deg" }] }}
           />
         </View>
 
@@ -202,12 +285,13 @@ export default function Pickup() {
               style={{
                 alignItems: "center",
                 justifyContent: "center",
+                minHeight: 100,
               }}
             >
               <View
                 style={{
                   width: "100%",
-                  minHeight: 50,
+                  minHeight: 100,
                   borderRadius: 20,
                   flexDirection: "row",
                   justifyContent: "space-between",
@@ -296,6 +380,7 @@ export default function Pickup() {
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
+              //backgroundColor: "#0a60ff",
             }}
           >
             <View
@@ -307,7 +392,7 @@ export default function Pickup() {
               <Image
                 style={{
                   width: 100,
-                  height: 80,
+                  height: 70,
                   resizeMode: "contain",
                   //backgroundColor: "#0a60ff",
                 }}
@@ -321,7 +406,7 @@ export default function Pickup() {
                 }}
               >
                 Choose your delivery staff
-              </Text> 
+              </Text>
             </View>
           </View>
         )}
@@ -333,13 +418,14 @@ export default function Pickup() {
           globalStyles.ios,
           globalStyles.android,
           {
-            flex: 2,
+            flex: 1.5,
             backgroundColor: "#ffffffff",
             marginHorizontal: 20,
-            marginTop: 20,
+            marginTop: 10,
             borderRadius: 30,
             paddingHorizontal: 10,
             paddingVertical: 20,
+            marginBottom: 0, // เพิ่ม gap ระหว่าง Address กับปุ่ม Go
           },
         ]}
       >
@@ -353,125 +439,145 @@ export default function Pickup() {
         >
           Address
         </Text>
-        {/* Where to deliver from ? */}
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() =>
-            navigation.navigate("delivery_information", {
-              uuid,
-              onSelect: (name, phone) => {
-                setFromPoint(name);
-                if (phone) setDeliveryPhone(phone); // เก็บเบอร์โทรถ้ามีการกรอก
-              },
-            })
-          }
-          style={{
-            width: "100%",
-            height: 85,
-            backgroundColor: "#d0effc74",
-            alignSelf: "center",
-            borderRadius: 20,
-            marginTop: 20,
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <View
-            style={{
-              width: 11,
-              height: 11,
-              backgroundColor: "#000DFF",
-              marginLeft: 20,
-              borderRadius: 25,
-            }}
-          ></View>
-          <View
-            style={{
-              marginLeft: 20,
-              rowGap: 10,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 16,
-                color: fromPoint ? "#000DFF" : "#000000ff",
-                fontWeight: fromPoint ? "bold" : "500",
-              }}
-            >
-              {fromPoint || "Where to deliver from ?"}
-            </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                color: "#7F7F7F",
-                fontWeight: "500",
-              }}
-            >
-              Click to fill in delivery information
-            </Text>
-          </View>
-        </TouchableOpacity>
 
-        {/* To where? */}
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() =>
-            navigation.navigate("delivery_information", {
-              uuid,
-              onSelect: (name, phone) => {
-                setToPoint(name);
-                if (phone) setDeliveryPhone(phone); // เก็บเบอร์โทรถ้ามีการกรอก
-              },
-            })
-          }
-          style={{
-            width: "100%",
-            height: 85,
-            backgroundColor: "#ffdaab6d",
-            alignSelf: "center",
-            borderRadius: 20,
-            marginTop: 20,
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 20 }}
         >
-          <View
-            style={{
-              width: 11,
-              height: 11,
-              backgroundColor: "#FF6600",
-              marginLeft: 20,
-              borderRadius: 25,
+          {/* Where to deliver from ? */}
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+              console.log("Pickup navigating (Target: from) with params:", {
+                target: "from",
+                currentFrom: fromPoint,
+                currentTo: toPoint,
+              });
+              navigation.navigate("delivery_information", {
+                uuid,
+                target: "from",
+                returnTab: "TabR2",
+                returnScreen: "Pickup",
+                currentFrom: fromPoint,
+                currentTo: toPoint,
+                currentPhone: deliveryPhone,
+              });
             }}
-          ></View>
-          <View
             style={{
-              marginLeft: 20,
-              rowGap: 10,
+              width: "100%",
+              height: 85,
+              backgroundColor: "#d0effc74",
+              alignSelf: "center",
+              borderRadius: 20,
+              marginTop: 20,
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
             }}
           >
-            <Text
+            <View
               style={{
-                fontSize: 16,
-                color: toPoint ? "#FF6600" : "#000000ff",
-                fontWeight: toPoint ? "bold" : "500",
+                width: 11,
+                height: 11,
+                backgroundColor: "#000DFF",
+                marginLeft: 20,
+                borderRadius: 25,
+              }}
+            ></View>
+            <View
+              style={{
+                marginLeft: 20,
+                rowGap: 10,
               }}
             >
-              {toPoint || "To where ?"}
-            </Text>
-            <Text
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: fromPoint ? "#000DFF" : "#000000ff",
+                  fontWeight: fromPoint ? "bold" : "500",
+                }}
+              >
+                {fromPoint || "Where to deliver from ?"}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "#7F7F7F",
+                  fontWeight: "500",
+                }}
+              >
+                Click to fill in delivery information
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          {/* To where? */}
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+              console.log("Pickup navigating (Target: to) with params:", {
+                target: "to",
+                currentFrom: fromPoint,
+                currentTo: toPoint,
+              });
+              navigation.navigate("delivery_information", {
+                uuid,
+                target: "to",
+                returnTab: "TabR2",
+                returnScreen: "Pickup",
+                currentFrom: fromPoint,
+                currentTo: toPoint,
+                currentPhone: deliveryPhone,
+              });
+            }}
+            style={{
+              width: "100%",
+              height: 85,
+              backgroundColor: "#ffdaab6d",
+              alignSelf: "center",
+              borderRadius: 20,
+              marginTop: 20,
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
+            }}
+          >
+            <View
               style={{
-                fontSize: 16,
-                color: "#7F7F7F",
-                fontWeight: "500",
+                width: 11,
+                height: 11,
+                backgroundColor: "#FF6600",
+                marginLeft: 20,
+                borderRadius: 25,
+              }}
+            ></View>
+            <View
+              style={{
+                marginLeft: 20,
+                rowGap: 10,
               }}
             >
-              Click to fill in receive information
-            </Text>
-          </View>
-        </TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: toPoint ? "#FF6600" : "#000000ff",
+                  fontWeight: toPoint ? "bold" : "500",
+                }}
+              >
+                {toPoint || "To where ?"}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "#7F7F7F",
+                  fontWeight: "500",
+                }}
+              >
+                Click to fill in receive information
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </ScrollView>
       </View>
 
       {button_go ? (

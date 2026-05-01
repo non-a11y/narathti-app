@@ -140,10 +140,10 @@ export type RootStackParamList = {
   voice_mode: undefined;
   greeting_words: undefined;
   lead_the_list: undefined;
-  Call_robot_T1: { uuid: string };
+  Call_robot_T1: { uuid: string; target?: string };
   Call_rebot_list_T1: {
     uuid: string;
-    onSelect?: (name: string, pointUuid: string) => void;
+    target?: string;
   };
 
   // function_R2
@@ -176,15 +176,15 @@ export type RootStackParamList = {
   language_setting: undefined;
   theme_settings: undefined;
   mode_selection: undefined;
-  Call_robot_R2: { uuid: string; onSelect?: (name: string, pointUuid: string) => void };
+  Call_robot_R2: { uuid: string; target?: string };
   Call_rebot_list_R2: {
     uuid: string;
-    onSelect?: (name: string, pointUuid: string) => void;
+    target?: string;
   };
   Work_report: undefined;
   All_R2: undefined;
   Task_datas: undefined;
-  delivery_information: { uuid: string; onSelect?: (name: string, phone: string) => void };
+  delivery_information: { uuid: string; target?: string };
 
   // function_S1
   S1_fixed_point_reception: undefined;

@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, Image, TouchableOpacity } from "react-native";
+import { View, Text, Dimensions, Image, TouchableOpacity, ImageSourcePropType } from "react-native";
 import React from "react";
 import { globalStyles } from "../styles/mystyles";
 import { useNavigation } from "@react-navigation/native";
@@ -20,7 +20,7 @@ type CardProps = {
   jobId: string;
   battery: number;
   status: "online" | "offline";
-  image: any; // require(...)
+  image: ImageSourcePropType | undefined; // require(...)
   taskStatus?: string;
 };
 
