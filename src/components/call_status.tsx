@@ -104,10 +104,9 @@ export default function call_status() {
           </Text>
         </View>
         <Ionicons
-          name="chevron-back"
+          name="chevron-forward"
           size={24}
           color="#000000ff"
-          style={{ transform: [{ rotate: "180deg" }] }}
         />
       </View>
     </View>

@@ -71,10 +71,9 @@ export default function Management() {
           >
             <Text style={globalStyles.defaulttextstyles}>Check more</Text>
             <Ionicons
-              name="chevron-back"
+              name="chevron-forward"
               size={24}
               color="#7F7F7F"
-              style={{ transform: [{ rotate: "180deg" }] }}
             />
           </View>
         </View>

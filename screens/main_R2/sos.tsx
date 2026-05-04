@@ -6,9 +6,95 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import CallStatus from "../../src/components/call_status";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useRobot } from "../../contexts/RobotContext";
+import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../../src/config";
+import BatteryIcon from "../../src/components/BatteryIcon";
+
+// --- Interfaces สำหรับข้อมูลจาก API ---
+interface RobotDetail {
+  number?: string;
+  taskStatus?: string;
+  power?: string | number;
+}
+
+// --- Interface สำหรับข้อมูลสถานะหุ่นยนต์ ---
+interface RobotListItem {
+  uuid: string;
+  state: string;
+}
 
 export default function Sos() {
+  // --- State สำหรับเก็บข้อมูลหุ่นยนต์ที่ดึงจาก API ---
+  const [robotNumber, setRobotnumber] = useState("...");
+  const [status, setStatus] = useState("...");
+  const [taskStatus, setTaskStatus] = useState("...");
+  const [power, setPower] = useState("0%");
+
+  // ดึง uuid
+  const { uuid } = useRobot();
+
   const insets = useSafeAreaInsets();
+
+  // อัปเดตสถานะหุ่นยนต์อัตโนมัติ
+  useEffect(() => {
+    const fetchRobotData = async () => {
+      try {
+        const rebotRes = await fetch(`${API_BASE_URL}/api/robots/${uuid}`);
+        const robotJson = (await rebotRes.json()) as
+          | { data?: RobotDetail }
+          | RobotDetail;
+        const robotData =
+          (robotJson as { data?: RobotDetail }).data ||
+          (robotJson as RobotDetail);
+
+        if (robotData) {
+          if (robotData.number) setRobotnumber(robotData.number);
+          if (robotData.taskStatus) setTaskStatus(robotData.taskStatus);
+          if (robotData.power !== undefined) {
+            setPower(`${Math.round(parseFloat(String(robotData.power)))}%`);
+          }
+        }
+      } catch (error: unknown) {
+        console.error("Error fetching robot data:", error);
+      }
+    };
+
+    // ดึงค่า ที่อยู่ใน http://localhost:3000/api/robots "state": "IDLING"
+    const fetchRobotState = async () => {
+      try {
+        const robotStateRes = await fetch(`${API_BASE_URL}/api/robots`);
+        const robotStateJson = await robotStateRes.json();
+
+        // ตรวจสอบข้อมูลว่าเป็น Array หรือไม่ (รองรับหลายรูปแบบ response)
+        let robotsList = [];
+        if (Array.isArray(robotStateJson)) robotsList = robotStateJson;
+        else if (robotStateJson && Array.isArray(robotStateJson.data))
+          robotsList = robotStateJson.data;
+        else if (
+          robotStateJson &&
+          robotStateJson.data &&
+          Array.isArray(robotStateJson.data.list)
+        )
+          robotsList = robotStateJson.data.list;
+
+        // ค้นหาหุ่นยนต์ตัวที่ตรงกับ uuid ปัจจุบัน
+        const currentRobot = robotsList.find(
+          (r: RobotListItem) => r.uuid === uuid,
+        );
+
+        if (currentRobot && currentRobot.state) {
+          setStatus(currentRobot.state);
+        }
+      } catch (error) {
+        console.error("Error fetching robot state from list:", error);
+      }
+    };
+
+    fetchRobotState();
+    fetchRobotData();
+  }, [uuid]);
+
   return (
     <View style={globalStyles.container}>
       <Header />
@@ -91,7 +177,7 @@ export default function Sos() {
                 marginVertical: 5,
               }}
             >
-              HT0503
+              {robotNumber}
             </Text>
             <View
               style={{
@@ -112,23 +198,25 @@ export default function Sos() {
                 <Text
                   style={{
                     color: "#ffffff",
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: "bold",
                   }}
                 >
-                  Idle
+                  {status}
                 </Text>
               </View>
 
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                    resizeMode: "contain",
-                    marginRight: 5,
-                  }}
-                  source={require("../../assets/icon/power.png")}
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  columnGap: 10,
+                }}
+              >
+                <BatteryIcon
+                  battery={power}
+                  taskStatus={taskStatus}
+                  style={{ width: 20 }} // ปรับขนาดตามความต้องการของหน้านี้
                 />
                 <Text
                   style={[
@@ -139,7 +227,7 @@ export default function Sos() {
                     },
                   ]}
                 >
-                  100%
+                  {power}
                 </Text>
               </View>
             </View>
@@ -509,10 +597,9 @@ export default function Sos() {
               View All
             </Text>
             <Ionicons
-              name="chevron-back"
+              name="chevron-forward"
               size={24}
               color="#7F7F7F"
-              style={{ transform: [{ rotate: "180deg" }] }}
             />
           </View>
         </View>

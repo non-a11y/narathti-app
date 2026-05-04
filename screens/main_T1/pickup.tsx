@@ -5,11 +5,9 @@ import { globalStyles, main } from "../../styles/mystyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState } from "react";
 
-
-
 export default function Pickup() {
   const insets = useSafeAreaInsets();
-    const [show_robot, setShow_robot] = useState(true);
+  const [show_robot, setShow_robot] = useState(true);
   return (
     <View style={globalStyles.container}>
       <Header />
@@ -42,7 +40,7 @@ export default function Pickup() {
         >
           <Text
             style={{
-              marginLeft: 20,
+          
               fontSize: 20,
               fontWeight: "bold",
               color: "#7F7F7F",
@@ -51,10 +49,9 @@ export default function Pickup() {
             Choose a robot
           </Text>
           <Ionicons
-            name="caret-back-sharp"
+            name="caret-forward-sharp"
             size={20}
             color="#7F7F7F"
-            style={{ marginRight: 20, transform: [{ rotate: "-180deg" }] }}
           />
         </View>
         <View

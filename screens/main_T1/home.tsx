@@ -34,6 +34,8 @@ interface RobotDetail {
   taskStatus?: string;
   power?: string | number;
   mapUuid?: string;
+  online?: boolean | string;
+  status?: string | number | boolean;
 }
 
 interface MapItem {
@@ -119,6 +121,21 @@ export default function Home() {
         if (robotData.power !== undefined) {
           setPower(`${Math.round(parseFloat(String(robotData.power)))}%`);
         }
+
+        // เช็คสถานะออนไลน์เพื่อปิด/เปิดปุ่ม
+        let isOnline = false;
+        if (robotData.online === true || robotData.online === "true") {
+          isOnline = true;
+        } else if (robotData.status !== undefined) {
+          if (typeof robotData.status === "string") {
+            isOnline =
+              robotData.status.toLowerCase() === "online" ||
+              robotData.status.toLowerCase() === "idle";
+          } else if (robotData.status === 1 || robotData.status === true) {
+            isOnline = true;
+          }
+        }
+        setOffline(!isOnline);
       }
 
       // 2. ดึงข้อมูลแผนที่ทั้งหมด เพื่อเอามาเทียบหา buildingNum

@@ -4,10 +4,10 @@ import Header from "../../src/components/header";
 import { globalStyles, main } from "../../styles/mystyles";
 import { StyleSheet } from "react-native";
 import Card_function from "../../src/components/card_function";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 // 1. Import useNavigation hook จาก React Navigation
 import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const data = [
   {

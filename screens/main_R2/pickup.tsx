@@ -14,9 +14,9 @@ export type RootStackParamList = {
   // ข้อมูลที่หน้า Pickup คาดหวังได้รับกลับมาจากหน้าเลือกจุด (Delivery Information)
   Pickup: {
     returnedPointName?: string; // ชื่อจุดที่เลือก
-    returnedPhone?: string;     // เบอร์โทรที่กรอก
-    target?: string;            // ระบุว่าเป็นข้อมูลของฝั่ง 'from' หรือ 'to'
-    currentFrom?: string;       // รักษาค่าเดิมไว้ไม่ให้หายตอนสลับหน้า
+    returnedPhone?: string; // เบอร์โทรที่กรอก
+    target?: string; // ระบุว่าเป็นข้อมูลของฝั่ง 'from' หรือ 'to'
+    currentFrom?: string; // รักษาค่าเดิมไว้ไม่ให้หายตอนสลับหน้า
     currentTo?: string;
     currentPhone?: string;
   };
@@ -38,6 +38,7 @@ interface RobotDetail {
   power?: string | number;
 }
 
+// --- Interface สำหรับข้อมูลสถานะหุ่นยนต์ ---
 interface RobotListItem {
   uuid: string;
   state: string;
@@ -53,11 +54,11 @@ export default function Pickup() {
   const { uuid } = useRobot(); // ดึง UUID หุ่นยนต์ที่กำลังใช้งานมาจาก Context
 
   // --- State สำหรับเก็บข้อมูลการรับ-ส่งของ ---
-  const [fromPoint, setFromPoint] = useState<string>("");         // จุดต้นทาง
-  const [toPoint, setToPoint] = useState<string>("");             // จุดปลายทาง
-  const [deliveryPhone, setDeliveryPhone] = useState<string>("");     // เบอร์โทรศัพท์
-  const [button_go, setbutton_go] = useState(false);              // ควบคุมสถานะปุ่ม "Go"
-  
+  const [fromPoint, setFromPoint] = useState<string>(""); // จุดต้นทาง
+  const [toPoint, setToPoint] = useState<string>(""); // จุดปลายทาง
+  const [deliveryPhone, setDeliveryPhone] = useState<string>(""); // เบอร์โทรศัพท์
+  const [button_go, setbutton_go] = useState(false); // ควบคุมสถานะปุ่ม "Go"
+
   // --- State สำหรับเก็บข้อมูลหุ่นยนต์ที่ดึงจาก API ---
   const [robotNumber, setRobotnumber] = useState("...");
   const [status, setStatus] = useState("...");
@@ -265,10 +266,9 @@ export default function Pickup() {
             Choose a robot
           </Text>
           <Ionicons
-            name="caret-back-sharp"
+            name="caret-forward-sharp"
             size={20}
             color="#7F7F7F"
-            style={{ transform: [{ rotate: "-180deg" }] }}
           />
         </View>
 
